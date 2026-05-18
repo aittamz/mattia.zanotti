@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ================================================
+    TITOLO E META — modifica questi per i motori di ricerca
+  ================================================ -->
+  <title>Mattia Zanotti — Ricercatore & Musicista</title>
+  <meta name="description" content="Ricercatore postdottorale in musicologia e platform studies. Università di Pavia, Cremona. Musicista e produttore nella scena indipendente bresciana.">
+  <meta name="author" content="Mattia Zanotti">
+
+  <!-- ================================================
+    FONT — caricati da Google Fonts (gratuiti)
+    - Atkinson Hyperlegible: corpo del testo, ottimizzato per DSA
+    - Courier Prime: etichette, nav, monospace
+    Se vuoi cambiare font, sostituisci qui e aggiorna
+    le variabili --font-body e --font-mono sotto
+  ================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    /* ================================================
+      VARIABILI GLOBALI — modifica qui per cambiare
+      colori e font su tutto il sito in un colpo solo
+    ================================================ */
+    :root {
+      /* Palette 07 — Acqua + Terracotta */
+      --crema:        #fdf6e3;   /* sfondo principale */
+      --crema-scura:  #f0ebe0;   /* sfondo alternativo, hover */
+      --nero:         #111111;   /* testo principale, bordi */
+      --verde-acqua:  #9ecfb0;   /* accento verde (badge, tag) */
+      --verde-scuro:  #1a3a2a;   /* sfondo ticker */
+      --verde-testo:  #d4ecd4;   /* testo su sfondo verde scuro */
+      --verde-label:  #2a5a3a;   /* testo verde su sfondo chiaro */
+      --verde-border: #3a7a5a;   /* bordi verdi */
+      --terra:        #c45a3a;   /* accento terracotta */
+      --terra-scura:  #a04020;   /* bordi terracotta */
+      --grigio-testo: #555555;   /* testo secondario */
+      --grigio-meta:  #888888;   /* metadati, date */
+      --bordo-sez:    #e0d8c8;   /* separatori interni sezioni */
+      --bordo-label:  #cccccc;   /* separatore etichette sezione */
+
+      /* Font */
+      --font-body:  'Atkinson Hyperlegible', sans-serif;
+      --font-mono:  'Courier Prime', monospace;
+
+      /* Bordi — usato ovunque per coerenza */
+      --bordo: 2px solid var(--nero);
+    }
+
+    /* ================================================
+      RESET BASE
+    ================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--crema);
+      color: var(--nero);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ================================================
+      LAYOUT PRINCIPALE
+      Il sito è contenuto in .site-wrapper
+      max-width 900px, centrato, con bordo esterno
+    ================================================ */
+    .site-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      border-left: var(--bordo);
+      border-right: var(--bordo);
+      min-height: 100vh;
+    }
+
+    /* ================================================
+      NAVIGAZIONE
+      Sfondo nero, testo crema
+      Per aggiungere una voce: copia un <a> nel nav-links
+    ================================================ */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      border-bottom: var(--bordo);
+      background: var(--nero);
+    }
+
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--crema);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--crema);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .nav-links a:hover {
+      border-bottom-color: var(--verde-acqua);
+    }
+
+    /* ================================================
+      HERO — sezione introduttiva con nome e bio
+      Griglia: testo a sinistra, foto a destra
+      Modifica .hero-name per cambiare il nome
+      Modifica .hero-desc per cambiare la bio breve
+    ================================================ */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 160px;
+      gap: 24px;
+      padding: 40px 20px 32px;
+      border-bottom: var(--bordo);
+      background: var(--crema);
+      align-items: start;
+    }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--verde-label);
+      margin-bottom: 12px;
+    }
+
+    /* Il nome grande — gli span colorati sono decorativi */
+    .hero-name {
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      color: var(--nero);
+    }
+
+    /* Accento verde sul nome */
+    .hero-name .acc-verde {
+      background: var(--verde-acqua);
+      color: var(--nero);
+      padding: 0 5px;
+    }
+
+    /* Accento terracotta sul nome */
+    .hero-name .acc-terra {
+      background: var(--terra);
+      color: var(--crema);
+      padding: 0 5px;
+    }
+
+    .hero-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #222;
+      max-width: 380px;
+      margin-bottom: 20px;
+    }
+
+    /* Badge colorati sotto la bio */
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    /* Badge base */
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 4px 11px;
+      border: 1.5px solid var(--nero);
+      background: transparent;
+      letter-spacing: 0.05em;
+      color: var(--nero);
+    }
+
+    /* Badge varianti — aggiungi classe per colore */
+    .badge-verde {
+      background: var(--verde-acqua);
+      border-color: var(--verde-border);
+      color: var(--nero);
+    }
+
+    .badge-nero {
+      background: var(--nero);
+      color: var(--crema);
+      border-color: var(--nero);
+    }
+
+    .badge-terra {
+      background: var(--terra);
+      color: var(--crema);
+      border-color: var(--terra-scura);
+    }
+
+    /* Placeholder foto — sostituisci con <img src="foto.jpg"> */
+    .hero-photo {
+      width: 160px;
+      height: 160px;
+      border: var(--bordo);
+      background: #c8e0c8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-photo-placeholder {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: #333;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    /* ================================================
+      TICKER ANIMATO
+      Testo scorrevole con parole chiave
+      Per modificare le voci: edita i .ticker-item
+      dentro .ticker-inner (duplica per il loop)
+    ================================================ */
+    .ticker {
+      background: var(--verde-scuro);
+      color: var(--verde-testo);
+      padding: 8px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      border-bottom: var(--bordo);
+    }
+
+    .ticker-inner {
+      display: inline-flex;
+      /* Velocità animazione: aumenta 20s per rallentare */
+      animation: scorrimento 22s linear infinite;
+    }
+
+    .ticker-item {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0 30px;
+      color: var(--verde-testo);
+    }
+
+    .ticker-sep {
+      opacity: 0.5;
+    }
+
+    @keyframes scorrimento {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ================================================
+      STRISCIA NEWS / ANNUNCI
+      Sfondo terracotta, testo crema
+      Aggiorna il testo dentro .news-text per nuovi annunci
+      Per nasconderla: aggiungi display:none a .news-strip
+    ================================================ */
+    .news-strip {
+      padding: 12px 20px;
+      border-bottom: var(--bordo);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--terra);
+    }
+
+    .news-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--crema);
+      white-space: nowrap;
+    }
+
+    .news-text {
+      font-size: 13px;
+      color: var(--crema);
+      line-height: 1.4;
+    }
+
+    /* ================================================
+      GRIGLIA A DUE COLONNE
+      Contiene le sezioni Pubblicazioni e Progetti
+      Per aggiungere contenuti: copia un blocco .pub o .proj
+    ================================================ */
+    .due-colonne {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: var(--bordo);
+    }
+
+    .colonna {
+      padding: 24px 20px;
+    }
+
+    .colonna:first-child {
+      border-right: var(--bordo);
+    }
+
+    /* Etichetta di sezione — usata in tutto il sito */
+    .sezione-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--grigio-testo);
+      border-bottom: 1px solid var(--bordo-label);
+      padding-bottom: 9px;
+      margin-bottom: 18px;
+    }
+
+    /* ================================================
+      PUBBLICAZIONI
+      Ogni pubblicazione è un blocco .pub
+      Modifica .pub-title, .pub-meta, .pub-tag
+    ================================================ -->
+    */
+    .pub {
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--bordo-sez);
+    }
+
+    .pub:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .pub-title {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 4px;
+      color: var(--nero);
+    }
+
+    .pub-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--grigio-meta);
+      margin-bottom: 4px;
+    }
+
+    /* Etichettina tipo "peer reviewed", "open access" */
+    .pub-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      padding: 2px 7px;
+      border: 1px solid var(--verde-border);
+      color: var(--verde-label);
+    }
+
+    /* ================================================
+      PROGETTI
+      Ogni progetto è una riga .progetto
+      con nome + status a destra
+    ================================================ */
+    .progetto {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--bordo-sez);
+    }
+
+    .progetto:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    .progetto-nome {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 3px;
+      color: var(--nero);
+    }
+
+    .progetto-sub {
+      font-size: 11px;
+      color: var(--grigio-testo);
+      line-height: 1.4;
+    }
+
+    /* Status del progetto — base */
+    .status {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      padding: 3px 8px;
+      border: 1.5px solid var(--nero);
+      white-space: nowrap;
+      color: var(--nero);
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Status variante attivo/verde */
+    .status-attivo {
+      border-color: var(--verde-border);
+      color: var(--verde-label);
+      background: #e0f0e0;
+    }
+
+    /* ================================================
+      SEZIONE ALTRO
+      Tre card per musica, podcast, newsletter
+      Per aggiungere una card: copia un blocco .altro-card
+      Accento sinistro: .ac-terra (terracotta) o .ac-verde
+    ================================================ */
+    .altro-sezione {
+      padding: 22px 20px;
+      border-bottom: var(--bordo);
+    }
+
+    .altro-griglia {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .altro-card {
+      border: 1.5px solid var(--nero);
+      padding: 16px;
+      background: var(--crema);
+      transition: background 0.15s;
+    }
+
+    .altro-card:hover {
+      background: var(--crema-scura);
+    }
+
+    /* Accento laterale terracotta */
+    .ac-terra {
+      border-left: 4px solid var(--terra);
+    }
+
+    /* Accento laterale verde */
+    .ac-verde {
+      border-left: 4px solid var(--verde-border);
+    }
+
+    .altro-icon {
+      font-size: 20px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .altro-titolo {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--nero);
+    }
+
+    .altro-desc {
+      font-size: 12px;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    /* ================================================
+      FOOTER
+      Sfondo nero, link verde acqua
+      Aggiorna i link a ORCID, Scholar, GitHub, email
+    ================================================ */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--nero);
+    }
+
+    .footer-nome {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.07em;
+      line-height: 1.7;
+      color: var(--crema);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+    }
+
+    .footer-links a {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--verde-acqua);
+      letter-spacing: 0.06em;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover {
+      color: var(--terra);
+    }
+
+    /* ================================================
+      RESPONSIVE — tablet e mobile
+      Sotto 640px la griglia diventa colonna singola
+    ================================================ */
+    @media (max-width: 640px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-photo {
+        width: 100px;
+        height: 100px;
+      }
+
+      .hero-name {
+        font-size: 36px;
+      }
+
+      .due-colonne {
+        grid-template-columns: 1fr;
+      }
+
+      .colonna:first-child {
+        border-right: none;
+        border-bottom: var(--bordo);
+      }
+
+      .altro-griglia {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-links {
+        gap: 12px;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+<div class="site-wrapper">
+
+  <!-- ================================================
+    NAVIGAZIONE
+    Aggiorna href="#" con i link reali alle sezioni
+    o alle pagine quando le crei
+  ================================================ -->
+  <nav class="nav">
+    <span class="nav-logo">MZ // RICERCATORE & MUSICISTA</span>
+    <div class="nav-links">
+      <a href="#ricerca">Ricerca</a>
+      <a href="#progetti">Progetti</a>
+      <a href="#altro">Altro</a>
+      <a href="#contatti">Contatti</a>
+    </div>
+  </nav>
+
+  <!-- ================================================
+    HERO
+    - Modifica .hero-tag con la tua affiliazione
+    - Il nome è diviso in tre span per gli accenti
+    - Sostituisci il placeholder con <img src="foto.jpg">
+    - Aggiorna .hero-desc con la tua bio breve
+    - Aggiungi/rimuovi badge nell'elenco .hero-badges
+  ================================================ -->
+  <section class="hero">
+    <div class="hero-testo">
+
+      <div class="hero-tag">
+        Musicologia · Platform Studies · Università di Pavia
+      </div>
+
+      <h1 class="hero-name">
+        MATTIA<br>
+        <span class="acc-verde">ZA</span><span class="acc-terra">NO</span>TTI
+      </h1>
+
+      <p class="hero-desc">
+        Ricercatore postdottorale e musicista. Studio come le logiche delle piattaforme digitali trasformano la vita musicale quotidiana nelle scene indipendenti.
+      </p>
+
+      <div class="hero-badges">
+        <span class="badge badge-nero">UniPavia — Cremona</span>
+        <span class="badge badge-verde">PLATFORMED!</span>
+        <span class="badge">MAPSEM</span>
+        <span class="badge badge-terra">Musicista</span>
+        <!-- Per aggiungere un badge: <span class="badge">Testo</span> -->
+      </div>
+
+    </div>
+
+    <!-- Foto: sostituisci il div con:
+         <img src="foto.jpg" alt="Mattia Zanotti" class="hero-photo">
+         oppure metti l'img dentro il div esistente -->
+    <div class="hero-photo">
+      <span class="hero-photo-placeholder">[ foto ]<br>160×160</span>
+    </div>
+  </section>
+
+  <!-- ================================================
+    TICKER ANIMATO
+    Duplica i ticker-item per riempire lo scorrimento
+    (devono essere almeno il doppio per un loop fluido)
+  ================================================ -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <!-- Prima metà -->
+      <span class="ticker-item">Platform Studies</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Musicologia Digitale</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Scene Indipendenti</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Data Visualization</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Open Access</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Brescia · Cremona · Pavia</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <!-- Seconda metà (identica, serve per il loop) -->
+      <span class="ticker-item">Platform Studies</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Musicologia Digitale</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Scene Indipendenti</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Data Visualization</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Open Access</span>
+      <span class="ticker-item ticker-sep">◆</span>
+      <span class="ticker-item">Brescia · Cremona · Pavia</span>
+      <span class="ticker-item ticker-sep">◆</span>
+    </div>
+  </div>
+
+  <!-- ================================================
+    STRISCIA NEWS
+    Per aggiornare: cambia il testo in .news-text
+    Per nasconderla: rimuovi o commenta questa sezione
+  ================================================ -->
+  <div class="news-strip">
+    <span class="news-label">NUOVO →</span>
+    <span class="news-text">
+      PLATFORMED! — proposta sottomessa a Fondazione Cariplo, Giovani Ricercatori 2026.
+    </span>
+  </div>
+
+  <!-- ================================================
+    PUBBLICAZIONI & PROGETTI (griglia 2 colonne)
+  ================================================ -->
+  <div class="due-colonne">
+
+    <!-- COLONNA SINISTRA: PUBBLICAZIONI -->
+    <div class="colonna" id="ricerca">
+      <div class="sezione-label">Pubblicazioni recenti</div>
+
+      <!-- Pubblicazione 1 — modifica titolo, meta, tag -->
+      <div class="pub">
+        <div class="pub-title">
+          Platform Awareness e scene musicali indipendenti: un framework metodologico
+        </div>
+        <div class="pub-meta">2026 · Journal of Popular Music Studies</div>
+        <span class="pub-tag">peer reviewed</span>
+      </div>
+
+      <!-- Pubblicazione 2 -->
+      <div class="pub">
+        <div class="pub-title">
+          Streaming, valore e lavoro musicale — su Hesmondhalgh &amp; Campos Valverde
+        </div>
+        <div class="pub-meta">2026 · recensione critica</div>
+      </div>
+
+      <!-- Pubblicazione 3 -->
+      <div class="pub">
+        <div class="pub-title">
+          Mapping Printed Sources of Entertainment Music in Twentieth-Century Italy
+        </div>
+        <div class="pub-meta">2024 · MAPSEM working paper</div>
+        <span class="pub-tag">open access</span>
+      </div>
+
+      <!-- Per aggiungere una pubblicazione, copia questo blocco:
+      <div class="pub">
+        <div class="pub-title">Titolo pubblicazione</div>
+        <div class="pub-meta">Anno · Rivista / Editore</div>
+        <span class="pub-tag">tipo</span>
+      </div>
+      -->
+
+    </div>
+
+    <!-- COLONNA DESTRA: PROGETTI -->
+    <div class="colonna" id="progetti">
+      <div class="sezione-label">Progetti attivi</div>
+
+      <!-- Progetto 1 -->
+      <div class="progetto">
+        <div>
+          <div class="progetto-nome">PLATFORMED!</div>
+          <div class="progetto-sub">Cariplo Giovani Ricercatori 2026 · PAM method</div>
+        </div>
+        <span class="status status-attivo">In corso</span>
+      </div>
+
+      <!-- Progetto 2 -->
+      <div class="progetto">
+        <div>
+          <div class="progetto-nome">MAPSEM</div>
+          <div class="progetto-sub">Data viz · editoria musicale italiana '900</div>
+        </div>
+        <span class="status">Archivio</span>
+      </div>
+
+      <!-- Progetto 3 -->
+      <div class="progetto">
+        <div>
+          <div class="progetto-nome">La Città della Canzone</div>
+          <div class="progetto-sub">Workshop annuale · UniPavia · con A. Bratus</div>
+        </div>
+        <span class="status status-attivo">Annuale</span>
+      </div>
+
+      <!-- Progetto 4 -->
+      <div class="progetto">
+        <div>
+          <div class="progetto-nome">Laboratorio Ferrara</div>
+          <div class="progetto-sub">Con Prof. Roccatagliati · Università di Ferrara</div>
+        </div>
+        <span class="status">2026</span>
+      </div>
+
+      <!-- Per aggiungere un progetto, copia questo blocco:
+      <div class="progetto">
+        <div>
+          <div class="progetto-nome">Nome progetto</div>
+          <div class="progetto-sub">Descrizione breve · Ente</div>
+        </div>
+        <span class="status">Stato</span>
+      </div>
+      -->
+
+    </div>
+  </div>
+
+  <!-- ================================================
+    SEZIONE ALTRO
+    Tre card per le attività extra-ricerca
+    Accento sinistro: .ac-terra o .ac-verde
+  ================================================ -->
+  <section class="altro-sezione" id="altro">
+    <div class="sezione-label">Altro</div>
+
+    <div class="altro-griglia">
+
+      <!-- Card 1 — Musica -->
+      <div class="altro-card ac-terra">
+        <span class="altro-icon">🎛</span>
+        <div class="altro-titolo">Musica & produzione</div>
+        <p class="altro-desc">
+          Scene indipendente bresciana. Progetti, release, live ed eventi.
+        </p>
+      </div>
+
+      <!-- Card 2 — Podcast -->
+      <div class="altro-card ac-verde">
+        <span class="altro-icon">🎙</span>
+        <div class="altro-titolo">Podcast</div>
+        <p class="altro-desc">
+          Serie sul finanziamento della ricerca accademica. Con Alessandro, Francesca e ospiti.
+        </p>
+      </div>
+
+      <!-- Card 3 — Newsletter -->
+      <div class="altro-card">
+        <span class="altro-icon">📡</span>
+        <div class="altro-titolo">Newsletter</div>
+        <p class="altro-desc">
+          Aggiornamenti su ricerca, progetti e scena musicale. Prossimamente.
+        </p>
+      </div>
+
+      <!-- Per aggiungere una card:
+      <div class="altro-card">
+        <span class="altro-icon">emoji</span>
+        <div class="altro-titolo">Titolo</div>
+        <p class="altro-desc">Descrizione.</p>
+      </div>
+      -->
+
+    </div>
+  </section>
+
+  <!-- ================================================
+    FOOTER
+    Aggiorna i link con i tuoi profili reali:
+    - ORCID: https://orcid.org/0000-0000-0000-0000
+    - Scholar: https://scholar.google.com/citations?user=...
+    - GitHub: https://github.com/aittamz
+    - Email: mailto:mattia.zanotti@unipv.it
+  ================================================ -->
+  <footer class="footer" id="contatti">
+    <div class="footer-nome">
+      MATTIA ZANOTTI<br>
+      Pavia / Cremona / Brescia — 2026
+    </div>
+    <div class="footer-links">
+      <a href="https://orcid.org/" target="_blank" rel="noopener">ORCID</a>
+      <a href="https://scholar.google.com/" target="_blank" rel="noopener">Scholar</a>
+      <a href="https://github.com/aittamz" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:mattia.zanotti@unipv.it">Email</a>
+    </div>
+  </footer>
+
+</div><!-- fine .site-wrapper -->
+</body>
+</html>
