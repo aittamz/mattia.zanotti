@@ -13,47 +13,42 @@
 
   <!-- ================================================
     FONT — caricati da Google Fonts (gratuiti)
-    - Atkinson Hyperlegible: corpo del testo, ottimizzato per DSA
-    - Courier Prime: etichette, nav, monospace
   ================================================ -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 
+  <!-- ================================================
+    LEAFLET CSS — deve stare QUI nel <head>, fuori da <style>
+  ================================================ -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
   <style>
 
     /* ================================================
-      VARIABILI GLOBALI — modifica qui per cambiare
-      colori e font su tutto il sito in un colpo solo
+      VARIABILI GLOBALI
     ================================================ */
     :root {
-      --crema:        #fdf6e3;   /* sfondo principale */
-      --crema-scura:  #f0ebe0;   /* sfondo alternativo, hover */
-      --nero:         #111111;   /* testo principale, bordi */
-      --verde-acqua:  #9ecfb0;   /* accento verde */
-      --verde-scuro:  #1a3a2a;   /* sfondo ticker */
-      --verde-testo:  #d4ecd4;   /* testo su sfondo verde scuro */
-      --verde-label:  #2a5a3a;   /* testo verde su sfondo chiaro */
-      --verde-border: #3a7a5a;   /* bordi verdi */
-      --terra:        #c45a3a;   /* accento terracotta */
-      --terra-scura:  #a04020;   /* bordi terracotta */
-      --grigio-testo: #555555;   /* testo secondario */
-      --grigio-meta:  #888888;   /* metadati, date */
-      --bordo-sez:    #e0d8c8;   /* separatori interni sezioni */
-      --bordo-label:  #cccccc;   /* separatore etichette sezione */
+      --crema:        #fdf6e3;
+      --crema-scura:  #f0ebe0;
+      --nero:         #111111;
+      --verde-acqua:  #9ecfb0;
+      --verde-scuro:  #1a3a2a;
+      --verde-testo:  #d4ecd4;
+      --verde-label:  #2a5a3a;
+      --verde-border: #3a7a5a;
+      --terra:        #c45a3a;
+      --terra-scura:  #a04020;
+      --grigio-testo: #555555;
+      --grigio-meta:  #888888;
+      --bordo-sez:    #e0d8c8;
+      --bordo-label:  #cccccc;
       --font-body:    'Atkinson Hyperlegible', sans-serif;
       --font-mono:    'Courier Prime', monospace;
       --bordo:        2px solid var(--nero);
     }
 
-    /* ================================================
-      RESET BASE
-    ================================================ */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: var(--font-body);
@@ -62,14 +57,8 @@
       line-height: 1.6;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
 
-    /* ================================================
-      LAYOUT PRINCIPALE
-    ================================================ */
     .site-wrapper {
       max-width: 900px;
       margin: 0 auto;
@@ -80,7 +69,6 @@
 
     /* ================================================
       NAVIGAZIONE
-      Per aggiungere una voce: copia un <a> nel nav-links
     ================================================ */
     .nav {
       display: flex;
@@ -99,10 +87,7 @@
       color: var(--crema);
     }
 
-    .nav-links {
-      display: flex;
-      gap: 20px;
-    }
+    .nav-links { display: flex; gap: 20px; }
 
     .nav-links a {
       font-family: var(--font-mono);
@@ -115,13 +100,10 @@
       transition: border-color 0.2s;
     }
 
-    .nav-links a:hover {
-      border-bottom-color: var(--verde-acqua);
-    }
+    .nav-links a:hover { border-bottom-color: var(--verde-acqua); }
 
     /* ================================================
       HERO
-      Griglia: testo a sinistra, foto a destra
     ================================================ */
     .hero {
       display: grid;
@@ -163,6 +145,13 @@
       padding: 0 5px;
     }
 
+    /* Riquadro TTI — bordo nero, sfondo trasparente */
+    .hero-name .acc-box {
+      border: 2.5px solid var(--nero);
+      padding: 0 5px;
+      margin-left: 1px;
+    }
+
     .hero-desc {
       font-size: 15px;
       line-height: 1.7;
@@ -171,11 +160,7 @@
       margin-bottom: 20px;
     }
 
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-    }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 7px; }
 
     .badge {
       font-family: var(--font-mono);
@@ -187,25 +172,10 @@
       color: var(--nero);
     }
 
-    .badge-verde {
-      background: var(--verde-acqua);
-      border-color: var(--verde-border);
-      color: var(--nero);
-    }
+    .badge-verde { background: var(--verde-acqua); border-color: var(--verde-border); color: var(--nero); }
+    .badge-nero  { background: var(--nero); color: var(--crema); border-color: var(--nero); }
+    .badge-terra { background: var(--terra); color: var(--crema); border-color: var(--terra-scura); }
 
-    .badge-nero {
-      background: var(--nero);
-      color: var(--crema);
-      border-color: var(--nero);
-    }
-
-    .badge-terra {
-      background: var(--terra);
-      color: var(--crema);
-      border-color: var(--terra-scura);
-    }
-
-    /* Contenitore foto */
     .hero-photo {
       width: 160px;
       height: 160px;
@@ -218,7 +188,6 @@
       overflow: hidden;
     }
 
-    /* Immagine dentro il contenitore */
     .hero-photo img {
       width: 100%;
       height: 100%;
@@ -228,8 +197,6 @@
 
     /* ================================================
       TICKER ANIMATO
-      Per modificare le voci: edita i .ticker-item
-      Aumenta il valore "22s" per rallentare
     ================================================ */
     .ticker {
       background: var(--verde-scuro);
@@ -254,9 +221,7 @@
       color: var(--verde-testo);
     }
 
-    .ticker-sep {
-      opacity: 0.5;
-    }
+    .ticker-sep { opacity: 0.5; }
 
     @keyframes scorrimento {
       from { transform: translateX(0); }
@@ -265,8 +230,6 @@
 
     /* ================================================
       STRISCIA NEWS
-      Per nasconderla: aggiungi display:none a .news-strip
-      Per aggiornarla: cambia il testo in .news-text
     ================================================ */
     .news-strip {
       padding: 12px 20px;
@@ -286,11 +249,7 @@
       white-space: nowrap;
     }
 
-    .news-text {
-      font-size: 13px;
-      color: var(--crema);
-      line-height: 1.4;
-    }
+    .news-text { font-size: 13px; color: var(--crema); line-height: 1.4; }
 
     /* ================================================
       GRIGLIA A DUE COLONNE
@@ -301,13 +260,8 @@
       border-bottom: var(--bordo);
     }
 
-    .colonna {
-      padding: 24px 20px;
-    }
-
-    .colonna:first-child {
-      border-right: var(--bordo);
-    }
+    .colonna { padding: 24px 20px; }
+    .colonna:first-child { border-right: var(--bordo); }
 
     .sezione-label {
       font-family: var(--font-mono);
@@ -322,7 +276,6 @@
 
     /* ================================================
       PUBBLICAZIONI
-      Per aggiungere: copia un blocco .pub
     ================================================ */
     .pub {
       margin-bottom: 16px;
@@ -330,10 +283,7 @@
       border-bottom: 1px solid var(--bordo-sez);
     }
 
-    .pub:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-    }
+    .pub:last-child { border-bottom: none; margin-bottom: 0; }
 
     .pub-title {
       font-size: 13px;
@@ -361,8 +311,6 @@
 
     /* ================================================
       PROGETTI
-      Per aggiungere: copia un blocco .progetto
-      Il link va sempre dentro .progetto-nome
     ================================================ */
     .progetto {
       display: flex;
@@ -373,10 +321,7 @@
       border-bottom: 1px solid var(--bordo-sez);
     }
 
-    .progetto:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-    }
+    .progetto:last-child { border-bottom: none; margin-bottom: 0; }
 
     .progetto-nome {
       font-size: 13px;
@@ -392,9 +337,7 @@
       transition: border-color 0.2s;
     }
 
-    .progetto-nome a:hover {
-      border-bottom-color: var(--terra);
-    }
+    .progetto-nome a:hover { border-bottom-color: var(--terra); }
 
     .progetto-sub {
       font-size: 11px;
@@ -421,9 +364,6 @@
 
     /* ================================================
       SEZIONE ALTRO
-      Per aggiungere una card: copia un blocco .altro-card
-      Accento sinistro: .ac-terra o .ac-verde (o niente)
-      Il link va dentro .altro-titolo
     ================================================ */
     .altro-sezione {
       padding: 22px 20px;
@@ -444,23 +384,11 @@
       transition: background 0.15s;
     }
 
-    .altro-card:hover {
-      background: var(--crema-scura);
-    }
+    .altro-card:hover { background: var(--crema-scura); }
+    .ac-terra { border-left: 4px solid var(--terra); }
+    .ac-verde  { border-left: 4px solid var(--verde-border); }
 
-    .ac-terra {
-      border-left: 4px solid var(--terra);
-    }
-
-    .ac-verde {
-      border-left: 4px solid var(--verde-border);
-    }
-
-    .altro-icon {
-      font-size: 20px;
-      margin-bottom: 8px;
-      display: block;
-    }
+    .altro-icon { font-size: 20px; margin-bottom: 8px; display: block; }
 
     .altro-titolo {
       font-size: 13px;
@@ -476,19 +404,59 @@
       transition: border-color 0.2s;
     }
 
-    .altro-titolo a:hover {
-      border-bottom-color: var(--terra);
+    .altro-titolo a:hover { border-bottom-color: var(--terra); }
+
+    .altro-desc { font-size: 12px; color: #444; line-height: 1.5; }
+
+    /* ================================================
+      MAPPA CONFERENZE
+    ================================================ */
+    .mappa-sezione {
+      border-bottom: var(--bordo);
     }
 
-    .altro-desc {
-      font-size: 12px;
-      color: #444;
-      line-height: 1.5;
+    .mappa-header {
+      padding: 22px 20px 14px;
     }
+
+    #mappa {
+      width: 100%;
+      height: 360px;
+      border-top: var(--bordo);
+    }
+
+    /* Popup mappa — stile coerente con il sito */
+    .leaflet-popup-content-wrapper {
+      border-radius: 0 !important;
+      border: 2px solid var(--nero) !important;
+      box-shadow: 3px 3px 0 var(--nero) !important;
+      background: var(--crema) !important;
+      padding: 0 !important;
+    }
+
+    .leaflet-popup-tip-container { display: none; }
+    .leaflet-popup-content { margin: 0 !important; min-width: 220px; }
+
+    .popup-inner { padding: 12px 14px; }
+
+    .popup-city {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--grigio-testo);
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--bordo-sez);
+    }
+
+    .popup-paper { font-size: 12px; font-weight: 700; line-height: 1.4; color: var(--nero); margin-bottom: 3px; }
+    .popup-conf  { font-size: 11px; color: var(--grigio-testo); line-height: 1.4; margin-bottom: 3px; }
+    .popup-year  { font-family: var(--font-mono); font-size: 10px; color: var(--grigio-meta); }
+    .popup-divider { border: none; border-top: 1px solid var(--bordo-sez); margin: 8px 0; }
 
     /* ================================================
       FOOTER
-      Aggiorna i link con i tuoi profili reali
     ================================================ */
     .footer {
       display: flex;
@@ -506,10 +474,7 @@
       color: var(--crema);
     }
 
-    .footer-links {
-      display: flex;
-      gap: 16px;
-    }
+    .footer-links { display: flex; gap: 16px; }
 
     .footer-links a {
       font-family: var(--font-mono);
@@ -519,68 +484,30 @@
       transition: color 0.15s;
     }
 
-    .footer-links a:hover {
-      color: var(--terra);
-    }
+    .footer-links a:hover { color: var(--terra); }
 
     /* ================================================
       RESPONSIVE — sotto 640px colonna singola
     ================================================ */
     @media (max-width: 640px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-photo {
-        width: 100px;
-        height: 100px;
-      }
-
-      .hero-name {
-        font-size: 36px;
-      }
-
-      .due-colonne {
-        grid-template-columns: 1fr;
-      }
-
-      .colonna:first-child {
-        border-right: none;
-        border-bottom: var(--bordo);
-      }
-
-      .altro-griglia {
-        grid-template-columns: 1fr;
-      }
-
-      .nav-links {
-        gap: 12px;
-      }
-
-    .footer {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-      }
-
-      /* Riquadro TTI nel nome */
-      .hero-name .acc-box {
-        border: 2.5px solid var(--nero);
-        padding: 0 5px;
-        margin-left: 1px;
-      }
-
+      .hero { grid-template-columns: 1fr; }
+      .hero-photo { width: 100px; height: 100px; }
+      .hero-name { font-size: 36px; }
+      .due-colonne { grid-template-columns: 1fr; }
+      .colonna:first-child { border-right: none; border-bottom: var(--bordo); }
+      .altro-griglia { grid-template-columns: 1fr; }
+      .nav-links { gap: 12px; }
+      .footer { flex-direction: column; gap: 12px; text-align: center; }
+      #mappa { height: 260px; }
     }
+
   </style>
 </head>
 
 <body>
 <div class="site-wrapper">
 
-  <!-- ================================================
-    NAVIGAZIONE
-    Per aggiungere una voce: copia un <a> nel nav-links
-  ================================================ -->
+  <!-- NAVIGAZIONE -->
   <nav class="nav">
     <span class="nav-logo">MZ // RICERCATORE & MUSICISTA</span>
     <div class="nav-links">
@@ -591,15 +518,8 @@
     </div>
   </nav>
 
-  <!-- ================================================
-    HERO
-    - Modifica .hero-tag con la tua affiliazione
-    - Modifica .hero-desc con la tua bio breve
-    - La foto è in foto.jpg nella root del repo
-    - Aggiungi/rimuovi badge nell'elenco .hero-badges
-  ================================================ -->
+  <!-- HERO -->
   <section class="hero">
-
     <div class="hero-testo">
       <div class="hero-tag">
         Musicologia · Platform Studies · Ricercatore indipendente
@@ -607,7 +527,7 @@
 
       <h1 class="hero-name">
         MATTIA<br>
-        <span class="acc-verde">ZA</span><span class="acc-terra">NO</span>TTI
+        <span class="acc-verde">ZA</span><span class="acc-terra">NO</span><span class="acc-box">TTI</span>
       </h1>
 
       <p class="hero-desc">
@@ -617,24 +537,17 @@
       <div class="hero-badges">
         <span class="badge">MAPSEM</span>
         <span class="badge badge-terra">Musicista</span>
-        <!-- Per aggiungere un badge: <span class="badge">Testo</span> -->
       </div>
     </div>
 
-    <!-- Foto: il file foto.jpg deve essere nella root del repo -->
     <div class="hero-photo">
       <img src="foto.jpg" alt="Mattia Zanotti">
     </div>
-
   </section>
 
-  <!-- ================================================
-    TICKER ANIMATO
-    I ticker-item devono essere duplicati per il loop fluido
-  ================================================ -->
+  <!-- TICKER -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker-inner">
-      <!-- Prima metà -->
       <span class="ticker-item">Platform Studies</span>
       <span class="ticker-item ticker-sep">◆</span>
       <span class="ticker-item">Musicologia Digitale</span>
@@ -647,7 +560,6 @@
       <span class="ticker-item ticker-sep">◆</span>
       <span class="ticker-item">Brescia</span>
       <span class="ticker-item ticker-sep">◆</span>
-      <!-- Seconda metà (identica, serve per il loop) -->
       <span class="ticker-item">Platform Studies</span>
       <span class="ticker-item ticker-sep">◆</span>
       <span class="ticker-item">Musicologia Digitale</span>
@@ -663,11 +575,7 @@
     </div>
   </div>
 
-  <!-- ================================================
-    STRISCIA NEWS
-    Per nasconderla: aggiungi display:none a .news-strip
-    Per aggiornarla: cambia il testo in .news-text
-  ================================================ -->
+  <!-- NEWS STRIP -->
   <div class="news-strip">
     <span class="news-label">NUOVO →</span>
     <span class="news-text">
@@ -675,52 +583,38 @@
     </span>
   </div>
 
-  <!-- ================================================
-    PUBBLICAZIONI & PROGETTI
-  ================================================ -->
+  <!-- PUBBLICAZIONI & PROGETTI -->
   <div class="due-colonne">
 
-    <!-- COLONNA SINISTRA: PUBBLICAZIONI
-         Per aggiungere: copia un blocco .pub -->
     <div class="colonna" id="ricerca">
       <div class="sezione-label">Pubblicazioni recenti</div>
 
       <div class="pub">
-        <div class="pub-title">
-          Platform Awareness e scene musicali indipendenti: un framework metodologico
-        </div>
+        <div class="pub-title">Platform Awareness e scene musicali indipendenti: un framework metodologico</div>
         <div class="pub-meta">2026 · Journal of Popular Music Studies</div>
         <span class="pub-tag">peer reviewed</span>
       </div>
 
       <div class="pub">
-        <div class="pub-title">
-          Streaming, valore e lavoro musicale — su Hesmondhalgh &amp; Campos Valverde
-        </div>
+        <div class="pub-title">Streaming, valore e lavoro musicale — su Hesmondhalgh &amp; Campos Valverde</div>
         <div class="pub-meta">2026 · recensione critica</div>
       </div>
 
       <div class="pub">
-        <div class="pub-title">
-          Mapping Printed Sources of Entertainment Music in Twentieth-Century Italy
-        </div>
+        <div class="pub-title">Mapping Printed Sources of Entertainment Music in Twentieth-Century Italy</div>
         <div class="pub-meta">2024 · MAPSEM working paper</div>
         <span class="pub-tag">open access</span>
       </div>
 
-      <!-- Template per nuova pubblicazione:
+      <!-- Template nuova pubblicazione:
       <div class="pub">
-        <div class="pub-title">Titolo pubblicazione</div>
-        <div class="pub-meta">Anno · Rivista / Editore</div>
+        <div class="pub-title">Titolo</div>
+        <div class="pub-meta">Anno · Rivista</div>
         <span class="pub-tag">tipo</span>
       </div>
       -->
-
     </div>
 
-    <!-- COLONNA DESTRA: PROGETTI
-         Per aggiungere: copia un blocco .progetto
-         Il link va sempre dentro .progetto-nome -->
     <div class="colonna" id="progetti">
       <div class="sezione-label">Progetti attivi</div>
 
@@ -744,47 +638,36 @@
         <span class="status status-attivo">Annuale</span>
       </div>
 
-      <!-- Template per nuovo progetto:
+      <!-- Template nuovo progetto:
       <div class="progetto">
         <div>
           <div class="progetto-nome">
-            <a href="URL" target="_blank">Nome progetto</a>
+            <a href="URL" target="_blank">Nome</a>
           </div>
-          <div class="progetto-sub">Descrizione breve · Ente</div>
+          <div class="progetto-sub">Descrizione · Ente</div>
         </div>
         <span class="status">Stato</span>
       </div>
       -->
-
     </div>
 
   </div>
 
-  <!-- ================================================
-    SEZIONE ALTRO
-    Per aggiungere una card: copia un blocco .altro-card
-    Accento sinistro: .ac-terra o .ac-verde (o niente)
-    Il link va dentro .altro-titolo
-  ================================================ -->
+  <!-- SEZIONE ALTRO -->
   <section class="altro-sezione" id="altro">
     <div class="sezione-label">Altro</div>
-
     <div class="altro-griglia">
 
       <div class="altro-card ac-terra">
         <span class="altro-icon">🎛</span>
         <div class="altro-titolo">Musica & produzione</div>
-        <p class="altro-desc">
-          Scene indipendente. Progetti, release, live ed eventi.
-        </p>
+        <p class="altro-desc">Scene indipendente. Progetti, release, live ed eventi.</p>
       </div>
 
       <div class="altro-card ac-verde">
         <span class="altro-icon">🎙</span>
         <div class="altro-titolo">Podcast</div>
-        <p class="altro-desc">
-          Serie sulla creatività in musica, finanziato da Edunext.
-        </p>
+        <p class="altro-desc">Serie sulla creatività in musica, finanziato da Edunext.</p>
       </div>
 
       <div class="altro-card">
@@ -792,26 +675,33 @@
         <div class="altro-titolo">
           <a href="https://substack.com/@tuttimieistupidintenti" target="_blank">Newsletter</a>
         </div>
-        <p class="altro-desc">
-          Tuttimieistupidintenti. Aggiornamenti su ricerca e progetti. Non esattamente sempre aggiornata :).
-        </p>
+        <p class="altro-desc">Tuttimieistupidintenti. Aggiornamenti su ricerca e progetti. Non esattamente sempre aggiornata :).</p>
       </div>
 
-      <!-- Template per nuova card:
+      <!-- Template nuova card:
       <div class="altro-card">
         <span class="altro-icon">emoji</span>
         <div class="altro-titolo">Titolo</div>
         <p class="altro-desc">Descrizione.</p>
       </div>
       -->
-
     </div>
   </section>
 
   <!-- ================================================
-    FOOTER
-    Aggiorna i link con i tuoi profili reali
+    MAPPA CONFERENZE
+    Sta qui, prima del footer.
+    Per rimuoverla: commenta o cancella questa sezione
+    e i due blocchi <script> in fondo.
   ================================================ -->
+  <section class="mappa-sezione" id="conferenze">
+    <div class="mappa-header">
+      <div class="sezione-label">Conferenze & presentazioni</div>
+    </div>
+    <div id="mappa"></div>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="footer" id="contatti">
     <div class="footer-nome">
       MATTIA ZANOTTI<br>
@@ -826,5 +716,70 @@
   </footer>
 
 </div><!-- fine .site-wrapper -->
+
+<!-- ================================================
+  LEAFLET JS — deve stare qui, prima di </body>
+================================================ -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // ================================================
+  // PALETTE — colori dal sito
+  // ================================================
+  const PALETTE = [
+    '#9ecfb0', '#c45a3a', '#3a7a5a', '#e07a5f',
+    '#6db56d', '#b8d4b0', '#d4956a', '#5a9a7a',
+    '#c8a87a', '#7a9e7e'
+  ];
+
+  function colore(i) { return PALETTE[i % PALETTE.length]; }
+
+  // ================================================
+  // DATI CONFERENZE
+  // Per aggiungere: copia un oggetto, compila i campi.
+  // Coordinate: maps.google.com → click destro → copia
+  // ================================================
+  const conferenze = [
+    { city: "Berkeley, CA — USA", lat: 37.8716, lng: -122.2727, papers: [{ title: "Musical(?) Data: Digital Methods and Popular Music Studies", conf: "Clouds {} Streams // and Ground — UC Berkeley", year: "Mar 2026" }] },
+    { city: "Roma — Italia", lat: 41.9028, lng: 12.4964, papers: [{ title: "Mappare la filiera dell'intrattenimento musicale: il database MAPSEM", conf: "CHANGES PNRR (con Prof. Corbella)", year: "Gen 2026" }] },
+    { city: "Pisa — Italia", lat: 43.7228, lng: 10.4017, papers: [{ title: "Music on Paper, Music on Screen: Adaptations, Dance Music and Cinema in MAPSEM", conf: "FILMUSP — University of Pisa", year: "Set 2025" }] },
+    { city: "Lisbona — Portogallo", lat: 38.7169, lng: -9.1399, papers: [{ title: "What if the Musical Genre is no Longer Enough?", conf: "MOCREN 2025 — Nova ULisboa (con Dott. Merlini)", year: "Giu 2025" }, { title: "Navigating Residual Media: Sheet Music Publishing and Early 20th Century Musical Entertainment", conf: "NECS 2025 (con Prof. Corbella)", year: "Giu 2025" }] },
+    { city: "Denver, CO — USA", lat: 39.7392, lng: -104.9903, papers: [{ title: "Unpacking Micromaterials: A Digital Methods Approach to Analyzing Popular Music on Streaming Platforms", conf: "Changing Mediations of Music — University of Denver", year: "Giu 2025" }] },
+    { city: "Adelaide — Australia", lat: -34.9285, lng: 138.6007, papers: [{ title: "A (new kind of) mediation: The rhetoric of music streaming platforms", conf: "Music and Mediation Conference — University of Adelaide", year: "Giu 2025" }] },
+    { city: "Zurigo — Svizzera", lat: 47.3769, lng: 8.5417, papers: [{ title: "Spotify, Genres and the Illusion of Categorisation", conf: "6° IASPM DA-CH (con Dott. Merlini)", year: "Nov 2024" }] },
+    { city: "Bologna — Italia", lat: 44.4949, lng: 11.3426, papers: [{ title: "Un approccio pratico (in)seguendo il medium", conf: "IASPM Italiana", year: "Nov 2024" }, { title: "Spo(t and iden)tify: metodi digitali, piattaforme e popular music", conf: "Studi culturali in Italia", year: "Set 2024" }, { title: "Micromaterialità della musica digitalizzata: una prospettiva multipiattaforma", conf: "XXVIII Incontro dei Dottorati", year: "Mag 2024" }] },
+    { city: "Cremona — Italia", lat: 45.1333, lng: 10.0167, papers: [{ title: "Micromaterialità della musica digitalizzata, metodologie e prospettive multipiattaforma", conf: "Giornata dei dottorandi", year: "Giu 2024" }, { title: "Trap: tra TikTok, Spotify e meme", conf: "Visioni Sonore Spring School", year: "Mar 2024" }, { title: "It's (a) Trap. Fotografia musicale di un genere", conf: "Musicology in Progress", year: "Apr 2023" }] },
+    { city: "Udine — Italia", lat: 46.0711, lng: 13.2353, papers: [{ title: "È l'ora di piangere? Un viaggio digitale tra tempo, spazio, meme, internet e piattaforme", conf: "Viaggi in musica — Giornata di studi", year: "Nov 2023" }] },
+    { city: "Torino — Italia", lat: 45.0703, lng: 7.6869, papers: [{ title: "Spotify for Musicologists. Streaming, analisi, brani e playlist", conf: "Giovani_Fuoriclasse IASPM-ITA", year: "Feb 2023" }] },
+    { city: "Seinäjoki — Finlandia", lat: 62.7902, lng: 22.8403, papers: [{ title: "Similarities and Divergences Between Music Production and TikTok in the Memes Era", conf: "Doctoral Seminar on the Cultural Study of Music", year: "Ott 2022" }] },
+    { city: "Graz — Austria", lat: 47.0707, lng: 15.4395, papers: [{ title: "Same songwriter, different dialogues: three encounters with Alberto Bianco", conf: "37th ESEM", year: "Set 2022" }] },
+    { city: "Vienna — Austria", lat: 48.2082, lng: 16.3738, papers: [{ title: "Similarities and Divergences Between Music Production and TikTok in the Memes Era", conf: "TikTok–Music–Cultures — Università di Vienna", year: "Mag 2022" }] }
+  ];
+
+  // Inizializzazione mappa
+  const mappa = L.map('mappa', { center: [30, 15], zoom: 2, scrollWheelZoom: false });
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '© OpenStreetMap contributors © CARTO',
+    maxZoom: 18
+  }).addTo(mappa);
+
+  // Marker con colori random dalla palette
+  conferenze.forEach((conf, index) => {
+    const c = colore(index);
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="${c}" stroke="#111" stroke-width="2"/></svg>`;
+    const icona = L.divIcon({ html: svg, className: '', iconSize: [20,20], iconAnchor: [10,10], popupAnchor: [0,-13] });
+
+    let html = `<div class="popup-inner"><div class="popup-city">${conf.city}</div>`;
+    conf.papers.forEach((p, i) => {
+      if (i > 0) html += `<hr class="popup-divider">`;
+      html += `<div class="popup-paper">${p.title}</div><div class="popup-conf">${p.conf}</div><div class="popup-year">${p.year}</div>`;
+    });
+    html += `</div>`;
+
+    L.marker([conf.lat, conf.lng], { icon: icona }).addTo(mappa).bindPopup(html, { maxWidth: 300 });
+  });
+</script>
+
 </body>
 </html>
