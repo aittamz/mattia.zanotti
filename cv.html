@@ -6,6 +6,8 @@
 
   <!-- ================================================
     TITOLO E META
+    Il lang="it" nell'html viene aggiornato via JS
+    quando si cambia lingua
   ================================================ -->
   <title>CV — Mattia Zanotti</title>
   <meta name="description" content="Curriculum Vitae di Mattia Zanotti — ricercatore, musicologo, docente.">
@@ -22,7 +24,6 @@
 
     /* ================================================
       VARIABILI — identiche al sito principale
-      Modifica qui per cambiare colori su tutta la pagina
     ================================================ */
     :root {
       --crema:        #fdf6e3;
@@ -44,9 +45,6 @@
       --bordo:        2px solid var(--nero);
     }
 
-    /* ================================================
-      RESET BASE
-    ================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
@@ -58,9 +56,6 @@
 
     a { color: inherit; text-decoration: none; }
 
-    /* ================================================
-      WRAPPER
-    ================================================ */
     .site-wrapper {
       max-width: 900px;
       margin: 0 auto;
@@ -71,7 +66,7 @@
 
     /* ================================================
       NAVIGAZIONE
-      href="index.html" torna alla homepage
+      Il switch IT/EN sta nella nav a destra
     ================================================ */
     .nav {
       display: flex;
@@ -90,6 +85,12 @@
       color: var(--crema);
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
     .nav-back {
       font-family: var(--font-mono);
       font-size: 11px;
@@ -104,9 +105,46 @@
     .nav-back:hover { border-bottom-color: var(--verde-acqua); }
 
     /* ================================================
+      SWITCH LINGUA IT/EN
+      Due bottoni affiancati con bordo verde acqua
+      .active = lingua corrente (sfondo verde pieno)
+    ================================================ */
+    .lang-switch {
+      display: flex;
+      border: 1.5px solid var(--verde-acqua);
+      overflow: hidden;
+    }
+
+    .lang-btn {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 10px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--verde-acqua);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .lang-btn.active {
+      background: var(--verde-acqua);
+      color: var(--nero);
+    }
+
+    .lang-btn:not(.active):hover {
+      background: rgba(158, 207, 176, 0.15);
+    }
+
+    /* Separatore tra IT e EN */
+    .lang-sep {
+      width: 1.5px;
+      background: var(--verde-acqua);
+    }
+
+    /* ================================================
       HERO
-      Griglia: testo a sinistra, bottone PDF a destra
-      Modifica .hero-ruolo con la tua posizione attuale
     ================================================ */
     .hero {
       padding: 36px 20px 28px;
@@ -126,7 +164,6 @@
       margin-bottom: 10px;
     }
 
-    /* Nome grande — stessa logica del sito principale */
     .hero-name {
       font-size: 48px;
       font-weight: 700;
@@ -136,14 +173,12 @@
       color: var(--nero);
     }
 
-    /* Accento verde */
     .hero-name .acc-verde {
       background: var(--verde-acqua);
       color: var(--nero);
       padding: 0 5px;
     }
 
-    /* Accento terracotta */
     .hero-name .acc-terra {
       background: var(--terra);
       color: var(--crema);
@@ -165,7 +200,8 @@
     }
 
     /* Bottone scarica PDF
-       Aggiorna href con il percorso del tuo PDF nel repo */
+       Aggiorna href con il percorso del PDF nel repo
+       Il testo cambia con la lingua via JS */
     .btn-pdf {
       font-family: var(--font-mono);
       font-size: 10px;
@@ -177,6 +213,7 @@
       color: var(--nero);
       white-space: nowrap;
       transition: background 0.15s, color 0.15s;
+      display: inline-block;
     }
 
     .btn-pdf:hover {
@@ -186,14 +223,13 @@
 
     /* ================================================
       SEZIONI CV
-      Ogni sezione è un .cv-sezione con label + contenuto
     ================================================ */
     .cv-sezione {
       padding: 24px 20px;
       border-bottom: var(--bordo);
     }
 
-    /* Etichetta di sezione — riusata in tutto il sito */
+    /* Etichetta sezione — il testo cambia via JS */
     .sezione-label {
       font-family: var(--font-mono);
       font-size: 10px;
@@ -207,14 +243,9 @@
 
     /* ================================================
       VOCI CV — .cv-item
-      Per aggiungere una voce: copia un blocco .cv-item
-      Struttura:
-        .cv-item
-          .cv-anno    (periodo o anno)
-          div
-            .cv-titolo  (titolo ruolo / corso)
-            .cv-ente    (ente / università)
-            .cv-desc    (descrizione opzionale)
+      Per aggiungere una voce: copia un .cv-item
+      I testi traducibili hanno id="..." e vengono
+      aggiornati dallo script in fondo al file
     ================================================ */
     .cv-item {
       display: grid;
@@ -226,6 +257,7 @@
 
     .cv-item:last-child { border-bottom: none; }
 
+    /* L'anno/periodo NON viene tradotto — è uguale in IT e EN */
     .cv-anno {
       font-family: var(--font-mono);
       font-size: 10px;
@@ -254,7 +286,7 @@
       line-height: 1.5;
     }
 
-    /* Tag colorato opzionale accanto al titolo */
+    /* Tag verde opzionale */
     .cv-tag {
       display: inline-block;
       font-family: var(--font-mono);
@@ -266,17 +298,63 @@
       vertical-align: middle;
     }
 
-    /* Tag variante terracotta */
+    /* Tag terracotta per CFU */
     .cv-tag-terra {
       border-color: var(--terra);
       color: var(--terra);
     }
 
     /* ================================================
+      AFFILIAZIONI
+      Card con link cliccabile
+    ================================================ */
+    .affiliazioni-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .affiliazione-card {
+      border: 1.5px solid var(--nero);
+      padding: 14px 16px;
+      background: var(--crema);
+      transition: background 0.15s;
+    }
+
+    .affiliazione-card:hover { background: var(--crema-scura); }
+
+    /* Accento verde sul lato sinistro */
+    .affiliazione-card.ac-verde { border-left: 4px solid var(--verde-border); }
+    .affiliazione-card.ac-terra  { border-left: 4px solid var(--terra); }
+
+    .affiliazione-nome {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--nero);
+    }
+
+    .affiliazione-desc {
+      font-size: 11px;
+      color: var(--grigio-testo);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    /* Link alla pagina ufficiale dell'associazione */
+    .affiliazione-link {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--verde-label);
+      border-bottom: 1px solid var(--verde-acqua);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+
+    .affiliazione-link:hover { border-bottom-color: var(--terra); }
+
+    /* ================================================
       PUBBLICAZIONI
-      Per aggiungere: copia un blocco .pub-item
-      Se hai il DOI: mettilo in .pub-doi
-      Se hai il link: avvolgi .pub-titolo in <a href="...">
     ================================================ */
     .pub-item {
       padding: 12px 0;
@@ -300,7 +378,6 @@
       color: var(--nero);
     }
 
-    /* Link nel titolo pubblicazione */
     .pub-titolo a {
       border-bottom: 1.5px solid var(--verde-acqua);
       padding-bottom: 1px;
@@ -334,8 +411,6 @@
 
     /* ================================================
       COMPETENZE
-      Griglia di card per lingue e skills
-      Per aggiungere: copia una .competenza-card
     ================================================ */
     .competenze-grid {
       display: grid;
@@ -392,14 +467,16 @@
     .footer-links a:hover { color: var(--terra); }
 
     /* ================================================
-      RESPONSIVE — sotto 640px colonna singola
+      RESPONSIVE
     ================================================ */
     @media (max-width: 640px) {
       .hero { grid-template-columns: 1fr; }
       .hero-name { font-size: 36px; }
       .cv-item { grid-template-columns: 1fr; gap: 4px; }
+      .affiliazioni-grid { grid-template-columns: 1fr; }
       .competenze-grid { grid-template-columns: 1fr 1fr; }
       .footer { flex-direction: column; gap: 12px; text-align: center; }
+      .nav-right { gap: 10px; }
     }
 
   </style>
@@ -410,197 +487,160 @@
 
   <!-- ================================================
     NAVIGAZIONE
+    Il testo "← Home" cambia in "← Home" (uguale)
+    Il logo cambia con la lingua
   ================================================ -->
   <nav class="nav">
-    <span class="nav-logo">MZ // CURRICULUM VITAE</span>
-    <a href="index.html" class="nav-back">← Home</a>
+    <span class="nav-logo" id="nav-logo">MZ // CURRICULUM VITAE</span>
+    <div class="nav-right">
+      <a href="index.html" class="nav-back" id="nav-back">← Home</a>
+      <!-- Switch lingua — onclick chiama setLang() definito in fondo -->
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btn-it" onclick="setLang('it')">IT</button>
+        <div class="lang-sep"></div>
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+      </div>
+    </div>
   </nav>
 
   <!-- ================================================
     HERO
-    Aggiorna .hero-ruolo con la tua posizione attuale
-    Aggiorna href del .btn-pdf con il percorso del PDF
+    Aggiorna .hero-ruolo e .btn-pdf quando cambia
+    la tua posizione o il link al PDF
   ================================================ -->
   <div class="hero">
     <div>
-      <div class="hero-tag">Curriculum Vitae — aggiornato 2026</div>
+      <div class="hero-tag" id="hero-tag">Curriculum Vitae — aggiornato 2026</div>
       <h1 class="hero-name">
         <span class="acc-verde">MAT</span><span class="acc-terra">TIA</span><br>
         <span class="acc-box">ZANOTTI</span>
       </h1>
-      <p class="hero-ruolo">
+      <p class="hero-ruolo" id="hero-ruolo">
         Ricercatore postdottorale in musicologia e platform studies.<br>
         Docente universitario a contratto · Università di Pavia, Ferrara, Parma.<br>
         Dottore di ricerca in Scienze del testo letterario e musicale (UniPavia, 2025).
       </p>
     </div>
-
-    <!-- Aggiorna href con il link al PDF quando lo carichi nel repo -->
-    <a class="btn-pdf" href="CV_MATTIA_ZANOTTI_ITA.pdf" target="_blank">↓ Scarica PDF</a>
+    <!-- Aggiorna href con il percorso del PDF nel repo -->
+    <a class="btn-pdf" id="btn-pdf" href="CV_MATTIA_ZANOTTI_ITA.pdf" target="_blank">↓ Scarica PDF</a>
   </div>
 
   <!-- ================================================
     FORMAZIONE
-    Per aggiungere un titolo: copia un blocco .cv-item
   ================================================ -->
   <div class="cv-sezione">
-    <div class="sezione-label">Formazione</div>
+    <div class="sezione-label" id="label-formazione">Formazione</div>
 
     <div class="cv-item">
       <div class="cv-anno">2021–2025</div>
       <div>
-        <div class="cv-titolo">Dottorato di ricerca in Scienze del testo letterario e musicale <span class="cv-tag">Eccellente con lode</span></div>
-        <div class="cv-ente">Università degli Studi di Pavia — curriculum Musicologia</div>
-        <div class="cv-desc">Tesi discussa il 15/05/2025. Cerimonia di conferimento aprile 2026.</div>
+        <div class="cv-titolo" id="edu1-titolo">Dottorato di ricerca in Scienze del testo letterario e musicale <span class="cv-tag">Eccellente con lode</span></div>
+        <div class="cv-ente" id="edu1-ente">Università degli Studi di Pavia — curriculum Musicologia</div>
+        <div class="cv-desc" id="edu1-desc">Tesi discussa il 15/05/2025. Cerimonia di conferimento aprile 2026.</div>
       </div>
     </div>
 
     <div class="cv-item">
       <div class="cv-anno">2019–2021</div>
       <div>
-        <div class="cv-titolo">Laurea Magistrale in Musicologia <span class="cv-tag">110/110 con lode</span></div>
-        <div class="cv-ente">Università degli Studi di Pavia</div>
-        <div class="cv-desc">Tesi: <em>Codes with Consequences. Ricezione, percezione e produzione della popular music nell'epoca dello streaming.</em></div>
+        <div class="cv-titolo" id="edu2-titolo">Laurea Magistrale in Musicologia <span class="cv-tag">110/110 con lode</span></div>
+        <div class="cv-ente" id="edu2-ente">Università degli Studi di Pavia</div>
+        <div class="cv-desc" id="edu2-desc">Tesi: <em>Codes with Consequences. Ricezione, percezione e produzione della popular music nell'epoca dello streaming.</em></div>
       </div>
     </div>
 
     <div class="cv-item">
       <div class="cv-anno">–2019</div>
       <div>
-        <div class="cv-titolo">Laurea Triennale in Musicologia <span class="cv-tag">102/110</span></div>
-        <div class="cv-ente">Università degli Studi di Pavia</div>
+        <div class="cv-titolo" id="edu3-titolo">Laurea Triennale in Musicologia <span class="cv-tag">102/110</span></div>
+        <div class="cv-ente" id="edu3-ente">Università degli Studi di Pavia</div>
       </div>
     </div>
-
-    <!-- Template nuovo titolo di studio:
-    <div class="cv-item">
-      <div class="cv-anno">Anno</div>
-      <div>
-        <div class="cv-titolo">Titolo <span class="cv-tag">voto</span></div>
-        <div class="cv-ente">Università / Istituto</div>
-        <div class="cv-desc">Descrizione opzionale.</div>
-      </div>
-    </div>
-    -->
 
   </div>
 
   <!-- ================================================
     POSIZIONI ACCADEMICHE
-    Per aggiungere: copia un blocco .cv-item
   ================================================ -->
   <div class="cv-sezione">
-    <div class="sezione-label">Posizioni accademiche</div>
+    <div class="sezione-label" id="label-posizioni">Posizioni accademiche</div>
 
     <div class="cv-item">
       <div class="cv-anno">Nov 2024 –<br>Nov 2025</div>
       <div>
-        <div class="cv-titolo">Assegnista di ricerca</div>
-        <div class="cv-ente">Università Statale di Milano</div>
-        <div class="cv-desc">Progetto MAPSEM — Mappare la filiera della musica d'intrattenimento nel "trentennio" in Italia a partire da fonti musicali a stampa. PNRR CHANGES – SPOKE 2, WP1.</div>
+        <div class="cv-titolo" id="pos1-titolo">Assegnista di ricerca</div>
+        <div class="cv-ente" id="pos1-ente">Università Statale di Milano</div>
+        <div class="cv-desc" id="pos1-desc">Progetto MAPSEM — Mappare la filiera della musica d'intrattenimento nel "trentennio" in Italia a partire da fonti musicali a stampa. PNRR CHANGES – SPOKE 2, WP1.</div>
       </div>
     </div>
 
     <div class="cv-item">
       <div class="cv-anno">A.A. 2023/24<br>A.A. 2022/23</div>
       <div>
-        <div class="cv-titolo">Tutor universitario</div>
-        <div class="cv-ente">Università degli Studi di Pavia — Cremona</div>
-        <div class="cv-desc">Supporto ai corsi di Musiche popolari contemporanee, Etnomusicologia, Studi sui patrimoni musicali e Laboratorio di digitalizzazione dei fondi fonografici. Docenti: Prof. Alessandro Bratus, Prof.ssa Ingrid Pustijanac.</div>
+        <div class="cv-titolo" id="pos2-titolo">Tutor universitario</div>
+        <div class="cv-ente" id="pos2-ente">Università degli Studi di Pavia — Cremona</div>
+        <div class="cv-desc" id="pos2-desc">Supporto ai corsi di Musiche popolari contemporanee, Etnomusicologia, Studi sui patrimoni musicali e Laboratorio di digitalizzazione dei fondi fonografici. Docenti: Prof. Alessandro Bratus, Prof.ssa Ingrid Pustijanac.</div>
       </div>
     </div>
 
     <div class="cv-item">
       <div class="cv-anno">A.A. 2019/20<br>A.A. 2018/19</div>
       <div>
-        <div class="cv-titolo">Tutor universitario</div>
-        <div class="cv-ente">Università degli Studi di Pavia — Cremona</div>
-        <div class="cv-desc">Tutor nei corsi di analisi della canzone d'autore e delle musiche popolari contemporanee; assistenza alla ricerca e alla didattica nella digitalizzazione, analisi e catalogazione dei fondi musicali.</div>
+        <div class="cv-titolo" id="pos3-titolo">Tutor universitario</div>
+        <div class="cv-ente" id="pos3-ente">Università degli Studi di Pavia — Cremona</div>
+        <div class="cv-desc" id="pos3-desc">Tutor nei corsi di analisi della canzone d'autore e delle musiche popolari contemporanee; assistenza alla ricerca e alla didattica nella digitalizzazione, analisi e catalogazione dei fondi musicali.</div>
       </div>
     </div>
-
-    <!-- Template nuova posizione:
-    <div class="cv-item">
-      <div class="cv-anno">Periodo</div>
-      <div>
-        <div class="cv-titolo">Ruolo</div>
-        <div class="cv-ente">Ente — Città</div>
-        <div class="cv-desc">Descrizione opzionale.</div>
-      </div>
-    </div>
-    -->
 
   </div>
 
   <!-- ================================================
     DIDATTICA
-    Per aggiungere un corso: copia un blocco .cv-item
-    .cv-tag-terra = tag arancio per i CFU
   ================================================ -->
   <div class="cv-sezione">
-    <div class="sezione-label">Didattica universitaria</div>
+    <div class="sezione-label" id="label-didattica">Didattica universitaria</div>
 
     <div class="cv-item">
       <div class="cv-anno">A.A. 2025/26</div>
       <div>
-        <div class="cv-titolo">Musiche Contemporanee <span class="cv-tag cv-tag-terra">6 CFU</span></div>
-        <div class="cv-ente">Università di Ferrara — SSD PEMM-01/C, 30 ore</div>
+        <div class="cv-titolo" id="did1-titolo">Musiche Contemporanee <span class="cv-tag cv-tag-terra">6 CFU</span></div>
+        <div class="cv-ente" id="did1-ente">Università di Ferrara — SSD PEMM-01/C, 30 ore</div>
       </div>
     </div>
 
     <div class="cv-item">
       <div class="cv-anno">A.A. 2025/26</div>
       <div>
-        <div class="cv-titolo">Tutor — Musica e Media: Storia e applicazioni</div>
-        <div class="cv-ente">Università di Ferrara — MSc in Education, Communication and Digital Citizenship (LM-93), 15 ECTS</div>
+        <div class="cv-titolo" id="did2-titolo">Tutor — Musica e Media: Storia e applicazioni</div>
+        <div class="cv-ente" id="did2-ente">Università di Ferrara — MSc in Education, Communication and Digital Citizenship (LM-93), 15 ECTS</div>
       </div>
     </div>
 
     <div class="cv-item">
       <div class="cv-anno">A.A. 2025/26<br>A.A. 2023/24</div>
       <div>
-        <div class="cv-titolo">Linguaggi musicali della contemporaneità <span class="cv-tag cv-tag-terra">9 CFU</span></div>
-        <div class="cv-ente">Università di Parma — SSD L-ART/07, 30 ore (con workshop)</div>
+        <div class="cv-titolo" id="did3-titolo">Linguaggi musicali della contemporaneità <span class="cv-tag cv-tag-terra">9 CFU</span></div>
+        <div class="cv-ente" id="did3-ente">Università di Parma — SSD L-ART/07, 30 ore (con workshop)</div>
       </div>
     </div>
 
     <div class="cv-item">
       <div class="cv-anno">A.A. 2024/25<br>A.A. 2023/24<br>A.A. 2022/23</div>
       <div>
-        <div class="cv-titolo">Psicoacustica <span class="cv-tag cv-tag-terra">1 CFA</span></div>
-        <div class="cv-ente">Scuole Civiche di Milano – Fondazione Milano — COME/03, 12 ore. Bienni di Composizione e Musica per l'Immagine.</div>
+        <div class="cv-titolo" id="did4-titolo">Psicoacustica <span class="cv-tag cv-tag-terra">1 CFA</span></div>
+        <div class="cv-ente" id="did4-ente">Scuole Civiche di Milano – Fondazione Milano — COME/03, 12 ore. Bienni di Composizione e Musica per l'Immagine.</div>
       </div>
     </div>
-
-    <div class="cv-item">
-      <div class="cv-anno">A.A. 2023/24</div>
-      <div>
-        <div class="cv-titolo">Tutor universitario</div>
-        <div class="cv-ente">Università degli Studi di Pavia — Cremona</div>
-        <div class="cv-desc">Supporto ai corsi di Musiche popolari contemporanee e Laboratorio di digitalizzazione. Docente: Prof. Alessandro Bratus.</div>
-      </div>
-    </div>
-
-    <!-- Template nuovo corso:
-    <div class="cv-item">
-      <div class="cv-anno">A.A. 20xx/xx</div>
-      <div>
-        <div class="cv-titolo">Nome corso <span class="cv-tag cv-tag-terra">x CFU</span></div>
-        <div class="cv-ente">Università — SSD, ore</div>
-      </div>
-    </div>
-    -->
 
   </div>
 
   <!-- ================================================
     PUBBLICAZIONI
-    Per aggiungere: copia un blocco .pub-item
-    Se hai DOI: mettilo in .pub-doi
-    Se hai URL: avvolgi .pub-titolo in <a href="...">
+    I titoli NON vengono tradotti — sono nelle loro
+    lingue originali. Solo le etichette cambiano.
   ================================================ -->
   <div class="cv-sezione">
-    <div class="sezione-label">Pubblicazioni</div>
+    <div class="sezione-label" id="label-pubblicazioni">Pubblicazioni</div>
 
     <div class="pub-item">
       <div class="pub-autori">Zanotti, Mattia. 2025.</div>
@@ -608,7 +648,7 @@
         <a href="https://doi.org/10.6092/issn.2035-7141/237922" target="_blank">
           Casa mia o casa tua?: Le piattaforme e l'identità performata dalla e nella trap in Italia.
         </a>
-        <span class="pub-tag">peer reviewed</span>
+        <span class="pub-tag" id="tag-pr1">peer reviewed</span>
       </div>
       <div class="pub-rivista">Scritture Migranti 19: 83–107.</div>
       <div class="pub-doi">DOI: 10.6092/issn.2035-7141/237922</div>
@@ -631,7 +671,7 @@
         <a href="https://doi.org/10.71045/musau.2025.SI.21" target="_blank">
           Similarities and Divergences between Music Production and TikTok in the Memes Era.
         </a>
-        <span class="pub-tag">peer reviewed</span>
+        <span class="pub-tag" id="tag-pr2">peer reviewed</span>
       </div>
       <div class="pub-rivista">Musicologica Austriaca: Journal for Austrian Music Studies, December 12.</div>
       <div class="pub-doi">DOI: 10.71045/musau.2025.SI.21</div>
@@ -676,7 +716,7 @@
         <a href="DOI_URL" target="_blank">Titolo.</a>
         <span class="pub-tag">peer reviewed</span>
       </div>
-      <div class="pub-rivista">In Rivista / Volume.</div>
+      <div class="pub-rivista">In Rivista.</div>
       <div class="pub-doi">DOI: xxx</div>
     </div>
     -->
@@ -685,10 +725,10 @@
 
   <!-- ================================================
     CONFERENZE
-    Per aggiungere: copia un blocco .cv-item
+    Anche qui i titoli restano nella lingua originale
   ================================================ -->
   <div class="cv-sezione">
-    <div class="sezione-label">Conferenze & presentazioni</div>
+    <div class="sezione-label" id="label-conferenze">Conferenze & presentazioni</div>
 
     <div class="cv-item">
       <div class="cv-anno">Mar 2026<br>Berkeley, USA</div>
@@ -702,7 +742,7 @@
       <div class="cv-anno">Gen 2026<br>Roma</div>
       <div>
         <div class="cv-titolo">Mappare la filiera dell'intrattenimento musicale a partire dalla musica a stampa: il database MAPSEM</div>
-        <div class="cv-ente">CHANGES PNRR — Mappe e scenari per il futuro del patrimonio culturale (con Prof. Corbella)</div>
+        <div class="cv-ente" id="conf-changes">CHANGES PNRR — Mappe e scenari per il futuro del patrimonio culturale (con Prof. Corbella)</div>
       </div>
     </div>
 
@@ -718,7 +758,7 @@
       <div class="cv-anno">Giu 2025<br>Lisbona</div>
       <div>
         <div class="cv-titolo">What if the Musical Genre is no Longer Enough? Digital Methods for Investigating the Illusion of Categorisation</div>
-        <div class="cv-ente">MOCREN Conference 2025 — Nova Universidade de Lisboa (con Dott. Merlini Mattia)</div>
+        <div class="cv-ente" id="conf-mocren">MOCREN Conference 2025 — Nova Universidade de Lisboa (con Dott. Merlini Mattia)</div>
       </div>
     </div>
 
@@ -726,7 +766,7 @@
       <div class="cv-anno">Giu 2025<br>Lisbona</div>
       <div>
         <div class="cv-titolo">Navigating Residual Media: Sheet Music Publishing and Early Twentieth Century Musical Entertainment through the Lenses of Digital Methods</div>
-        <div class="cv-ente">NECS 2025 (con Prof. Corbella Maurizio)</div>
+        <div class="cv-ente" id="conf-necs">NECS 2025 (con Prof. Corbella Maurizio)</div>
       </div>
     </div>
 
@@ -750,7 +790,7 @@
       <div class="cv-anno">Nov 2024<br>Zurigo</div>
       <div>
         <div class="cv-titolo">Spotify, Genres and the Illusion of Categorisation</div>
-        <div class="cv-ente">6° Convegno IASPM DA-CH (con Dott. Merlini Mattia)</div>
+        <div class="cv-ente" id="conf-iaspmda">6° Convegno IASPM DA-CH (con Dott. Merlini Mattia)</div>
       </div>
     </div>
 
@@ -758,7 +798,7 @@
       <div class="cv-anno">Nov 2024<br>Bologna</div>
       <div>
         <div class="cv-titolo">Un approccio pratico (in)seguendo il medium: digital methods e popular music studies</div>
-        <div class="cv-ente">Convegno IASPM Italiana — La musica di ogni giorno, oggi</div>
+        <div class="cv-ente" id="conf-iaspmit">Convegno IASPM Italiana — La musica di ogni giorno, oggi</div>
       </div>
     </div>
 
@@ -766,7 +806,7 @@
       <div class="cv-anno">Set 2024<br>Bologna</div>
       <div>
         <div class="cv-titolo">Spo(t and iden)tify: metodi digitali, piattaforme e popular music</div>
-        <div class="cv-ente">Studi culturali in Italia</div>
+        <div class="cv-ente" id="conf-studiculturali">Studi culturali in Italia</div>
       </div>
     </div>
 
@@ -774,7 +814,7 @@
       <div class="cv-anno">Giu 2024<br>Cremona</div>
       <div>
         <div class="cv-titolo">Micromaterialità della musica digitalizzata, metodologie e prospettive multipiattaforma</div>
-        <div class="cv-ente">Giornata dei dottorandi</div>
+        <div class="cv-ente" id="conf-dottorandi">Giornata dei dottorandi</div>
       </div>
     </div>
 
@@ -790,7 +830,7 @@
       <div class="cv-anno">Mar 2024<br>Cremona</div>
       <div>
         <div class="cv-titolo">Trap: tra TikTok, Spotify e meme</div>
-        <div class="cv-ente">Visioni Sonore — Spring School</div>
+        <div class="cv-ente" id="conf-visionisonore">Visioni Sonore — Spring School</div>
       </div>
     </div>
 
@@ -798,7 +838,7 @@
       <div class="cv-anno">Nov 2023<br>Udine</div>
       <div>
         <div class="cv-titolo">È l'ora di piangere? Un viaggio digitale tra tempo, spazio, meme, internet e piattaforme</div>
-        <div class="cv-ente">Viaggi in musica — Giornata di studi</div>
+        <div class="cv-ente" id="conf-viaggi">Viaggi in musica — Giornata di studi</div>
       </div>
     </div>
 
@@ -814,7 +854,7 @@
       <div class="cv-anno">Feb 2023<br>Torino</div>
       <div>
         <div class="cv-titolo">Spotify for Musicologists. Streaming, analisi, brani e playlist: una riflessione su e con Spotify</div>
-        <div class="cv-ente">Giovani_Fuoriclasse — IASPM-ITA</div>
+        <div class="cv-ente" id="conf-giovani">Giovani_Fuoriclasse — IASPM-ITA</div>
       </div>
     </div>
 
@@ -855,35 +895,93 @@
   </div>
 
   <!-- ================================================
-    FORMAZIONE COMPLEMENTARE
-    Per aggiungere: copia un blocco .cv-item
+    AFFILIAZIONI & RETI DI RICERCA
+    Per aggiungere: copia una .affiliazione-card
+    ac-verde = società scientifiche
+    ac-terra  = gruppi di ricerca
   ================================================ -->
   <div class="cv-sezione">
-    <div class="sezione-label">Formazione complementare</div>
+    <div class="sezione-label" id="label-affiliazioni">Affiliazioni & reti di ricerca</div>
+
+    <div class="affiliazioni-grid">
+
+      <div class="affiliazione-card ac-verde">
+        <div class="affiliazione-nome">IASPM Italia</div>
+        <div class="affiliazione-desc" id="aff1-desc">Associazione Internazionale per lo Studio della Popular Music — sezione italiana.</div>
+        <a class="affiliazione-link" href="https://www.iaspm.it" target="_blank">iaspm.it →</a>
+      </div>
+
+      <div class="affiliazione-card ac-verde">
+        <div class="affiliazione-nome">AoIR</div>
+        <div class="affiliazione-desc" id="aff2-desc">Association of Internet Researchers — associazione internazionale per gli studi su internet e cultura digitale.</div>
+        <a class="affiliazione-link" href="https://aoir.org" target="_blank">aoir.org →</a>
+      </div>
+
+      <div class="affiliazione-card ac-verde">
+        <div class="affiliazione-nome">AIUCD</div>
+        <div class="affiliazione-desc" id="aff3-desc">Associazione per l'Informatica Umanistica e la Cultura Digitale.</div>
+        <a class="affiliazione-link" href="https://www.aiucd.it" target="_blank">aiucd.it →</a>
+      </div>
+
+      <div class="affiliazione-card ac-terra">
+        <div class="affiliazione-nome">DALM</div>
+        <div class="affiliazione-desc" id="aff4-desc">Dialogic Approaches to Living Musics — gruppo di ricerca, Università di Pavia.</div>
+        <a class="affiliazione-link" href="https://mbc.dip.unipv.it/it/ricerca/linee-e-gruppi-di-ricerca/gruppi-e-centri-di-ricerca/dalm-dialogic-approaches-living-musics" target="_blank">UniPavia →</a>
+      </div>
+
+      <div class="affiliazione-card ac-terra">
+        <div class="affiliazione-nome">MOCReN</div>
+        <div class="affiliazione-desc" id="aff5-desc">Music Online Cultures Research Network — rete internazionale di ricerca sulle culture musicali online.</div>
+        <a class="affiliazione-link" href="https://www.mocren.org" target="_blank">mocren.org →</a>
+      </div>
+
+      <div class="affiliazione-card ac-terra">
+        <div class="affiliazione-nome">La Città della Canzone</div>
+        <div class="affiliazione-desc" id="aff6-desc">Attività di ricerca e disseminazione nell'ambito del workshop annuale di scrittura collettiva.</div>
+        <a class="affiliazione-link" href="https://lacittadellacanzone.it" target="_blank">lacittadellacanzone.it →</a>
+      </div>
+
+      <!-- Template nuova affiliazione:
+      <div class="affiliazione-card ac-verde">
+        <div class="affiliazione-nome">Nome</div>
+        <div class="affiliazione-desc">Descrizione breve.</div>
+        <a class="affiliazione-link" href="URL" target="_blank">sito →</a>
+      </div>
+      -->
+
+    </div>
+  </div>
+
+  <!-- ================================================
+    FORMAZIONE COMPLEMENTARE
+  ================================================ -->
+  <div class="cv-sezione">
+    <div class="sezione-label" id="label-formazione-comp">Formazione complementare</div>
 
     <div class="cv-item">
       <div class="cv-anno">Gen 2024<br>Amsterdam</div>
       <div>
-        <div class="cv-titolo">Digital Methods Winter School and Data Sprint 2024 <span class="cv-tag">6 ECTS</span></div>
+        <div class="cv-titolo" id="fc1-titolo">Digital Methods Winter School and Data Sprint 2024 <span class="cv-tag">6 ECTS</span></div>
         <div class="cv-ente">University of Amsterdam — Digital Research Methods and the Investigative Turn</div>
-        <div class="cv-desc">Partecipazione con completamento del programma, certificato e transcript.</div>
+        <div class="cv-desc" id="fc1-desc">Partecipazione con completamento del programma, certificato e transcript.</div>
       </div>
     </div>
 
     <div class="cv-item">
       <div class="cv-anno">Lug 2023<br>Venezia</div>
       <div>
-        <div class="cv-titolo">Levi Campus — Seminari interdisciplinari per dottorandi <span class="cv-tag">borsista</span></div>
+        <div class="cv-titolo" id="fc2-titolo">Levi Campus — Seminari interdisciplinari per dottorandi <span class="cv-tag">borsista</span></div>
         <div class="cv-ente">Fondazione Ugo e Olga Levi — 40 ore</div>
-        <div class="cv-desc">Coordinatori: Roberto Calabretto (Univ. di Udine) e Massimo Privitera (Univ. di Palermo).</div>
+        <div class="cv-desc" id="fc2-desc">Partecipazione in qualità di borsista (borsa di studio per l'intero campus). Coordinatori: Roberto Calabretto (Univ. di Udine) e Massimo Privitera (Univ. di Palermo).</div>
       </div>
     </div>
 
     <div class="cv-item">
       <div class="cv-anno">Ott 2020<br>online</div>
       <div>
-        <div class="cv-titolo">Winter School: RE/SpaceS — RE/generating Space through Sound <span class="cv-tag">2 ECTS</span></div>
+        <div class="cv-titolo" id="fc3-titolo">Winter School: RE/SpaceS — RE/generating Space through Sound <span class="cv-tag">2 ECTS</span></div>
         <div class="cv-ente">Università di Pavia — Coordinatore: Prof. Alessandro Bratus</div>
+        <div class="cv-desc" id="fc3-desc">Partecipazione attiva con moduli teorici, tutorial pratici, presentazioni artistiche e sessioni Q&A.</div>
       </div>
     </div>
 
@@ -891,49 +989,41 @@
 
   <!-- ================================================
     LINGUE & COMPETENZE
-    Per aggiungere: copia una .competenza-card
   ================================================ -->
   <div class="cv-sezione">
-    <div class="sezione-label">Lingue & competenze</div>
+    <div class="sezione-label" id="label-competenze">Lingue & competenze</div>
 
     <div class="competenze-grid">
 
       <div class="competenza-card">
-        <div class="competenza-nome">Italiano</div>
-        <div class="competenza-livello">Madrelingua</div>
+        <div class="competenza-nome" id="lang1-nome">Italiano</div>
+        <div class="competenza-livello" id="lang1-liv">Madrelingua</div>
       </div>
 
       <div class="competenza-card">
-        <div class="competenza-nome">Inglese</div>
-        <div class="competenza-livello">Proficient user</div>
+        <div class="competenza-nome">English</div>
+        <div class="competenza-livello" id="lang2-liv">Proficient user</div>
       </div>
 
       <div class="competenza-card">
-        <div class="competenza-nome">Tedesco</div>
-        <div class="competenza-livello">Basic user</div>
+        <div class="competenza-nome">Deutsch</div>
+        <div class="competenza-livello" id="lang3-liv">Basic user</div>
       </div>
 
       <div class="competenza-card">
-        <div class="competenza-nome">DAW & Audio</div>
-        <div class="competenza-livello">Produzione musicale</div>
+        <div class="competenza-nome" id="skill1-nome">DAW & Audio</div>
+        <div class="competenza-livello" id="skill1-liv">Produzione musicale</div>
       </div>
 
       <div class="competenza-card">
         <div class="competenza-nome">Digital Methods</div>
-        <div class="competenza-livello">Data viz, scraping, analisi</div>
+        <div class="competenza-livello" id="skill2-liv">Data viz, scraping, analisi</div>
       </div>
 
       <div class="competenza-card">
-        <div class="competenza-nome">Office & Tools</div>
+        <div class="competenza-nome" id="skill3-nome">Office & Tools</div>
         <div class="competenza-livello">Word, Excel, PowerPoint, Google Suite</div>
       </div>
-
-      <!-- Template nuova competenza:
-      <div class="competenza-card">
-        <div class="competenza-nome">Nome</div>
-        <div class="competenza-livello">Livello / descrizione</div>
-      </div>
-      -->
 
     </div>
   </div>
@@ -947,7 +1037,7 @@
       2026
     </div>
     <div class="footer-links">
-      <a href="index.html">Home</a>
+      <a href="index.html" id="footer-home">Home</a>
       <a href="https://orcid.org/0000-0002-4154-3250/" target="_blank">ORCID</a>
       <a href="https://scholar.google.com/citations?hl=it&user=FXp7PnEAAAAJ/" target="_blank">Scholar</a>
       <a href="mailto:mattia_zanotti@hotmail.it">Email</a>
@@ -955,5 +1045,240 @@
   </footer>
 
 </div><!-- fine .site-wrapper -->
+
+<!-- ================================================
+  SCRIPT SWITCH LINGUA
+  Come funziona:
+  - L'oggetto `testi` contiene tutte le traduzioni
+  - Ogni chiave corrisponde a un id nell'HTML
+  - setLang(lang) aggiorna tutti gli elementi
+  - La lingua scelta viene salvata in localStorage
+
+  Per aggiungere un testo traducibile:
+  1. Dai un id all'elemento HTML
+  2. Aggiungi la voce in testi.it e testi.en
+  3. Aggiungi la riga in setLang() nella sezione
+     "Aggiorna tutti gli elementi"
+================================================ -->
+<script>
+
+const testi = {
+  it: {
+    /* NAV */
+    'nav-logo':    'MZ // CURRICULUM VITAE',
+    'nav-back':    '← Home',
+    /* HERO */
+    'hero-tag':    'Curriculum Vitae — aggiornato 2026',
+    'hero-ruolo':  'Ricercatore postdottorale in musicologia e platform studies.\nDocente universitario a contratto · Università di Pavia, Ferrara, Parma.\nDottore di ricerca in Scienze del testo letterario e musicale (UniPavia, 2025).',
+    'btn-pdf':     '↓ Scarica PDF',
+    /* ETICHETTE SEZIONI */
+    'label-formazione':      'Formazione',
+    'label-posizioni':       'Posizioni accademiche',
+    'label-didattica':       'Didattica universitaria',
+    'label-pubblicazioni':   'Pubblicazioni',
+    'label-conferenze':      'Conferenze & presentazioni',
+    'label-affiliazioni':    'Affiliazioni & reti di ricerca',
+    'label-formazione-comp': 'Formazione complementare',
+    'label-competenze':      'Lingue & competenze',
+    /* FORMAZIONE */
+    'edu1-titolo': 'Dottorato di ricerca in Scienze del testo letterario e musicale',
+    'edu1-ente':   'Università degli Studi di Pavia — curriculum Musicologia',
+    'edu1-desc':   'Tesi discussa il 15/05/2025. Cerimonia di conferimento aprile 2026.',
+    'edu2-titolo': 'Laurea Magistrale in Musicologia',
+    'edu2-ente':   'Università degli Studi di Pavia',
+    'edu2-desc':   'Tesi: Codes with Consequences. Ricezione, percezione e produzione della popular music nell\'epoca dello streaming.',
+    'edu3-titolo': 'Laurea Triennale in Musicologia',
+    'edu3-ente':   'Università degli Studi di Pavia',
+    /* POSIZIONI */
+    'pos1-titolo': 'Assegnista di ricerca',
+    'pos1-ente':   'Università Statale di Milano',
+    'pos1-desc':   'Progetto MAPSEM — Mappare la filiera della musica d\'intrattenimento nel "trentennio" in Italia a partire da fonti musicali a stampa. PNRR CHANGES – SPOKE 2, WP1.',
+    'pos2-titolo': 'Tutor universitario',
+    'pos2-ente':   'Università degli Studi di Pavia — Cremona',
+    'pos2-desc':   'Supporto ai corsi di Musiche popolari contemporanee, Etnomusicologia, Studi sui patrimoni musicali e Laboratorio di digitalizzazione. Docenti: Prof. Alessandro Bratus, Prof.ssa Ingrid Pustijanac.',
+    'pos3-titolo': 'Tutor universitario',
+    'pos3-ente':   'Università degli Studi di Pavia — Cremona',
+    'pos3-desc':   'Tutor nei corsi di analisi della canzone d\'autore; assistenza alla ricerca e alla didattica nella digitalizzazione, analisi e catalogazione dei fondi musicali.',
+    /* DIDATTICA */
+    'did1-titolo': 'Musiche Contemporanee',
+    'did1-ente':   'Università di Ferrara — SSD PEMM-01/C, 30 ore',
+    'did2-titolo': 'Tutor — Musica e Media: Storia e applicazioni',
+    'did2-ente':   'Università di Ferrara — MSc in Education, Communication and Digital Citizenship (LM-93), 15 ECTS',
+    'did3-titolo': 'Linguaggi musicali della contemporaneità',
+    'did3-ente':   'Università di Parma — SSD L-ART/07, 30 ore (con workshop)',
+    'did4-titolo': 'Psicoacustica',
+    'did4-ente':   'Scuole Civiche di Milano – Fondazione Milano — COME/03, 12 ore. Bienni di Composizione e Musica per l\'Immagine.',
+    /* TAG PUBBLICAZIONI */
+    'tag-pr1': 'peer reviewed',
+    'tag-pr2': 'peer reviewed',
+    /* AFFILIAZIONI */
+    'aff1-desc': 'Associazione Internazionale per lo Studio della Popular Music — sezione italiana.',
+    'aff2-desc': 'Association of Internet Researchers — associazione internazionale per gli studi su internet e cultura digitale.',
+    'aff3-desc': 'Associazione per l\'Informatica Umanistica e la Cultura Digitale.',
+    'aff4-desc': 'Dialogic Approaches to Living Musics — gruppo di ricerca, Università di Pavia.',
+    'aff5-desc': 'Music Online Cultures Research Network — rete internazionale di ricerca sulle culture musicali online.',
+    'aff6-desc': 'Attività di ricerca e disseminazione nell\'ambito del workshop annuale di scrittura collettiva.',
+    /* FORMAZIONE COMPLEMENTARE */
+    'fc1-titolo': 'Digital Methods Winter School and Data Sprint 2024',
+    'fc1-desc':   'Partecipazione con completamento del programma, certificato e transcript.',
+    'fc2-titolo': 'Levi Campus — Seminari interdisciplinari per dottorandi',
+    'fc2-desc':   'Partecipazione in qualità di borsista (borsa di studio per l\'intero campus). Coordinatori: Roberto Calabretto (Univ. di Udine) e Massimo Privitera (Univ. di Palermo).',
+    'fc3-titolo': 'Winter School: RE/SpaceS — RE/generating Space through Sound',
+    'fc3-desc':   'Partecipazione attiva con moduli teorici, tutorial pratici, presentazioni artistiche e sessioni Q&A.',
+    /* COMPETENZE */
+    'lang1-nome':  'Italiano',
+    'lang1-liv':   'Madrelingua',
+    'lang2-liv':   'Proficient user',
+    'lang3-liv':   'Basic user',
+    'skill1-nome': 'DAW & Audio',
+    'skill1-liv':  'Produzione musicale',
+    'skill2-liv':  'Data viz, scraping, analisi',
+    'skill3-nome': 'Office & Strumenti',
+    /* FOOTER */
+    'footer-home': 'Home',
+  },
+
+  en: {
+    /* NAV */
+    'nav-logo':    'MZ // CURRICULUM VITAE',
+    'nav-back':    '← Home',
+    /* HERO */
+    'hero-tag':    'Curriculum Vitae — updated 2026',
+    'hero-ruolo':  'Postdoctoral researcher in musicology and platform studies.\nAdjunct lecturer · University of Pavia, Ferrara, Parma.\nPhD in Literary and Musical Text Studies (UniPavia, 2025).',
+    'btn-pdf':     '↓ Download PDF',
+    /* SECTION LABELS */
+    'label-formazione':      'Education',
+    'label-posizioni':       'Academic positions',
+    'label-didattica':       'Teaching',
+    'label-pubblicazioni':   'Publications',
+    'label-conferenze':      'Conferences & presentations',
+    'label-affiliazioni':    'Affiliations & research networks',
+    'label-formazione-comp': 'Specialist training',
+    'label-competenze':      'Languages & skills',
+    /* EDUCATION */
+    'edu1-titolo': 'PhD in Literary and Musical Text Studies',
+    'edu1-ente':   'University of Pavia — Musicology curriculum',
+    'edu1-desc':   'Thesis defended 15/05/2025. Degree ceremony April 2026.',
+    'edu2-titolo': 'MA in Musicology',
+    'edu2-ente':   'University of Pavia',
+    'edu2-desc':   'Thesis: Codes with Consequences. Reception, perception and production of popular music in the streaming era.',
+    'edu3-titolo': 'BA in Musicology',
+    'edu3-ente':   'University of Pavia',
+    /* POSITIONS */
+    'pos1-titolo': 'Research fellow',
+    'pos1-ente':   'University of Milan',
+    'pos1-desc':   'MAPSEM project — Mapping the entertainment music supply chain in Italy from printed musical sources. PNRR CHANGES – SPOKE 2, WP1.',
+    'pos2-titolo': 'Teaching assistant',
+    'pos2-ente':   'University of Pavia — Cremona',
+    'pos2-desc':   'Support for courses in Contemporary Popular Music, Ethnomusicology, Musical Heritage Studies and Phonographic Digitisation Laboratory. Supervisors: Prof. Alessandro Bratus, Prof. Ingrid Pustijanac.',
+    'pos3-titolo': 'Teaching assistant',
+    'pos3-ente':   'University of Pavia — Cremona',
+    'pos3-desc':   'Tutoring in popular music analysis courses; research and teaching support in digitisation, analysis and cataloguing of musical archives.',
+    /* TEACHING */
+    'did1-titolo': 'Contemporary Music',
+    'did1-ente':   'University of Ferrara — SSD PEMM-01/C, 30 hours',
+    'did2-titolo': 'Tutor — Music and Media: History and Applications',
+    'did2-ente':   'University of Ferrara — MSc in Education, Communication and Digital Citizenship (LM-93), 15 ECTS',
+    'did3-titolo': 'Musical Languages of Contemporary Culture',
+    'did3-ente':   'University of Parma — SSD L-ART/07, 30 hours (with workshop)',
+    'did4-titolo': 'Psychoacoustics',
+    'did4-ente':   'Scuole Civiche di Milano – Fondazione Milano — COME/03, 12 hours. Composition and Music for Image programmes.',
+    /* PUB TAGS */
+    'tag-pr1': 'peer reviewed',
+    'tag-pr2': 'peer reviewed',
+    /* AFFILIATIONS */
+    'aff1-desc': 'International Association for the Study of Popular Music — Italian chapter.',
+    'aff2-desc': 'Association of Internet Researchers — international association for internet and digital culture studies.',
+    'aff3-desc': 'Italian Association for Digital Humanities and Digital Culture.',
+    'aff4-desc': 'Dialogic Approaches to Living Musics — research group, University of Pavia.',
+    'aff5-desc': 'Music Online Cultures Research Network — international research network on online musical cultures.',
+    'aff6-desc': 'Research and dissemination activities within the annual collective songwriting workshop.',
+    /* SPECIALIST TRAINING */
+    'fc1-titolo': 'Digital Methods Winter School and Data Sprint 2024',
+    'fc1-desc':   'Full programme completed with certificate and transcript obtained.',
+    'fc2-titolo': 'Levi Campus — Interdisciplinary Seminars for Doctoral Students',
+    'fc2-desc':   'Participation as scholarship holder (full scholarship for the entire campus). Coordinators: Roberto Calabretto (Univ. of Udine) and Massimo Privitera (Univ. of Palermo).',
+    'fc3-titolo': 'Winter School: RE/SpaceS — RE/generating Space through Sound',
+    'fc3-desc':   'Active participation including theoretical modules, practical tutorials, artistic presentations and Q&A sessions.',
+    /* SKILLS */
+    'lang1-nome':  'Italian',
+    'lang1-liv':   'Native speaker',
+    'lang2-liv':   'Proficient user',
+    'lang3-liv':   'Basic user',
+    'skill1-nome': 'DAW & Audio',
+    'skill1-liv':  'Music production',
+    'skill2-liv':  'Data viz, scraping, analysis',
+    'skill3-nome': 'Office & Tools',
+    /* FOOTER */
+    'footer-home': 'Home',
+  }
+};
+
+/* ================================================
+  setLang(lang) — aggiorna tutti i testi della pagina
+  Non toccare questa funzione a meno che tu non
+  aggiunga nuovi elementi traducibili
+================================================ */
+function setLang(lang) {
+  const t = testi[lang];
+
+  /* Aggiorna tutti gli elementi con id presente in testi */
+  Object.keys(t).forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    /* .hero-ruolo contiene \n — usa innerHTML con <br> */
+    if (id === 'hero-ruolo') {
+      el.innerHTML = t[id].replace(/\n/g, '<br>');
+    } else {
+      el.textContent = t[id];
+    }
+  });
+
+  /* Aggiorna i tag con span dentro cv-titolo
+     (i tag hanno testo fisso come "6 CFU" — non tradotti,
+      ma i titoli che li contengono vengono riscritti via
+      textContent che rimuove gli span figli).
+      Soluzione: riapplica gli span dopo la traduzione. */
+  const tagsMap = {
+    'edu1-titolo': { testo: t['edu1-titolo'], tag: 'Eccellente con lode', classe: '' },
+    'edu2-titolo': { testo: t['edu2-titolo'], tag: '110/110 con lode',    classe: '' },
+    'edu3-titolo': { testo: t['edu3-titolo'], tag: '102/110',             classe: '' },
+    'did1-titolo': { testo: t['did1-titolo'], tag: '6 CFU',   classe: 'cv-tag-terra' },
+    'did2-titolo': { testo: t['did2-titolo'], tag: null },
+    'did3-titolo': { testo: t['did3-titolo'], tag: '9 CFU',   classe: 'cv-tag-terra' },
+    'did4-titolo': { testo: t['did4-titolo'], tag: '1 CFA',   classe: 'cv-tag-terra' },
+    'fc1-titolo':  { testo: t['fc1-titolo'],  tag: '6 ECTS',  classe: '' },
+    'fc2-titolo':  { testo: t['fc2-titolo'],  tag: lang === 'it' ? 'borsista' : 'scholarship', classe: '' },
+    'fc3-titolo':  { testo: t['fc3-titolo'],  tag: '2 ECTS',  classe: '' },
+  };
+
+  Object.entries(tagsMap).forEach(([id, cfg]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (cfg.tag) {
+      el.innerHTML = cfg.testo + ` <span class="cv-tag ${cfg.classe || ''}">${cfg.tag}</span>`;
+    } else {
+      el.textContent = cfg.testo;
+    }
+  });
+
+  /* Aggiorna stato bottoni lingua */
+  document.getElementById('btn-it').classList.toggle('active', lang === 'it');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+  /* Aggiorna lang dell'html per accessibilità */
+  document.documentElement.lang = lang;
+
+  /* Salva la scelta in localStorage */
+  localStorage.setItem('mz-lang', lang);
+}
+
+/* All'avvio: carica la lingua salvata o usa IT come default */
+const langSalvata = localStorage.getItem('mz-lang') || 'it';
+setLang(langSalvata);
+
+</script>
+
 </body>
 </html>
