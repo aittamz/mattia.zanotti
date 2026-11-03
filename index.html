@@ -4,579 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ================================================
-    TITOLO E META — modifica questi per i motori di ricerca
-  ================================================ -->
+
   <title>Mattia Zanotti — Ricercatore, musicologo & altre cose</title>
-  <meta name="description" content="Ricercatore in musicologia e platform studies. Musicista (?) e produttore.">
+  <meta name="description" content="Ricercatore in musicologia e platform studies. Mediazioni musicali, culture digitali e metodi digitali.">
   <meta name="author" content="Mattia Zanotti">
 
-  <!-- ================================================
-    FONT — caricati da Google Fonts (gratuiti)
-  ================================================ -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- ================================================
-    LEAFLET CSS — deve stare QUI nel <head>, fuori da <style>
-  ================================================ -->
+
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-  <style>
-
-    /* ================================================
-      VARIABILI GLOBALI
-    ================================================ */
-    :root {
-      --crema:        #fdf6e3;
-      --crema-scura:  #f0ebe0;
-      --nero:         #111111;
-      --verde-acqua:  #9ecfb0;
-      --verde-scuro:  #1a3a2a;
-      --verde-testo:  #d4ecd4;
-      --verde-label:  #2a5a3a;
-      --verde-border: #3a7a5a;
-      --terra:        #c45a3a;
-      --terra-scura:  #a04020;
-      --grigio-testo: #555555;
-      --grigio-meta:  #888888;
-      --bordo-sez:    #e0d8c8;
-      --bordo-label:  #cccccc;
-      --font-body:    'Atkinson Hyperlegible', sans-serif;
-      --font-mono:    'Courier Prime', monospace;
-      --bordo:        2px solid var(--nero);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--crema);
-      color: var(--nero);
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .site-wrapper {
-      max-width: 900px;
-      margin: 0 auto;
-      border-left: var(--bordo);
-      border-right: var(--bordo);
-      min-height: 100vh;
-    }
-
-    /* ================================================
-      NAVIGAZIONE
-    ================================================ */
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      border-bottom: var(--bordo);
-      background: var(--nero);
-    }
-
-    .nav-logo {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--crema);
-    }
-
-    .nav-links { display: flex; gap: 20px; }
-
-    .nav-links a {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--crema);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding-bottom: 2px;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s;
-    }
-
-    .nav-links a:hover { border-bottom-color: var(--verde-acqua); }
-
-    /* ================================================
-      HERO
-    ================================================ */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr 160px;
-      gap: 24px;
-      padding: 40px 20px 32px;
-      border-bottom: var(--bordo);
-      background: var(--crema);
-      align-items: start;
-    }
-
-    .hero-tag {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--verde-label);
-      margin-bottom: 12px;
-    }
-
-    .hero-name {
-      font-size: 52px;
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      margin-bottom: 14px;
-      color: var(--nero);
-    }
-
-    .hero-name .acc-verde {
-      background: var(--verde-acqua);
-      color: var(--nero);
-      padding: 0 5px;
-    }
-
-    .hero-name .acc-terra {
-      background: var(--terra);
-      color: var(--crema);
-      padding: 0 5px;
-    }
-
-    /* Riquadro TTI — bordo nero, sfondo trasparente */
-    .hero-name .acc-box {
-      border: 2.5px solid var(--nero);
-      padding: 0 5px;
-      margin-left: 1px;
-    }
-
-    .hero-desc {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #222;
-      max-width: 380px;
-      margin-bottom: 20px;
-    }
-
-    .hero-badges { display: flex; flex-wrap: wrap; gap: 7px; }
-
-    .badge {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      padding: 4px 11px;
-      border: 1.5px solid var(--nero);
-      background: transparent;
-      letter-spacing: 0.05em;
-      color: var(--nero);
-    }
-
-    .badge-verde { background: var(--verde-acqua); border-color: var(--verde-border); color: var(--nero); }
-    .badge-nero  { background: var(--nero); color: var(--crema); border-color: var(--nero); }
-    .badge-terra { background: var(--terra); color: var(--crema); border-color: var(--terra-scura); }
-
-    .hero-photo {
-      width: 160px;
-      height: 160px;
-      border: var(--bordo);
-      background: #c8e0c8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      overflow: hidden;
-    }
-
-    .hero-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    /* ================================================
-      TICKER ANIMATO
-    ================================================ */
-    .ticker {
-      background: var(--verde-scuro);
-      color: var(--verde-testo);
-      padding: 8px 0;
-      overflow: hidden;
-      white-space: nowrap;
-      border-bottom: var(--bordo);
-    }
-
-    .ticker-inner {
-      display: inline-flex;
-      animation: scorrimento 22s linear infinite;
-    }
-
-    .ticker-item {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 0 30px;
-      color: var(--verde-testo);
-    }
-
-    .ticker-sep { opacity: 0.5; }
-
-    @keyframes scorrimento {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ================================================
-      STRISCIA NEWS
-    ================================================ */
-    .news-strip {
-      padding: 12px 20px;
-      border-bottom: var(--bordo);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: var(--terra);
-    }
-
-    .news-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      color: var(--crema);
-      white-space: nowrap;
-    }
-
-    .news-text { font-size: 13px; color: var(--crema); line-height: 1.4; }
-
-    /* ================================================
-      GRIGLIA A DUE COLONNE
-    ================================================ */
-    .due-colonne {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-bottom: var(--bordo);
-    }
-
-    .colonna { padding: 24px 20px; }
-    .colonna:first-child { border-right: var(--bordo); }
-
-    .sezione-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--grigio-testo);
-      border-bottom: 1px solid var(--bordo-label);
-      padding-bottom: 9px;
-      margin-bottom: 18px;
-    }
-
-    /* ================================================
-      PUBBLICAZIONI
-    ================================================ */
-    .pub {
-      margin-bottom: 16px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--bordo-sez);
-    }
-
-    .pub:last-child { border-bottom: none; margin-bottom: 0; }
-
-    .pub-title {
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 1.4;
-      margin-bottom: 4px;
-      color: var(--nero);
-    }
-
-    .pub-meta {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--grigio-meta);
-      margin-bottom: 4px;
-    }
-
-    .pub-tag {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      padding: 2px 7px;
-      border: 1px solid var(--verde-border);
-      color: var(--verde-label);
-    }
-
-    /* ================================================
-      PROGETTI
-    ================================================ */
-    .progetto {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 14px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--bordo-sez);
-    }
-
-    .progetto:last-child { border-bottom: none; margin-bottom: 0; }
-
-    .progetto-nome {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 3px;
-      color: var(--nero);
-    }
-
-    .progetto-nome a {
-      color: var(--nero);
-      border-bottom: 1.5px solid var(--verde-acqua);
-      padding-bottom: 1px;
-      transition: border-color 0.2s;
-    }
-
-    .progetto-nome a:hover { border-bottom-color: var(--terra); }
-
-    .progetto-sub {
-      font-size: 11px;
-      color: var(--grigio-testo);
-      line-height: 1.4;
-    }
-
-    .status {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      padding: 3px 8px;
-      border: 1.5px solid var(--nero);
-      white-space: nowrap;
-      color: var(--nero);
-      margin-top: 3px;
-      flex-shrink: 0;
-    }
-
-    .status-attivo {
-      border-color: var(--verde-border);
-      color: var(--verde-label);
-      background: #e0f0e0;
-    }
-
-    /* ================================================
-      SEZIONE ALTRO
-    ================================================ */
-    .altro-sezione {
-      padding: 22px 20px;
-      border-bottom: var(--bordo);
-    }
-
-    .altro-griglia {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      margin-top: 16px;
-    }
-
-    .altro-card {
-      border: 1.5px solid var(--nero);
-      padding: 16px;
-      background: var(--crema);
-      transition: background 0.15s;
-    }
-
-    .altro-card:hover { background: var(--crema-scura); }
-    .ac-terra { border-left: 4px solid var(--terra); }
-    .ac-verde  { border-left: 4px solid var(--verde-border); }
-
-    .altro-icon { font-size: 20px; margin-bottom: 8px; display: block; }
-
-    .altro-titolo {
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 5px;
-      color: var(--nero);
-    }
-
-    .altro-titolo a {
-      color: var(--nero);
-      border-bottom: 1.5px solid var(--verde-acqua);
-      padding-bottom: 1px;
-      transition: border-color 0.2s;
-    }
-
-    .altro-titolo a:hover { border-bottom-color: var(--terra); }
-
-    .altro-desc { font-size: 12px; color: #444; line-height: 1.5; }
-
-    /* ================================================
-      MAPPA CONFERENZE
-    ================================================ */
-    .mappa-sezione {
-      border-bottom: var(--bordo);
-    }
-
-    .mappa-header {
-      padding: 22px 20px 14px;
-    }
-
-    #mappa {
-      width: 100%;
-      height: 360px;
-      border-top: var(--bordo);
-    }
-
-    /* Popup mappa — stile coerente con il sito */
-    .leaflet-popup-content-wrapper {
-      border-radius: 0 !important;
-      border: 2px solid var(--nero) !important;
-      box-shadow: 3px 3px 0 var(--nero) !important;
-      background: var(--crema) !important;
-      padding: 0 !important;
-    }
-
-    .leaflet-popup-tip-container { display: none; }
-    .leaflet-popup-content { margin: 0 !important; min-width: 220px; }
-
-    .popup-inner { padding: 12px 14px; }
-
-    .popup-city {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--grigio-testo);
-      margin-bottom: 8px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid var(--bordo-sez);
-    }
-
-    .popup-paper { font-size: 12px; font-weight: 700; line-height: 1.4; color: var(--nero); margin-bottom: 3px; }
-    .popup-conf  { font-size: 11px; color: var(--grigio-testo); line-height: 1.4; margin-bottom: 3px; }
-    .popup-year  { font-family: var(--font-mono); font-size: 10px; color: var(--grigio-meta); }
-    .popup-divider { border: none; border-top: 1px solid var(--bordo-sez); margin: 8px 0; }
-
-    /* ================================================
-      FOOTER
-    ================================================ */
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 20px;
-      background: var(--nero);
-    }
-
-    .footer-nome {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.07em;
-      line-height: 1.7;
-      color: var(--crema);
-    }
-
-    .footer-links { display: flex; gap: 16px; }
-
-    .footer-links a {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--verde-acqua);
-      letter-spacing: 0.06em;
-      transition: color 0.15s;
-    }
-
-    .footer-links a:hover { color: var(--terra); }
-
-    /* ================================================
-      RESPONSIVE — sotto 640px colonna singola
-    ================================================ */
-    @media (max-width: 640px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-photo { width: 100px; height: 100px; }
-      .hero-name { font-size: 36px; }
-      .due-colonne { grid-template-columns: 1fr; }
-      .colonna:first-child { border-right: none; border-bottom: var(--bordo); }
-      .altro-griglia { grid-template-columns: 1fr; }
-      .nav-links { gap: 12px; }
-      .footer { flex-direction: column; gap: 12px; text-align: center; }
-      #mappa { height: 260px; }
-    }
-
-  </style>
+  <link rel="stylesheet" href="assets/material-digital.css">
 </head>
 
 <body>
-<div class="site-wrapper">
+<div class="site-wrapper" data-design="material-digital">
 
-  <!-- NAVIGAZIONE -->
-  <nav class="nav">
-    <span class="nav-logo">MZ // RICERCATORE & MUSICISTA</span>
-    <div class="nav-links">
-      <a href="#ricerca">Ricerca</a>
-      <a href="#progetti">Progetti</a>
-      <a href="#altro">Altro</a>
-      <a href="#contatti">Contatti</a>
-      <a href="cv.html">CV</a>
+  <a class="skip-link" href="#ricerca">Vai ai contenuti</a>
+  <header class="masthead">
+    <a class="brand" href="index.html" aria-label="Mattia Zanotti, homepage"><b>MZ</b><span>MATTIA ZANOTTI<br>MUSICOLOGO<br>RICERCATORE</span></a>
+    <nav class="nav-links" aria-label="Navigazione principale">
+      <a href="index.html" aria-current="page">[01] Home</a><a href="#ricerca">[02] Ricerca</a><a href="cv.html">[03] CV</a><a href="PODCAST.html">[04] Podcast</a><a href="mappa-conferenze.html">[05] Conferenze</a>
+    </nav>
+  </header>
+  <main>
+  <section class="hero" aria-labelledby="nome">
+    <div class="hero-copy">
+      <h1 id="nome">MATTIA<br>ZANOTTI</h1>
+      <svg class="orbit" viewBox="0 0 500 260" aria-hidden="true"><ellipse cx="248" cy="130" rx="232" ry="46" transform="rotate(-23 248 130)" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+      <p class="hero-kicker">Musica, media, piattaforme<br>e le culture che li attraversano.</p>
+      <a class="explore" href="#ricerca">ESPLORA LE MIE RICERCHE <span aria-hidden="true">⟶</span></a>
     </div>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-testo">
-      <div class="hero-tag">
-        Musicologia · Platform Studies · Ricercatore indipendente · Digital Methods
+    <div class="hero-art real-collage" role="img" aria-label="Collage dai materiali di Mattia Zanotti: edizioni musicali Bixio, spartito Desiderio di te, grafo Midwesternemo, analisi testuale, frammento di ritratto e fotografia live.">
+      <div class="collage-plane">
+        <div class="ink ink-one"></div><div class="ink ink-two"></div>
+        <img class="fragment score" src="assets/sources/score.jpg" alt="">
+        <img class="fragment cover" src="assets/sources/bixio.jpg" alt="">
+        <img class="fragment network" src="assets/sources/network.webp" alt="">
+        <img class="fragment portrait" src="assets/sources/portrait.webp" alt="">
+        <img class="fragment tree" src="assets/sources/word-tree.webp" alt="">
+        <img class="fragment live" src="assets/sources/live.jpg" alt="">
+        <span class="collage-rule rule-one" aria-hidden="true"></span><span class="collage-rule rule-two" aria-hidden="true"></span>
+        <span class="archive-label">MATERIALI / TRACCE / RELAZIONI</span>
       </div>
-
-      <h1 class="hero-name">
-        MATTIA<br>
-        <span class="acc-verde">ZA</span><span class="acc-terra">NO</span><span class="acc-box">TTI</span>
-      </h1>
-
-      <p class="hero-desc">
-        Ricercatore, musicologo & altre cose. Studio come e se le logiche delle piattaforme digitali trasformano la vita musicale quotidiana.
-      </p>
-
-      <div class="hero-badges">
-        <span class="badge"></span>
-        <span class="badge badge-terra"></span>
-      </div>
-    </div>
-
-    <div class="hero-photo">
-      <img src="foto.jpg" alt="Mattia Zanotti">
     </div>
   </section>
+  <nav class="index-grid" aria-label="Esplora il sito">
+    <a href="#ricerca"><b>RICERCA (01)</b><span>Popular music<br>Platform studies<br>Metodi digitali</span><i>⟶</i></a>
+    <a href="#progetti"><b>PROGETTI (02)</b><span>Archivi e dati<br>Ricerca e pubblicazioni<br>Pratiche collettive</span><i>⟶</i></a>
+    <a href="#conferenze"><b>MAPPA (03)</b><span>Conferenze<br>Presentazioni<br>Incontri</span><i>⟶</i></a>
+    <a href="PODCAST.html"><b>PODCAST (04)</b><span>Dialoghi sul processo creativo<br>Pratiche musicali viventi<br>Ascolta la serie</span><i>⟶</i></a>
+  </nav>
+  <section class="intro"><span>TRA MATERIALI E PIATTAFORME</span><p>Ricercatore, musicologo & altre cose. Studio come e se le logiche delle piattaforme digitali trasformano la vita musicale quotidiana.</p><a href="cv.html">Profilo e CV ⟶</a></section>
 
-  <!-- TICKER -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-inner">
-      <span class="ticker-item">Platform Studies</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Musicologia Digitale</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Scene Indipendenti</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Data Visualization</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Mixed Methods</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Brescia</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Platform Studies</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Musicologia Digitale</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Scene Indipendenti</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Data Visualization</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Mixed Methods</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Brescia</span>
-      <span class="ticker-item ticker-sep">◆</span>
-    </div>
-  </div>
-
-  <!-- NEWS STRIP -->
   <div class="news-strip">
     <span class="news-label">NUOVO →</span>
     <span class="news-text">
@@ -584,7 +63,7 @@
     </span>
   </div>
 
-  <!-- PUBBLICAZIONI & PROGETTI -->
+
   <div class="due-colonne">
 
     <div class="colonna" id="ricerca">
@@ -596,7 +75,7 @@
        Casa mia o casa tua?: Le piattaforme e l'identità performata dalla e nella trap in Italia.
        </a>
       </div>
-       <div class="pub-meta">2026 · Scritture Migranti 19: 83-107 · DOI: 10.6092/issn.2035-7141/237922</div>
+       <div class="pub-meta">2026 · Scritture Migranti 19: 83-107 · DOI: 10.6092/issn.2035-7141/23792</div>
        <span class="pub-tag">peer reviewed</span>
       </div>
 
@@ -620,13 +99,7 @@
         <span class="pub-tag">capitolo · open access</span>
       </div>
 
-      <!-- Template nuova pubblicazione:
-      <div class="pub">
-        <div class="pub-title">Titolo</div>
-        <div class="pub-meta">Anno · Rivista</div>
-        <span class="pub-tag">tipo</span>
-      </div>
-      -->
+
     </div>
 
     <div class="colonna" id="progetti">
@@ -652,34 +125,24 @@
         <span class="status status-attivo">Annuale</span>
       </div>
 
-      <!-- Template nuovo progetto:
-      <div class="progetto">
-        <div>
-          <div class="progetto-nome">
-            <a href="URL" target="_blank">Nome</a>
-          </div>
-          <div class="progetto-sub">Descrizione · Ente</div>
-        </div>
-        <span class="status">Stato</span>
-      </div>
-      -->
+
     </div>
 
   </div>
 
-  <!-- SEZIONE ALTRO -->
+
   <section class="altro-sezione" id="altro">
     <div class="sezione-label">Altro</div>
     <div class="altro-griglia">
 
       <div class="altro-card ac-terra">
-        <span class="altro-icon">🎛</span>
+
         <div class="altro-titolo">Musica & produzione</div>
         <p class="altro-desc">Scene indipendente. Progetti, release, live ed eventi.</p>
       </div>
 
       <div class="altro-card ac-verde">
-  <span class="altro-icon">🎙</span>
+
   <div class="altro-titolo">
     <a href="https://aittamz.github.io/mattia.zanotti/PODCAST.html">Podcast</a>
   </div>
@@ -687,29 +150,18 @@
 </div>
 
       <div class="altro-card">
-        <span class="altro-icon">📡</span>
+
         <div class="altro-titolo">
           <a href="https://substack.com/@tuttimieistupidintenti" target="_blank">Newsletter</a>
         </div>
         <p class="altro-desc">Tuttimieistupidintenti. Aggiornamenti su ricerca e progetti. Non esattamente sempre aggiornata :).</p>
       </div>
 
-      <!-- Template nuova card:
-      <div class="altro-card">
-        <span class="altro-icon">emoji</span>
-        <div class="altro-titolo">Titolo</div>
-        <p class="altro-desc">Descrizione.</p>
-      </div>
-      -->
+
     </div>
   </section>
 
-  <!-- ================================================
-    MAPPA CONFERENZE
-    Sta qui, prima del footer.
-    Per rimuoverla: commenta o cancella questa sezione
-    e i due blocchi <script> in fondo.
-  ================================================ -->
+
   <section class="mappa-sezione" id="conferenze">
     <div class="mappa-header">
       <div class="sezione-label">Conferenze & presentazioni. Dove sono andato a parlare delle mie ricerche</div>
@@ -717,7 +169,8 @@
     <div id="mappa"></div>
   </section>
 
-  <!-- FOOTER -->
+  </main>
+
   <footer class="footer" id="contatti">
     <div class="footer-nome">
       MATTIA ZANOTTI<br>
@@ -731,11 +184,9 @@
     </div>
   </footer>
 
-</div><!-- fine .site-wrapper -->
+</div>
 
-<!-- ================================================
-  LEAFLET JS — deve stare qui, prima di </body>
-================================================ -->
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
@@ -743,9 +194,7 @@
   // PALETTE — colori dal sito
   // ================================================
   const PALETTE = [
-    '#9ecfb0', '#c45a3a', '#3a7a5a', '#e07a5f',
-    '#6db56d', '#b8d4b0', '#d4956a', '#5a9a7a',
-    '#c8a87a', '#7a9e7e'
+    '#ff4b1b', '#e6ddc5', '#b4492d', '#e38555'
   ];
 
   function colore(i) { return PALETTE[i % PALETTE.length]; }
@@ -772,6 +221,12 @@
     { city: "Vienna — Austria", lat: 48.2082, lng: 16.3738, papers: [{ title: "Similarities and Divergences Between Music Production and TikTok in the Memes Era", conf: "TikTok–Music–Cultures — Università di Vienna", year: "Mag 2022" }] }
   ];
 
+  // L'elenco rimane consultabile anche se Leaflet non è disponibile.
+  const elenco = document.createElement('details');
+  elenco.className = 'conference-list';
+  elenco.innerHTML = '<summary>Elenco delle conferenze e presentazioni</summary>' + conferenze.map(c => `<article><h3>${c.city}</h3>${c.papers.map(p => `<p><strong>${p.title}</strong><br>${p.conf} · ${p.year}</p>`).join('')}</article>`).join('');
+  document.querySelector('#conferenze').append(elenco);
+  if (typeof L !== 'undefined') {
   // Inizializzazione mappa
   const mappa = L.map('mappa', { center: [30, 15], zoom: 2, scrollWheelZoom: false });
 
@@ -795,6 +250,7 @@
 
     L.marker([conf.lat, conf.lng], { icon: icona }).addTo(mappa).bindPopup(html, { maxWidth: 300 });
   });
+  } else { document.querySelector('#mappa').hidden = true; }
 </script>
 
 </body>

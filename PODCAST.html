@@ -14,364 +14,12 @@
   <!-- ================================================
     FONT — stessi del sito principale
   ================================================ -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
 
-  <style>
-
-    /* ================================================
-      VARIABILI — identiche al sito principale
-    ================================================ */
-    :root {
-      --crema:        #fdf6e3;
-      --crema-scura:  #f0ebe0;
-      --nero:         #111111;
-      --verde-acqua:  #9ecfb0;
-      --verde-scuro:  #1a3a2a;
-      --verde-testo:  #d4ecd4;
-      --verde-label:  #2a5a3a;
-      --verde-border: #3a7a5a;
-      --terra:        #c45a3a;
-      --terra-scura:  #a04020;
-      --grigio-testo: #555555;
-      --grigio-meta:  #888888;
-      --bordo-sez:    #e0d8c8;
-      --bordo-label:  #cccccc;
-      --font-body:    'Atkinson Hyperlegible', sans-serif;
-      --font-mono:    'Courier Prime', monospace;
-      --bordo:        2px solid var(--nero);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: var(--font-body);
-      background: var(--crema);
-      color: var(--nero);
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* ================================================
-      WRAPPER
-    ================================================ */
-    .site-wrapper {
-      max-width: 900px;
-      margin: 0 auto;
-      border-left: var(--bordo);
-      border-right: var(--bordo);
-      min-height: 100vh;
-    }
-
-    /* ================================================
-      NAVIGAZIONE
-    ================================================ */
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 20px;
-      border-bottom: var(--bordo);
-      background: var(--nero);
-    }
-
-    .nav-logo {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--crema);
-    }
-
-    .nav-back {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--verde-acqua);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding-bottom: 2px;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.2s;
-    }
-
-    .nav-back:hover { border-bottom-color: var(--verde-acqua); }
-
-    /* ================================================
-      TICKER ANIMATO — stesso del sito principale
-    ================================================ */
-    .ticker {
-      background: var(--verde-scuro);
-      color: var(--verde-testo);
-      padding: 7px 0;
-      overflow: hidden;
-      white-space: nowrap;
-      border-bottom: var(--bordo);
-    }
-
-    .ticker-inner {
-      display: inline-flex;
-      animation: scorrimento 24s linear infinite;
-    }
-
-    .ticker-item {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 0 28px;
-      color: var(--verde-testo);
-    }
-
-    .ticker-sep { opacity: 0.5; }
-
-    @keyframes scorrimento {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    /* ================================================
-      HEADER PAGINA
-    ================================================ */
-    .page-header {
-      padding: 36px 20px 28px;
-      border-bottom: var(--bordo);
-    }
-
-    .page-tag {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--verde-label);
-      margin-bottom: 10px;
-    }
-
-    .page-title {
-      font-size: 52px;
-      font-weight: 700;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      margin-bottom: 14px;
-      color: var(--nero);
-    }
-
-    .page-title .acc-verde {
-      background: var(--verde-acqua);
-      color: var(--nero);
-      padding: 0 5px;
-    }
-
-    .page-title .acc-terra {
-      background: var(--terra);
-      color: var(--crema);
-      padding: 0 5px;
-    }
-
-    .page-desc {
-      font-size: 14px;
-      line-height: 1.7;
-      color: #333;
-      max-width: 520px;
-    }
-
-    /* ================================================
-      ETICHETTA DI SEZIONE — riusata in tutto il sito
-    ================================================ */
-    .sezione-label {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--grigio-testo);
-      border-bottom: 1px solid var(--bordo-label);
-      padding-bottom: 9px;
-      margin-bottom: 20px;
-    }
-
-    /* ================================================
-      SEZIONE PODCAST
-      .podcast-sezione contiene label + lista card
-    ================================================ */
-    .podcast-sezione {
-      padding: 24px 20px;
-      border-bottom: var(--bordo);
-    }
-
-    /* ================================================
-      CARD PODCAST
-      Per aggiungere un podcast: copia un blocco .podcast-card
-      Struttura:
-        .podcast-card
-          .podcast-header (numero + badge tipo)
-          .podcast-title
-          .podcast-meta (autore · piattaforma · anno)
-          .podcast-desc
-          .podcast-footer (link)
-
-      Tipi badge: .tipo-mio (verde) .tipo-ascoltato (terracotta)
-      Accento sinistro: .ac-verde .ac-terra
-    ================================================ */
-    .podcast-lista {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .podcast-card {
-      border: 1.5px solid var(--nero);
-      padding: 18px 20px;
-      background: var(--crema);
-      transition: background 0.15s;
-    }
-
-    .podcast-card:hover { background: var(--crema-scura); }
-
-    /* Accento laterale sinistro */
-    .ac-verde { border-left: 4px solid var(--verde-border); }
-    .ac-terra  { border-left: 4px solid var(--terra); }
-
-    /* Header card: numero + badge */
-    .podcast-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-
-    .podcast-num {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      color: var(--grigio-testo);
-    }
-
-    /* Badge tipo — verde = mio, terracotta = consigliato */
-    .tipo-badge {
-      font-family: var(--font-mono);
-      font-size: 9px;
-      padding: 2px 8px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .tipo-mio {
-      background: var(--verde-acqua);
-      color: var(--nero);
-      border: 1px solid var(--verde-border);
-    }
-
-    .tipo-ascoltato {
-      background: transparent;
-      color: var(--terra);
-      border: 1px solid var(--terra);
-    }
-
-    .podcast-title {
-      font-size: 16px;
-      font-weight: 700;
-      line-height: 1.3;
-      margin-bottom: 5px;
-      color: var(--nero);
-    }
-
-    .podcast-meta {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--grigio-meta);
-      margin-bottom: 10px;
-      letter-spacing: 0.04em;
-    }
-
-    .podcast-desc {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #333;
-      margin-bottom: 14px;
-    }
-
-    /* Footer card con link */
-    .podcast-footer {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    /* Bottone link podcast */
-    .podcast-btn {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      padding: 6px 14px;
-      border: 1.5px solid var(--nero);
-      background: transparent;
-      color: var(--nero);
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .podcast-btn:hover {
-      background: var(--nero);
-      color: var(--crema);
-    }
-
-    .podcast-btn.btn-verde {
-      border-color: var(--verde-border);
-      color: var(--verde-label);
-    }
-
-    .podcast-btn.btn-verde:hover {
-      background: var(--verde-acqua);
-      color: var(--nero);
-      border-color: var(--verde-border);
-    }
-
-    /* ================================================
-      FOOTER
-    ================================================ */
-    .footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 20px;
-      background: var(--nero);
-    }
-
-    .footer-nome {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      letter-spacing: 0.07em;
-      line-height: 1.7;
-      color: var(--crema);
-    }
-
-    .footer-links { display: flex; gap: 16px; }
-
-    .footer-links a {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      color: var(--verde-acqua);
-      letter-spacing: 0.06em;
-      transition: color 0.15s;
-    }
-
-    .footer-links a:hover { color: var(--terra); }
-
-    /* ================================================
-      RESPONSIVE
-    ================================================ */
-    @media (max-width: 640px) {
-      .page-title { font-size: 38px; }
-      .nav-logo { font-size: 10px; }
-      .footer { flex-direction: column; gap: 12px; text-align: center; }
-    }
-
-  </style>
+  <link rel="stylesheet" href="assets/material-digital.css">
 </head>
 
-<body>
-<div class="site-wrapper">
+<body class="subpage">
+<div class="site-wrapper" data-design="material-digital"><header class="masthead"><a class="brand" href="index.html"><b>MZ</b><span>MATTIA ZANOTTI<br>MUSICOLOGO<br>RICERCATORE</span></a><nav class="nav-links" aria-label="Navigazione principale"><a href="index.html">[01] Home</a><a href="index.html#ricerca">[02] Ricerca</a><a href="cv.html">[03] CV</a><a href="PODCAST.html" aria-current="page">[04] Podcast</a><a href="mappa-conferenze.html">[05] Conferenze</a></nav></header>
 
   <!-- ================================================
     NAVIGAZIONE
@@ -386,34 +34,7 @@
     TICKER
     Modifica le voci come nel sito principale
   ================================================ -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-inner">
-      <span class="ticker-item">Podcast</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Audio</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Ricerca</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Musica</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Cultura</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Ascolti</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Podcast</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Audio</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Ricerca</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Musica</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Cultura</span>
-      <span class="ticker-item ticker-sep">◆</span>
-      <span class="ticker-item">Ascolti</span>
-      <span class="ticker-item ticker-sep">◆</span>
-    </div>
-  </div>
+  
 
   <!-- ================================================
     HEADER PAGINA
@@ -425,15 +46,14 @@
       <span class="acc-verde">POD</span><span class="acc-terra">CAST</span>
     </h1>
     <p class="page-desc">
-      Podcast che ho fatto, a cui ho partecipato, o che mi piacciono abbastanza da metterli qui.
-      Nessuna pretesa di completezza.
+      Serie e conversazioni sul processo creativo e sulle pratiche musicali.
     </p>
   </div>
 
   <!-- ================================================
     SEZIONE: I MIEI PODCAST
     Per aggiungere un podcast: copia un .podcast-card
-    Badge: <span class="tipo-badge tipo-mio">Mio</span>
+    Badge: <span class="tipo-badge tipo-mio">A mia cura</span>
     Accento: classe .ac-verde sul .podcast-card
   ================================================ -->
   <div class="podcast-sezione">
@@ -445,7 +65,7 @@
       <div class="podcast-card ac-verde">
         <div class="podcast-header">
           <span class="podcast-num">01</span>
-          <span class="tipo-badge tipo-mio">Mio</span>
+          <span class="tipo-badge tipo-mio">A mia cura</span>
         </div>
         <div class="podcast-title">Dialoghi sul processo creativo delle pratiche musicali viventi</div>
         <div class="podcast-meta">A cura di Mattia Zanotti, docente a contratto presso l’Università di Parma · Edunext</div>
@@ -465,7 +85,7 @@
       <div class="podcast-card ac-verde">
         <div class="podcast-header">
           <span class="podcast-num">02</span>
-          <span class="tipo-badge tipo-mio">Mio</span>
+          <span class="tipo-badge tipo-mio">A mia cura</span>
         </div>
         <div class="podcast-title">Titolo</div>
         <div class="podcast-meta">Con · Piattaforma · Anno</div>
@@ -485,46 +105,6 @@
     Badge: <span class="tipo-badge tipo-ascoltato">Consigliato</span>
     Accento: classe .ac-terra sul .podcast-card
   ================================================ -->
-  <div class="podcast-sezione">
-    <div class="sezione-label">Podcast che consiglio</div>
-
-    <div class="podcast-lista">
-
-      <!-- PODCAST CONSIGLIATO 1 -->
-      <div class="podcast-card ac-terra">
-        <div class="podcast-header">
-          <span class="podcast-num">01</span>
-          <span class="tipo-badge tipo-ascoltato">Consigliato</span>
-        </div>
-        <div class="podcast-title">Titolo podcast consigliato</div>
-        <div class="podcast-meta">Di Tizio · Piattaforma · Anno</div>
-        <p class="podcast-desc">
-          Perché lo consiglio. Una riga o due bastano — non deve essere una recensione,
-          solo il motivo per cui vale la pena ascoltarlo.
-        </p>
-        <div class="podcast-footer">
-          <a class="podcast-btn" href="URL_PODCAST" target="_blank">Ascolta →</a>
-        </div>
-      </div>
-
-      <!-- Template per nuovo podcast consigliato:
-      <div class="podcast-card ac-terra">
-        <div class="podcast-header">
-          <span class="podcast-num">02</span>
-          <span class="tipo-badge tipo-ascoltato">Consigliato</span>
-        </div>
-        <div class="podcast-title">Titolo</div>
-        <div class="podcast-meta">Di · Piattaforma · Anno</div>
-        <p class="podcast-desc">Perché lo consiglio.</p>
-        <div class="podcast-footer">
-          <a class="podcast-btn" href="URL" target="_blank">Ascolta →</a>
-        </div>
-      </div>
-      -->
-
-    </div>
-  </div>
-
   <!-- ================================================
     FOOTER
   ================================================ -->
@@ -544,3 +124,4 @@
 </div><!-- fine .site-wrapper -->
 </body>
 </html>
+
