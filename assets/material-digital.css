@@ -50,3 +50,34 @@
 .stats-row{display:flex;gap:45px;flex-wrap:wrap}.stat{font-size:12px;color:var(--muted)}.stat strong{display:block;font-size:32px;color:var(--paper)}.subpage #mappa{height:480px;margin-top:24px}.conf-lista{padding:35px 0}.conf-lista-label{font-size:11px;color:var(--orange);letter-spacing:1px;margin-bottom:25px}.conf-item{display:grid;grid-template-columns:12px 120px 1fr;gap:20px;padding:23px 0;border-top:1px solid #41423a}.conf-dot{width:8px;height:8px;border-radius:50%;margin-top:7px}.conf-meta{font-size:13px;color:var(--orange)}.conf-paper{font-size:20px;line-height:1.4}.conf-name{font-size:14px;color:var(--muted);margin-top:8px}.popup-divider{border:0;border-top:1px solid #999}.subpage .footer{border-top:1px solid var(--line)}
 @media(max-width:640px){.subpage .nav{gap:15px;font-size:9px}.nav-right{gap:12px}.lang-switch{gap:5px}.lang-btn{padding:6px 9px}.subpage .hero{padding:35px 0}.subpage h1{font-size:clamp(55px,15vw,90px)}.page-header{padding-top:32px}.page-desc{font-size:17px}.podcast-card{padding:22px 18px}.podcast-desc{font-size:16px}.cv-item{grid-template-columns:1fr;gap:10px}.affiliazioni-grid,.competenze-grid{grid-template-columns:1fr}.stats-row{gap:20px}.stat strong{font-size:27px}.subpage #mappa{height:320px}.conf-item{grid-template-columns:8px 1fr;gap:12px}.conf-item>div:last-child{grid-column:2}.conf-paper{font-size:18px}}
 @media print{body{background:white;color:black}.masthead,.nav,.footer,.btn-pdf{display:none!important}.site-wrapper{padding:0;max-width:none}.subpage h1{font-size:45px}.subpage .hero{padding:12px 0}.cv-sezione{padding:16px 0}.cv-item,.pub-item{break-inside:avoid}.cv-anno,.cv-desc,.pub-rivista,.pub-autori,.cv-ente,.sezione-label{color:#222}.cv-titolo,.pub-titolo{font-size:16px}}
+
+/* Mappa delle conferenze e navigazione touch. */
+#mappa[hidden], .mappa-comandi [hidden] { display: none; }
+.mappa-comandi { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 12px 0; }
+.mappa-comandi button, .mappa-comandi a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  background: var(--black);
+  color: var(--paper);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.mappa-comandi button[aria-pressed="true"] { background: var(--orange); color: var(--black); }
+#mappa .leaflet-marker-icon { display: grid; place-items: center; }
+#mappa .leaflet-control-zoom a { width: 44px; height: 44px; line-height: 44px; }
+#mappa .leaflet-popup-close-button { width: 44px; height: 44px; line-height: 40px; }
+#mappa .leaflet-popup-content { overflow-wrap: anywhere; padding-right: 14px; }
+#mappa-avviso { color: var(--paper); }
+@media (max-width: 640px) {
+  .nav-links { gap: 4px 10px; }
+  .nav-links a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; }
+  .hero-copy h1 { font-size: clamp(68px, 22vw, 140px); }
+  .index-grid span { padding-right: 19px; }
+  .index-grid i { right: 9px; }
+  .progetto { flex-wrap: wrap; gap: 6px; }
+  .subpage #mappa, #mappa { height: clamp(270px, 55svh, 390px); }
+}

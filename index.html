@@ -166,7 +166,13 @@
     <div class="mappa-header">
       <div class="sezione-label">Conferenze & presentazioni. Dove sono andato a parlare delle mie ricerche</div>
     </div>
-    <div id="mappa"></div>
+    <div class="mappa-comandi">
+      <button type="button" id="mappa-ripristina" hidden>Tutte le città</button>
+      <button type="button" id="mappa-gesti" aria-pressed="false" hidden>Sposta la mappa con le dita</button>
+      <a href="mappa-conferenze.html#elenco-conferenze">Elenco delle conferenze ↓</a>
+    </div>
+    <p id="mappa-avviso" role="status" hidden>La cartografia non si è caricata. Puoi consultare l’elenco delle conferenze.</p>
+    <div id="mappa" role="region" aria-label="Mappa delle città delle conferenze"></div>
   </section>
 
   </main>
@@ -188,6 +194,7 @@
 
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/conferenze-map.js"></script>
 
 <script>
   // ================================================
@@ -226,20 +233,11 @@
   elenco.className = 'conference-list';
   elenco.innerHTML = '<summary>Elenco delle conferenze e presentazioni</summary>' + conferenze.map(c => `<article><h3>${c.city}</h3>${c.papers.map(p => `<p><strong>${p.title}</strong><br>${p.conf} · ${p.year}</p>`).join('')}</article>`).join('');
   document.querySelector('#conferenze').append(elenco);
-  if (typeof L !== 'undefined') {
-  // Inizializzazione mappa
-  const mappa = L.map('mappa', { center: [30, 15], zoom: 2, scrollWheelZoom: false });
-
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-    attribution: '© OpenStreetMap contributors © CARTO',
-    maxZoom: 18
-  }).addTo(mappa);
-
-  // Marker con colori random dalla palette
-  conferenze.forEach((conf, index) => {
+  const mappa = creaMappaConferenze(conferenze, 'light_all');
+  if (mappa) conferenze.forEach((conf, index) => {
     const c = colore(index);
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="${c}" stroke="#111" stroke-width="2"/></svg>`;
-    const icona = L.divIcon({ html: svg, className: '', iconSize: [20,20], iconAnchor: [10,10], popupAnchor: [0,-13] });
+    const icona = L.divIcon({ html: svg, className: '', iconSize: [36, 36], iconAnchor: [18, 18], popupAnchor: [0,-13] });
 
     let html = `<div class="popup-inner"><div class="popup-city">${conf.city}</div>`;
     conf.papers.forEach((p, i) => {
@@ -248,9 +246,8 @@
     });
     html += `</div>`;
 
-    L.marker([conf.lat, conf.lng], { icon: icona }).addTo(mappa).bindPopup(html, { maxWidth: 300 });
+    L.marker([conf.lat, conf.lng], { icon: icona, title: conf.city }).addTo(mappa).bindPopup(html, { maxWidth: 260 });
   });
-  } else { document.querySelector('#mappa').hidden = true; }
 </script>
 
 </body>

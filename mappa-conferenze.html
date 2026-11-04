@@ -45,7 +45,13 @@
   </div>
 
   <!-- La mappa viene generata qui da Leaflet -->
-  <div id="mappa"></div>
+  <div class="mappa-comandi">
+      <button type="button" id="mappa-ripristina" hidden>Tutte le città</button>
+      <button type="button" id="mappa-gesti" aria-pressed="false" hidden>Sposta la mappa con le dita</button>
+      <a href="#elenco-conferenze">Elenco delle conferenze ↓</a>
+    </div>
+    <p id="mappa-avviso" role="status" hidden>La cartografia non si è caricata. Puoi consultare l’elenco delle conferenze.</p>
+    <div id="mappa" role="region" aria-label="Mappa delle città delle conferenze"></div>
 
   <!-- ================================================
     LISTA TESTUALE
@@ -53,7 +59,7 @@
     Il colore del pallino viene assegnato via JS
     basandosi sull'indice — non serve modificarlo qui
   ================================================ -->
-  <div class="conf-lista">
+  <div class="conf-lista" id="elenco-conferenze">
     <div class="conf-lista-label">Tutte le presentazioni — ordine cronologico inverso</div>
 
     <!-- Ogni .conf-item ha un data-index che corrisponde
@@ -119,6 +125,7 @@
   LEAFLET JS — non modificare
 ================================================ -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/conferenze-map.js"></script>
 
 <script>
   // ================================================
@@ -271,26 +278,8 @@
   // zoom: livello di zoom (1 = mondo, 10 = città)
   // scrollWheelZoom: false = no zoom con la rotella
   // ================================================
-  const mappa = L.map('mappa', {
-    center: [30, 15],
-    zoom: 2,
-    zoomControl: true,
-    scrollWheelZoom: false
-  });
-
-  // Tile layer CartoDB chiaro — coerente con la palette crema
-  // Per cambiare stile: cerca "leaflet tile providers" online
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
-    maxZoom: 18
-  }).addTo(mappa);
-
-  // ================================================
-  // CREAZIONE MARKER E POPUP
-  // Ogni città riceve un colore dalla palette basato
-  // sul suo indice nell'array — deterministico
-  // ================================================
-  conferenze.forEach((conf, index) => {
+  const mappa = creaMappaConferenze(conferenze, 'dark_all');
+  if (mappa) conferenze.forEach((conf, index) => {
     const c = colore(index);
 
     // Icona SVG circolare con colore dalla palette
@@ -301,8 +290,7 @@
     const icona = L.divIcon({
       html: svg,
       className: '',
-      iconSize: [20, 20],
-      iconAnchor: [10, 10],
+      iconSize: [36, 36], iconAnchor: [18, 18],
       popupAnchor: [0, -13]
     });
 
@@ -321,9 +309,9 @@
 
     html += `</div>`;
 
-    L.marker([conf.lat, conf.lng], { icon: icona })
+    L.marker([conf.lat, conf.lng], { icon: icona, title: conf.city })
       .addTo(mappa)
-      .bindPopup(html, { maxWidth: 300 });
+      .bindPopup(html, { maxWidth: 260 });
 
     // Applica lo stesso colore ai pallini nella lista testuale
     document.querySelectorAll(`.conf-dot[data-index="${index}"]`).forEach(dot => {
