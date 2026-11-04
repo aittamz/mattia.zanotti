@@ -1,5 +1,5 @@
 /* Impostazioni condivise dalle due mappe delle conferenze. */
-function creaMappaConferenze(conferenze, stile) {
+function creaMappaConferenze(conferenze) {
   const contenitore = document.getElementById('mappa');
   const avviso = document.getElementById('mappa-avviso');
   if (typeof L === 'undefined') {
@@ -17,27 +17,42 @@ function creaMappaConferenze(conferenze, stile) {
     zoomDelta: 0.5
   });
   const limiti = L.latLngBounds(conferenze.map(({lat, lng}) => [lat, lng]));
-  const inquadra = () => mappa.fitBounds(limiti, { padding: [24, 24], maxZoom: 4 });
+  const inquadra = () => {
+    mappa.closePopup();
+    mappa.fitBounds(limiti, { padding: [24, 24], maxZoom: 4 });
+  };
   inquadra();
 
-  const tessere = L.tileLayer('https://{s}.basemaps.cartocdn.com/' + stile + '/{z}/{x}/{y}{r}.png', {
-    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
-    maxZoom: 18,
-    noWrap: true
+  const sfondo = L.imageOverlay('assets/cartografia.svg', [
+    [-85.05112878, -180], [85.05112878, 180]
+  ], { attribution: '<a href="https://www.naturalearthdata.com/">Natural Earth</a>' });
+  sfondo.on('error', () => { avviso.hidden = false; });
+  sfondo.addTo(mappa);
+
+  const città = document.createElement('select');
+  città.setAttribute('aria-label', 'Scegli una città');
+  città.add(new Option('Scegli una città', ''));
+  for (const conf of [...conferenze].sort((a, b) => a.city.localeCompare(b.city, 'it'))) {
+    città.add(new Option(conf.city, conf.city));
+  }
+  città.addEventListener('change', () => {
+    mappa.eachLayer(punto => {
+      if (!città.value || punto.options.title !== città.value) return;
+      mappa.setView(punto.getLatLng(), 5);
+      punto.openPopup();
+    });
   });
-  let caricata = false;
-  tessere.on('loading', () => { caricata = false; });
-  tessere.on('tileload', () => {
-    caricata = true;
-    avviso.hidden = true;
-  });
-  tessere.on('load', () => { avviso.hidden = caricata; });
-  tessere.addTo(mappa);
+  document.querySelector('.mappa-comandi').prepend(città);
 
   const ripristina = document.getElementById('mappa-ripristina');
   ripristina.hidden = false;
-  ripristina.addEventListener('click', inquadra);
-  mappa.on('resize', inquadra);
+  ripristina.addEventListener('click', () => {
+    città.value = '';
+    inquadra();
+  });
+  mappa.on('resize', e => {
+    if (e.oldSize.x !== e.newSize.x) inquadra();
+  });
 
   if (touch) {
     const gesti = document.getElementById('mappa-gesti');

@@ -13,7 +13,7 @@
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-  <link rel="stylesheet" href="assets/material-digital.css">
+  <link rel="stylesheet" href="assets/material-digital.css?v=2">
 </head>
 
 <body>
@@ -194,7 +194,7 @@
 
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="assets/conferenze-map.js"></script>
+<script src="assets/conferenze-map.js?v=2"></script>
 
 <script>
   // ================================================
@@ -233,7 +233,7 @@
   elenco.className = 'conference-list';
   elenco.innerHTML = '<summary>Elenco delle conferenze e presentazioni</summary>' + conferenze.map(c => `<article><h3>${c.city}</h3>${c.papers.map(p => `<p><strong>${p.title}</strong><br>${p.conf} · ${p.year}</p>`).join('')}</article>`).join('');
   document.querySelector('#conferenze').append(elenco);
-  const mappa = creaMappaConferenze(conferenze, 'light_all');
+  const mappa = creaMappaConferenze(conferenze);
   if (mappa) conferenze.forEach((conf, index) => {
     const c = colore(index);
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="${c}" stroke="#111" stroke-width="2"/></svg>`;

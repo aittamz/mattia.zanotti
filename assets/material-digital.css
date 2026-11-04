@@ -81,3 +81,6 @@
   .progetto { flex-wrap: wrap; gap: 6px; }
   .subpage #mappa, #mappa { height: clamp(270px, 55svh, 390px); }
 }
+
+.mappa-comandi select { min-height: 44px; max-width: 100%; padding: 8px 12px; background: var(--black); color: var(--paper); border: 1px solid var(--line); font: inherit; font-size: 13px; }
+#mappa { background: #1c2125; }

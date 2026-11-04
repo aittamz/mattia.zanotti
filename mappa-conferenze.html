@@ -15,7 +15,7 @@
   ================================================ -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-  <link rel="stylesheet" href="assets/material-digital.css">
+  <link rel="stylesheet" href="assets/material-digital.css?v=2">
 </head>
 
 <body class="subpage">
@@ -125,7 +125,7 @@
   LEAFLET JS — non modificare
 ================================================ -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="assets/conferenze-map.js"></script>
+<script src="assets/conferenze-map.js?v=2"></script>
 
 <script>
   // ================================================
@@ -278,7 +278,7 @@
   // zoom: livello di zoom (1 = mondo, 10 = città)
   // scrollWheelZoom: false = no zoom con la rotella
   // ================================================
-  const mappa = creaMappaConferenze(conferenze, 'dark_all');
+  const mappa = creaMappaConferenze(conferenze);
   if (mappa) conferenze.forEach((conf, index) => {
     const c = colore(index);
 
