@@ -4,7 +4,7 @@
  * Menu e pulsanti sono in assets/labels.mjs.
  * Qui trovi una funzione per ciascuna pagina e i blocchi condivisi.
  */
-import { labels } from "./labels.mjs";
+import { labels } from "./labels.mjs?v=5";
 
 export const escape = (value) =>
   String(value ?? "").replace(

@@ -21,7 +21,7 @@
 </head>
 
 <body class="subpage">
-<div class="site-wrapper" data-design="material-digital"><header class="masthead"><a class="brand" href="index.html"><b>MZ</b><span>MATTIA ZANOTTI<br>MUSICOLOGO<br>RICERCATORE</span></a><nav class="nav-links" aria-label="Navigazione principale"><a href="index.html">[01] Home</a><a href="index.html#ricerca">[02] Ricerca</a><a href="cv.html" aria-current="page">[03] CV</a><a href="PODCAST.html">[04] Podcast</a><a href="mappa-conferenze.html">[05] Conferenze</a></nav></header>
+<div class="site-wrapper" data-design="material-digital"><header class="masthead"><a class="brand" href="index.html"><b>MZ</b><span>MATTIA ZANOTTI<br>MUSICOLOGO<br>RICERCATORE</span></a><nav class="nav-links" aria-label="Navigazione principale"><a href="index.html">[01] Home</a><a href="index.html#ricerca">[02] Ricerca</a><a href="cv.html" aria-current="page">[03] CV</a><a id="nav-ascolti" href="ascolti.html">[04] Cose da ascoltare</a><a href="mappa-conferenze.html">[05] Conferenze</a></nav></header>
 
   <!-- ================================================
     NAVIGAZIONE
@@ -758,6 +758,8 @@ const testi = {
   aggiunga nuovi elementi traducibili
 ================================================ */
 function setLang(lang) {
+  // Solo navigazione: i contenuti del CV restano invariati.
+  document.getElementById("nav-ascolti").textContent = lang === "it" ? "[04] Cose da ascoltare" : "[04] Things to listen to";
   const t = testi[lang];
 
   /* Aggiorna tutti gli elementi con id presente in testi */

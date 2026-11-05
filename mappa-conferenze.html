@@ -13,55 +13,46 @@
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
-    <link rel="stylesheet" href="assets/material-digital.css?v=4" />
-    <link rel="stylesheet" href="assets/refinements.css?v=4" />
+    <link rel="stylesheet" href="assets/material-digital.css?v=5" />
+    <link rel="stylesheet" href="assets/refinements.css?v=5" />
   </head>
   <body class="subpage" data-page="conferences">
     <div class="site-wrapper" data-design="material-digital">
-      <div id="site-header">
-        <a class="skip-link" href="#contenuti">Vai ai contenuti</a>
-        <header class="masthead">
-          <a class="brand" href="index.html"
-            ><b>MZ</b
-            ><span>MATTIA ZANOTTI<br />MUSICOLOGO<br />RICERCATORE</span></a
+      <div id="site-header"><a class="skip-link" href="#contenuti">Vai ai contenuti</a>
+    <header class="masthead">
+      <a class="brand" href="index.html"
+        ><b>MZ</b><span>MATTIA ZANOTTI<br />MUSICOLOGO<br>RICERCATORE</span></a
+      >
+      <div class="header-tools">
+        <nav class="nav-links" aria-label="Navigazione principale">
+          <a href="index.html" ><span class="nav-number">01</span> Home</a><a href="index.html#ricerca" ><span class="nav-number">02</span> Ricerca</a><a href="cv.html" ><span class="nav-number">03</span> CV</a><a href="ascolti.html" ><span class="nav-number">04</span> Cose da ascoltare</a><a href="eventi.html" ><span class="nav-number">05</span> Eventi</a><a href="mappa-conferenze.html" aria-current="page"><span class="nav-number">06</span> Conferenze</a>
+        </nav>
+        <div
+          class="language-switch"
+          role="group"
+          aria-label="Lingua"
+        >
+          <button
+            type="button"
+            data-lang="it"
+            lang="it"
+            aria-label="Italiano"
+            aria-pressed="true"
           >
-          <div class="header-tools">
-            <nav class="nav-links" aria-label="Navigazione principale">
-              <a href="index.html"><span class="nav-number">01</span> Home</a
-              ><a href="index.html#ricerca"
-                ><span class="nav-number">02</span> Ricerca</a
-              ><a href="cv.html"><span class="nav-number">03</span> CV</a
-              ><a href="ascolti.html"
-                ><span class="nav-number">04</span> Ascolti</a
-              ><a href="eventi.html"
-                ><span class="nav-number">05</span> Eventi</a
-              ><a href="mappa-conferenze.html" aria-current="page"
-                ><span class="nav-number">06</span> Conferenze</a
-              >
-            </nav>
-            <div class="language-switch" role="group" aria-label="Lingua">
-              <button
-                type="button"
-                data-lang="it"
-                lang="it"
-                aria-label="Italiano"
-                aria-pressed="true"
-              >
-                IT</button
-              ><span aria-hidden="true">/</span
-              ><button
-                type="button"
-                data-lang="en"
-                lang="en"
-                aria-label="English"
-                aria-pressed="false"
-              >
-                EN
-              </button>
-            </div>
-          </div>
-        </header>
+            IT</button
+          ><span aria-hidden="true">/</span
+          ><button
+            type="button"
+            data-lang="en"
+            lang="en"
+            aria-label="English"
+            aria-pressed="false"
+          >
+            EN
+          </button>
+        </div>
       </div>
+    </header></div>
       <main id="contenuti">
         <div class="page-header">
           <p class="page-tag">Conferenze & presentazioni</p>
@@ -409,7 +400,7 @@
       defer
       src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     ></script>
-    <script defer src="assets/conferenze-map.js?v=4"></script>
-    <script type="module" src="assets/site.mjs?v=4"></script>
+    <script defer src="assets/conferenze-map.js?v=5"></script>
+    <script type="module" src="assets/site.mjs?v=5"></script>
   </body>
 </html>

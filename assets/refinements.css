@@ -949,3 +949,9 @@ button:disabled {
     font-size: clamp(39px, 10.4vw, 70px);
   }
 }
+
+/* Menu su telefono: spazio per il titolo esteso degli ascolti. */
+@media (max-width: 640px) {
+  .nav-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 12px; }
+  .nav-links a { min-width: 0; }
+}

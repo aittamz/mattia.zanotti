@@ -3,7 +3,7 @@
  * Carica i contenuti, cambia lingua e collega mappa e ricerca.
  * Per modificare i testi usa content/site.json, non questo file.
  */
-import { header, footer, body, local, ui, validate } from "./render.mjs";
+import { header, footer, body, local, ui, validate } from "./render.mjs?v=5";
 const page = document.body.dataset.page;
 const params = new URLSearchParams(location.search);
 let lang = params.get("lang");
