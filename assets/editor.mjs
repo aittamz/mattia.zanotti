@@ -1,0 +1,39 @@
+import {validate} from './render.mjs';
+const key='mz-content-draft';
+let data,section='home';
+const $=id=>document.getElementById(id),status=message=>{$('editor-status').textContent=message;};
+const schema={
+ home:{label:'Home',fields:{kicker:['Frase sotto il nome','bi'],intro:['Presentazione breve','bi'],news:['In evidenza (lascia vuoto per nascondere)','bi'],music:['Musica e produzione','bi'],newsletter:['Descrizione newsletter','bi']}},
+ publications:{label:'Pubblicazioni',template:()=>({title:'',meta:'',tag:{it:'',en:''},url:''}),fields:{title:['Titolo originale','text'],meta:['Anno, rivista e riferimenti','text'],tag:['Etichetta','bi'],url:['Link (https://…)','url']}},
+ projects:{label:'Progetti',template:()=>({title:'',description:{it:'',en:''},tag:{it:'',en:''},url:''}),fields:{title:['Nome del progetto','text'],description:['Descrizione','bi'],tag:['Etichetta','bi'],url:['Link (https://…)','url']}},
+ podcasts:{label:'Podcast',template:()=>({title:'',meta:{it:'',en:''},description:{it:'',en:''},url:''}),fields:{title:['Titolo originale della serie','text'],meta:['Autore, istituzione e piattaforma','bi'],description:['Descrizione','bi'],url:['Link per ascoltare (https://…)','url']}},
+ conferences:{label:'Conferenze',template:()=>({city:{it:'',en:''},country:'Italia',lat:0,lng:0,papers:[]}),fields:{city:['Città e paese','bi'],country:['Paese (in italiano, per il conteggio)','text'],lat:['Latitudine (da −90 a 90)','number'],lng:['Longitudine (da −180 a 180)','number']}},
+ links:{label:'Contatti e link',fields:{email:['Email','email'],orcid:['ORCID','url'],scholar:['Google Scholar','url'],github:['GitHub','url'],newsletter:['Newsletter','url']}}
+};
+const paperSchema={title:['Titolo originale dell’intervento','text'],conf:['Convegno e collaboratori','bi'],year:['Mese e anno (es. Nov 2026 / Nov 2026)','bi']};
+function save(){try{localStorage.setItem(key,JSON.stringify(data));status('Bozza salvata in questo browser. Per pubblicarla, copia il file su GitHub.');}catch{status('Salvataggio locale non disponibile: scarica il file per conservare le modifiche.');}}
+function button(label,action,cls=''){const b=document.createElement('button');b.type='button';b.textContent=label;b.className=cls;b.addEventListener('click',action);return b;}
+function field(container,obj,key,label,type){
+ if(type==='bi'){const group=document.createElement('fieldset'),legend=document.createElement('legend');legend.textContent=label;group.append(legend);const row=document.createElement('div');row.className='bilingual-fields';for(const l of ['it','en'])field(row,obj[key],l,l==='it'?'Italiano':'English','text');group.append(row);container.append(group);return;}
+ const wrapper=document.createElement('label');wrapper.className='editor-field';const title=document.createElement('span');title.textContent=label;const input=document.createElement(type==='text'?'textarea':'input');if(type!=='text')input.type=type;else input.rows=String(obj[key]).length>150?4:2;
+ if(type==='number'){input.step='any';input.min=key==='lat'?'-90':'-180';input.max=key==='lat'?'90':'180';}
+ input.value=obj[key];input.addEventListener('input',()=>{obj[key]=type==='number'?input.valueAsNumber:input.value;save();});wrapper.append(title,input);container.append(wrapper);
+}
+function listControls(array,index,parent){const controls=document.createElement('div');controls.className='entry-controls';const up=button('↑ Sposta su',()=>{[array[index-1],array[index]]=[array[index],array[index-1]];save();renderFields();});up.disabled=index===0;const down=button('↓ Sposta giù',()=>{[array[index+1],array[index]]=[array[index],array[index+1]];save();renderFields();});down.disabled=index===array.length-1;controls.append(up,down,button('Rimuovi',()=>{if(confirm('Rimuovere questa voce dalla bozza?')){array.splice(index,1);save();renderFields();}}));parent.append(controls);}
+function renderFields(){
+ const root=$('editor-fields');root.replaceChildren();const s=schema[section];const h=document.createElement('h2');h.textContent=s.label;root.append(h);
+ if(!s.template){for(const [k,[label,type]] of Object.entries(s.fields))field(root,data[section],k,label,type);return;}
+ const add=()=>{data[section].push(s.template());save();renderFields();root.lastElementChild?.scrollIntoView({block:'start',behavior:'smooth'});};root.append(button('+ Aggiungi '+({publications:'pubblicazione',projects:'progetto',podcasts:'podcast',conferences:'città'}[section]),add,'add-button'));
+ data[section].forEach((obj,i)=>{const details=document.createElement('details');details.className='editor-entry';details.open=i===data[section].length-1;const summary=document.createElement('summary');summary.textContent=`${String(i+1).padStart(2,'0')} / ${obj.title||obj.city?.it||'Nuova voce'}`;details.append(summary);const content=document.createElement('div');content.className='entry-fields';for(const [k,[label,type]] of Object.entries(s.fields))field(content,obj,k,label,type);
+ if(section==='conferences'){const heading=document.createElement('h3');heading.textContent='Interventi in questa città';content.append(heading);obj.papers.forEach((p,j)=>{const group=document.createElement('fieldset'),legend=document.createElement('legend');legend.textContent='Intervento '+(j+1);group.append(legend);for(const [k,[label,type]] of Object.entries(paperSchema))field(group,p,k,label,type);listControls(obj.papers,j,group);content.append(group);});content.append(button('+ Aggiungi intervento',()=>{obj.papers.push({title:'',conf:{it:'',en:''},year:{it:'Nov 2026',en:'Nov 2026'}});save();renderFields();}));}
+ listControls(data[section],i,content);details.append(content);root.append(details);});
+}
+function serialized(){validate(data);return JSON.stringify(data,null,2)+'\n';}
+function act(fn){return async()=>{try{await fn();}catch(e){status('Non pronto: '+e.message);}};}
+$('preview').addEventListener('click',act(()=>{serialized();localStorage.setItem(key,JSON.stringify(data));window.open('index.html?preview=1','mz-preview');}));
+$('copy').addEventListener('click',act(async()=>{await navigator.clipboard.writeText(serialized());status('File copiato. Apri il file su GitHub, seleziona tutto, incolla e salva con “Commit changes”.');}));
+$('download').addEventListener('click',act(()=>{const url=URL.createObjectURL(new Blob([serialized()],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='site.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('File scaricato. La bozza non è ancora pubblicata.');}));
+$('import').addEventListener('change',act(async()=>{const file=$('import').files[0];if(!file)return;const imported=validate(JSON.parse(await file.text()));data=imported;save();renderFields();$('import').value='';}));
+async function published(){const r=await fetch('content/site.json',{cache:'no-cache'});if(!r.ok)throw Error('Caricamento non riuscito. Riprova.');return validate(await r.json());}
+$('reset').addEventListener('click',act(async()=>{if(!confirm('Sostituire la bozza con i contenuti attualmente pubblicati?'))return;data=await published();save();renderFields();}));
+try{const current=await published();let draft;try{draft=localStorage.getItem(key);if(draft)draft=validate(JSON.parse(draft));}catch{draft=null;}data=draft||current;status(draft?'Bozza precedente recuperata da questo browser. Non è ancora pubblicata.':'Contenuti pubblicati caricati. Puoi iniziare a modificare.');const tabs=document.querySelector('.editor-tabs');for(const [key,s] of Object.entries(schema)){const b=button(s.label,()=>{section=key;document.querySelectorAll('.editor-tabs button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.section===key)));renderFields();});b.dataset.section=key;b.setAttribute('aria-pressed',String(section===key));tabs.append(b);}renderFields();}catch(e){status(e.message);}

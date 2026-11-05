@@ -1,0 +1,465 @@
+{
+  "home": {
+    "kicker": {
+      "it": "Musica, media, piattaforme\ne le culture che li attraversano.",
+      "en": "Music, media, platforms\nand the cultures that connect them."
+    },
+    "intro": {
+      "it": "Ricercatore, musicologo & altre cose. Studio come e se le logiche delle piattaforme digitali trasformano la vita musicale quotidiana.",
+      "en": "Researcher, musicologist & other things. I study how—and whether—the logics of digital platforms transform everyday musical life."
+    },
+    "news": {
+      "it": "PLATFORMED! — proposta inviata a Fondazione Cariplo, per il Bando Giovani Ricercatori 2026.",
+      "en": "PLATFORMED! — proposal submitted to Fondazione Cariplo’s 2026 Young Researchers call."
+    },
+    "music": {
+      "it": "Scena indipendente. Progetti, release, live ed eventi.",
+      "en": "The independent scene. Projects, releases, live music and events."
+    },
+    "newsletter": {
+      "it": "Tuttimieistupidintenti. Aggiornamenti su ricerca e progetti. Non esattamente sempre aggiornata :).",
+      "en": "Tuttimieistupidintenti. Research and project updates. Not exactly updated all the time :)."
+    }
+  },
+  "publications": [
+    {
+      "title": "Casa mia o casa tua?: Le piattaforme e l’identità performata dalla e nella trap in Italia.",
+      "meta": "2026 · Scritture Migranti 19: 83–107 · DOI: 10.6092/issn.2035-7141/23792",
+      "tag": {
+        "it": "peer reviewed",
+        "en": "peer reviewed"
+      },
+      "url": "https://doi.org/10.6092/issn.2035-7141/23792"
+    },
+    {
+      "title": "Similarities and Divergences between Music Production and TikTok in the Memes Era",
+      "meta": "2025 · Musicologica Austriaca – TikTok-Music-Cultures: Perspectives on the Study of Musicking Practices On & Through TikTok",
+      "tag": {
+        "it": "peer reviewed",
+        "en": "peer reviewed"
+      },
+      "url": "https://doi.org/10.71045/musau.2025.SI.21"
+    },
+    {
+      "title": "Il paradosso della musica piattaformizzata: il peso di una (ri)mediazione.",
+      "meta": "2025 · Figure retoriche. Tradizioni, discipline, contesti: 963–978",
+      "tag": {
+        "it": "capitolo · open access",
+        "en": "book chapter · open access"
+      },
+      "url": "https://zenodo.org/records/15673839"
+    }
+  ],
+  "projects": [
+    {
+      "title": "MAPSEM",
+      "description": {
+        "it": "Mapping Printed Sources of Entertainment Music in Twentieth-Century Italy · visualizzazioni di dati",
+        "en": "Mapping Printed Sources of Entertainment Music in Twentieth-Century Italy · data visualizations"
+      },
+      "tag": {
+        "it": "Archivio",
+        "en": "Archive"
+      },
+      "url": "https://aittamz.github.io/MAPSEM/"
+    },
+    {
+      "title": "La Città della Canzone",
+      "description": {
+        "it": "Workshop di scrittura collettiva · LCdC",
+        "en": "Collective songwriting workshop · LCdC"
+      },
+      "tag": {
+        "it": "Annuale",
+        "en": "Annual"
+      },
+      "url": "https://lacittadellacanzone.it/"
+    }
+  ],
+  "podcasts": [
+    {
+      "title": "Dialoghi sul processo creativo delle pratiche musicali viventi",
+      "meta": {
+        "it": "A cura di Mattia Zanotti, docente a contratto presso l’Università di Parma · Edunext",
+        "en": "Curated by Mattia Zanotti, adjunct lecturer at the University of Parma · Edunext"
+      },
+      "description": {
+        "it": "Il podcast nasce all’interno della riflessione sugli approcci dialogici sviluppata dal gruppo di ricerca del Dipartimento DALM – Dialogic Approaches to Living Musics. Ogni puntata mette a confronto musicisti, compositori, autori e ricercatori intorno al processo creativo.",
+        "en": "The podcast grows out of the work on dialogic approaches developed by the Department’s DALM research group – Dialogic Approaches to Living Musics. Each episode brings musicians, composers, writers and researchers into conversation about the creative process."
+      },
+      "url": "https://onair.edunext.eu/podcast/dialoghi-sul-processo-creativo-delle-pratiche-musicali-viventi"
+    }
+  ],
+  "conferences": [
+    {
+      "city": {
+        "it": "Berkeley, CA — USA",
+        "en": "Berkeley, CA — USA"
+      },
+      "lat": 37.8716,
+      "lng": -122.2727,
+      "papers": [
+        {
+          "title": "Musical(?) Data: Digital Methods and Popular Music Studies",
+          "conf": {
+            "it": "Clouds {} Streams // and Ground — UC Berkeley",
+            "en": "Clouds {} Streams // and Ground — UC Berkeley"
+          },
+          "year": {
+            "it": "Mar 2026",
+            "en": "Mar 2026"
+          }
+        }
+      ],
+      "country": "USA"
+    },
+    {
+      "city": {
+        "it": "Roma — Italia",
+        "en": "Rome — Italy"
+      },
+      "lat": 41.9028,
+      "lng": 12.4964,
+      "papers": [
+        {
+          "title": "Mappare la filiera dell'intrattenimento musicale: il database MAPSEM",
+          "conf": {
+            "it": "CHANGES PNRR (con Prof. Corbella)",
+            "en": "CHANGES PNRR (with Prof. Corbella)"
+          },
+          "year": {
+            "it": "Gen 2026",
+            "en": "Jan 2026"
+          }
+        }
+      ],
+      "country": "Italia"
+    },
+    {
+      "city": {
+        "it": "Pisa — Italia",
+        "en": "Pisa — Italy"
+      },
+      "lat": 43.7228,
+      "lng": 10.4017,
+      "papers": [
+        {
+          "title": "Music on Paper, Music on Screen: Adaptations, Dance Music and Cinema in MAPSEM",
+          "conf": {
+            "it": "FILMUSP — University of Pisa",
+            "en": "FILMUSP — University of Pisa"
+          },
+          "year": {
+            "it": "Set 2025",
+            "en": "Sep 2025"
+          }
+        }
+      ],
+      "country": "Italia"
+    },
+    {
+      "city": {
+        "it": "Lisbona — Portogallo",
+        "en": "Lisbon — Portugal"
+      },
+      "lat": 38.7169,
+      "lng": -9.1399,
+      "papers": [
+        {
+          "title": "What if the Musical Genre is no Longer Enough? Digital Methods and the Illusion of Categorisation",
+          "conf": {
+            "it": "MOCREN 2025 — Nova ULisboa (con Dott. Merlini)",
+            "en": "MOCREN 2025 — Nova ULisboa (with Dr. Merlini)"
+          },
+          "year": {
+            "it": "Giu 2025",
+            "en": "Jun 2025"
+          }
+        },
+        {
+          "title": "Navigating Residual Media: Sheet Music Publishing and Early 20th Century Musical Entertainment",
+          "conf": {
+            "it": "NECS 2025 (con Prof. Corbella)",
+            "en": "NECS 2025 (with Prof. Corbella)"
+          },
+          "year": {
+            "it": "Giu 2025",
+            "en": "Jun 2025"
+          }
+        }
+      ],
+      "country": "Portogallo"
+    },
+    {
+      "city": {
+        "it": "Denver, CO — USA",
+        "en": "Denver, CO — USA"
+      },
+      "lat": 39.7392,
+      "lng": -104.9903,
+      "papers": [
+        {
+          "title": "Unpacking Micromaterials: A Digital Methods Approach to Analyzing Popular Music on Streaming Platforms",
+          "conf": {
+            "it": "Changing Mediations of Music — University of Denver",
+            "en": "Changing Mediations of Music — University of Denver"
+          },
+          "year": {
+            "it": "Giu 2025",
+            "en": "Jun 2025"
+          }
+        }
+      ],
+      "country": "USA"
+    },
+    {
+      "city": {
+        "it": "Adelaide — Australia",
+        "en": "Adelaide — Australia"
+      },
+      "lat": -34.9285,
+      "lng": 138.6007,
+      "papers": [
+        {
+          "title": "A (new kind of) mediation: The rhetoric of music streaming platforms",
+          "conf": {
+            "it": "Music and Mediation Conference — University of Adelaide",
+            "en": "Music and Mediation Conference — University of Adelaide"
+          },
+          "year": {
+            "it": "Giu 2025",
+            "en": "Jun 2025"
+          }
+        }
+      ],
+      "country": "Australia"
+    },
+    {
+      "city": {
+        "it": "Zurigo — Svizzera",
+        "en": "Zurich — Switzerland"
+      },
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "papers": [
+        {
+          "title": "Spotify, Genres and the Illusion of Categorisation",
+          "conf": {
+            "it": "6° IASPM DA-CH (con Dott. Merlini)",
+            "en": "6° IASPM DA-CH (with Dr. Merlini)"
+          },
+          "year": {
+            "it": "Nov 2024",
+            "en": "Nov 2024"
+          }
+        }
+      ],
+      "country": "Svizzera"
+    },
+    {
+      "city": {
+        "it": "Bologna — Italia",
+        "en": "Bologna — Italy"
+      },
+      "lat": 44.4949,
+      "lng": 11.3426,
+      "papers": [
+        {
+          "title": "Un approccio pratico (in)seguendo il medium: digital methods e popular music studies",
+          "conf": {
+            "it": "IASPM Italiana",
+            "en": "IASPM Italiana"
+          },
+          "year": {
+            "it": "Nov 2024",
+            "en": "Nov 2024"
+          }
+        },
+        {
+          "title": "Spo(t and iden)tify: metodi digitali, piattaforme e popular music",
+          "conf": {
+            "it": "Studi culturali in Italia",
+            "en": "Cultural Studies in Italy"
+          },
+          "year": {
+            "it": "Set 2024",
+            "en": "Sep 2024"
+          }
+        },
+        {
+          "title": "Micromaterialità della musica digitalizzata: una prospettiva multipiattaforma",
+          "conf": {
+            "it": "XXVIII Incontro dei Dottorati",
+            "en": "28th Doctoral Meeting"
+          },
+          "year": {
+            "it": "Mag 2024",
+            "en": "May 2024"
+          }
+        }
+      ],
+      "country": "Italia"
+    },
+    {
+      "city": {
+        "it": "Cremona — Italia",
+        "en": "Cremona — Italy"
+      },
+      "lat": 45.1333,
+      "lng": 10.0167,
+      "papers": [
+        {
+          "title": "Micromaterialità della musica digitalizzata, metodologie e prospettive multipiattaforma",
+          "conf": {
+            "it": "Giornata dei dottorandi",
+            "en": "Doctoral research day"
+          },
+          "year": {
+            "it": "Giu 2024",
+            "en": "Jun 2024"
+          }
+        },
+        {
+          "title": "Trap: tra TikTok, Spotify e meme",
+          "conf": {
+            "it": "Visioni Sonore Spring School",
+            "en": "Visioni Sonore Spring School"
+          },
+          "year": {
+            "it": "Mar 2024",
+            "en": "Mar 2024"
+          }
+        },
+        {
+          "title": "It's (a) Trap. Fotografia musicale di un genere (non solo musicale)",
+          "conf": {
+            "it": "Musicology in Progress",
+            "en": "Musicology in Progress"
+          },
+          "year": {
+            "it": "Apr 2023",
+            "en": "Apr 2023"
+          }
+        }
+      ],
+      "country": "Italia"
+    },
+    {
+      "city": {
+        "it": "Udine — Italia",
+        "en": "Udine — Italy"
+      },
+      "lat": 46.0711,
+      "lng": 13.2353,
+      "papers": [
+        {
+          "title": "È l'ora di piangere? Un viaggio digitale tra tempo, spazio, meme, internet e piattaforme",
+          "conf": {
+            "it": "Viaggi in musica — Giornata di studi",
+            "en": "Viaggi in musica — Study day"
+          },
+          "year": {
+            "it": "Nov 2023",
+            "en": "Nov 2023"
+          }
+        }
+      ],
+      "country": "Italia"
+    },
+    {
+      "city": {
+        "it": "Torino — Italia",
+        "en": "Turin — Italy"
+      },
+      "lat": 45.0703,
+      "lng": 7.6869,
+      "papers": [
+        {
+          "title": "Spotify for Musicologists. Streaming, analisi, brani e playlist",
+          "conf": {
+            "it": "Giovani_Fuoriclasse IASPM-ITA",
+            "en": "Giovani_Fuoriclasse IASPM-ITA"
+          },
+          "year": {
+            "it": "Feb 2023",
+            "en": "Feb 2023"
+          }
+        }
+      ],
+      "country": "Italia"
+    },
+    {
+      "city": {
+        "it": "Seinäjoki — Finlandia",
+        "en": "Seinäjoki — Finland"
+      },
+      "lat": 62.7902,
+      "lng": 22.8403,
+      "papers": [
+        {
+          "title": "Similarities and Divergences Between Music Production and TikTok in the Memes Era",
+          "conf": {
+            "it": "Doctoral Seminar on the Cultural Study of Music",
+            "en": "Doctoral Seminar on the Cultural Study of Music"
+          },
+          "year": {
+            "it": "Ott 2022",
+            "en": "Oct 2022"
+          }
+        }
+      ],
+      "country": "Finlandia"
+    },
+    {
+      "city": {
+        "it": "Graz — Austria",
+        "en": "Graz — Austria"
+      },
+      "lat": 47.0707,
+      "lng": 15.4395,
+      "papers": [
+        {
+          "title": "Same songwriter, different dialogues: three encounters with Alberto Bianco",
+          "conf": {
+            "it": "37th European Seminar in Ethnomusicology (ESEM)",
+            "en": "37th European Seminar in Ethnomusicology (ESEM)"
+          },
+          "year": {
+            "it": "Set 2022",
+            "en": "Sep 2022"
+          }
+        }
+      ],
+      "country": "Austria"
+    },
+    {
+      "city": {
+        "it": "Vienna — Austria",
+        "en": "Vienna — Austria"
+      },
+      "lat": 48.2082,
+      "lng": 16.3738,
+      "papers": [
+        {
+          "title": "Similarities and Divergences Between Music Production and TikTok in the Memes Era",
+          "conf": {
+            "it": "TikTok–Music–Cultures — Università di Vienna",
+            "en": "TikTok–Music–Cultures — University of Vienna"
+          },
+          "year": {
+            "it": "Mag 2022",
+            "en": "May 2022"
+          }
+        }
+      ],
+      "country": "Austria"
+    }
+  ],
+  "links": {
+    "email": "mattia_zanotti@hotmail.it",
+    "orcid": "https://orcid.org/0000-0002-4154-3250/",
+    "scholar": "https://scholar.google.com/citations?hl=it&user=FXp7PnEAAAAJ/",
+    "github": "https://github.com/aittamz",
+    "newsletter": "https://substack.com/@tuttimieistupidintenti"
+  }
+}
