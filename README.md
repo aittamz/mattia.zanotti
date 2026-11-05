@@ -1,17 +1,21 @@
 # Mattia Zanotti — sito personale
 
-Sito statico su GitHub Pages. I contenuti pubblici sono in `content/site.json`.
+Sito statico su GitHub Pages, con contenuti IT/EN e materiali originali dell’autore.
 
-L’editor non è pubblicato sul sito. Per aggiornare direttamente i contenuti occorre accedere al repository con il proprio account GitHub e i relativi permessi di scrittura.
+**Per aggiornare il sito, parti da [MODIFICARE-IL-SITO.md](MODIFICARE-IL-SITO.md).** La guida contiene esempi per modificare testi, aggiungere pubblicazioni, inserire player e aggiornare conferenze.
 
-## Struttura
+## File principali
 
-- `content/site.json`: testi IT/EN, pubblicazioni, progetti, podcast, conferenze e contatti.
-- `assets/render.mjs`: componenti e validazione.
-- `assets/site.mjs`: caricamento, lingua e ricerca.
-- `assets/material-digital.css` e `assets/refinements.css`: grafica.
+- `content/site.json`: contenuti ordinari, comprese le schede Bandcamp, YouTube e degli eventi.
+- `assets/labels.mjs`: menu, pulsanti e titoli dell’interfaccia in italiano e inglese.
+- `assets/render.mjs`: impaginazione, divisa in funzioni commentate.
+- `assets/site.mjs`: caricamento, cambio lingua e ricerca.
+- `assets/refinements.css`: grafica delle pagine aggiornate e dei player.
+- `assets/material-digital.css`: base grafica condivisa, usata anche dal CV.
 - `assets/conferenze-map.js`: mappa con cartografia locale, senza API key.
-- `scripts/build.mjs`: aggiorna la versione HTML italiana di riserva.
-- `scripts/check.mjs`: controlli di rendering e dati.
+- `scripts/build.mjs`: rigenera l’HTML italiano di riserva.
+- `scripts/check.mjs`: controlli su dati, rendering, collegamenti e player.
 
-Il CV non è stato rielaborato. MAPSEM vive nel repository separato `aittamz/MAPSEM`.
+La pagina degli ascolti è `ascolti.html`. `PODCAST.html` reindirizza alla nuova pagina conservando i vecchi collegamenti. Il podcast esistente rimane presente accanto alla musica e ai video. La pagina `eventi.html` raccoglie festival e progetti culturali.
+
+L’editor non è pubblicato: per scrivere sul repository occorrono l’account GitHub autorizzato e i relativi permessi. Il CV non è stato rielaborato. MAPSEM vive nel repository separato `aittamz/MAPSEM`.

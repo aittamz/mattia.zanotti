@@ -461,5 +461,58 @@
     "scholar": "https://scholar.google.com/citations?hl=it&user=FXp7PnEAAAAJ/",
     "github": "https://github.com/aittamz",
     "newsletter": "https://substack.com/@tuttimieistupidintenti"
-  }
+  },
+  "listening": [
+    {
+      "type": "bandcamp",
+      "title": "Tutto lascia traccia",
+      "meta": {
+        "it": "di noi stessi e altri mondi · Album · 2024",
+        "en": "di noi stessi e altri mondi · Album · 2024"
+      },
+      "url": "https://dinoistessiealtrimondi.bandcamp.com/album/tutto-lascia-traccia",
+      "albumId": "746872014"
+    },
+    {
+      "type": "youtube-playlist",
+      "title": "Samples",
+      "meta": {
+        "it": "Playlist YouTube",
+        "en": "YouTube playlist"
+      },
+      "url": "https://www.youtube.com/playlist?list=PL5mbVOrAf0mWJyvLdg-9pRJZgqVHs3S-E",
+      "playlistId": "PL5mbVOrAf0mWJyvLdg-9pRJZgqVHs3S-E"
+    }
+  ],
+  "events": [
+    {
+      "title": "indiEalet Music Festival",
+      "period": "2015–2019",
+      "role": {
+        "it": "Direzione artistica e organizzativa",
+        "en": "Artistic and organizational direction"
+      },
+      "description": {
+        "it": "Festival di musica indipendente.",
+        "en": "Independent music festival."
+      },
+      "url": "https://www.facebook.com/indiealetmusicfest"
+    },
+    {
+      "title": "Sottovuoto",
+      "description": {
+        "it": "Eventi culturali tra Brescia e Bergamo.",
+        "en": "Cultural events in Brescia and Bergamo."
+      },
+      "url": "https://www.facebook.com/sottovuoto.eventi"
+    },
+    {
+      "title": "Quasiadatti — la festa indipendente",
+      "description": {
+        "it": "Un progetto dedicato alla musica alternativa italiana.",
+        "en": "A project dedicated to Italian alternative music."
+      },
+      "url": "https://www.facebook.com/profile.php?id=100046406907171"
+    }
+  ]
 }
