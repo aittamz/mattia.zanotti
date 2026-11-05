@@ -5,7 +5,7 @@ let lang=params.get('lang');
 try{lang=lang||localStorage.getItem('mz-lang');}catch{}
 if(!['it','en'].includes(lang))lang='it';
 let data,map;
-const preview=params.get('preview')==='1';
+const preview=false;
 function remember(){try{localStorage.setItem('mz-lang',lang);}catch{}document.documentElement.lang=lang;}
 function show(){
  if(map){map.remove();map=null;}
@@ -35,7 +35,6 @@ function mountMap(){
  });
 }
 try{
- if(preview){try{const draft=localStorage.getItem('mz-content-draft');if(draft)data=validate(JSON.parse(draft));}catch{}}
  if(!data){const r=await fetch('content/site.json',{cache:'no-cache'});if(!r.ok)throw Error(r.status);data=validate(await r.json());}
  show();
 }catch(e){console.error('Site content:',e);document.documentElement.lang='it';document.querySelectorAll('[data-lang]').forEach(b=>b.disabled=true);const warning=document.createElement('p');warning.className='preview-banner';warning.textContent='Non è stato possibile caricare gli aggiornamenti. Sono mostrati i contenuti di base in italiano. Ricarica la pagina per riprovare.';document.getElementById('contenuti').prepend(warning);}
