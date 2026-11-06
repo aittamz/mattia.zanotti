@@ -3,7 +3,7 @@
  * Carica i contenuti, cambia lingua e collega mappa e ricerca.
  * Per modificare i testi usa content/site.json, non questo file.
  */
-import { header, footer, body, local, ui, validate } from "./render.mjs?v=5";
+import { header, footer, body, local, ui, validate } from "./render.mjs?v=6";
 const page = document.body.dataset.page;
 const params = new URLSearchParams(location.search);
 let lang = params.get("lang");
@@ -38,7 +38,7 @@ function show() {
       listening: ui(lang).listeningTitle,
       podcast: ui(lang).listeningTitle,
       conferences: ui(lang).conferences,
-      events: ui(lang).eventsTitle,
+      events: ui(lang).events,
     }[page] + " — Mattia Zanotti";
   document.querySelector('meta[name="description"]').content = local(
     page === "home"

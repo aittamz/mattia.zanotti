@@ -732,14 +732,11 @@ h1 {
 }
 .archive-label {
   position: absolute;
-  left: 40%;
+  right: 2%;
   bottom: 1%;
   font-size: 9px;
   letter-spacing: 2px;
-  padding: 7px 10px;
-  background: var(--orange);
-  color: #10110f;
-  transform: rotate(-2deg);
+  color: var(--paper);
   z-index: 9;
   white-space: nowrap;
 }

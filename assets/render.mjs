@@ -4,7 +4,7 @@
  * Menu e pulsanti sono in assets/labels.mjs.
  * Qui trovi una funzione per ciascuna pagina e i blocchi condivisi.
  */
-import { labels } from "./labels.mjs?v=5";
+import { labels } from "./labels.mjs?v=6";
 
 export const escape = (value) =>
   String(value ?? "").replace(
@@ -564,7 +564,7 @@ function renderEvents(data, lang) {
         ${lang === "it" ? "LIVE / CULTURE / INCONTRI" : "LIVE / CULTURE / ENCOUNTERS"}
       </p>
       <h1 class="page-title">
-        ${lang === "it" ? 'FARE<br><span class="acc-terra">INCONTRARE</span>' : 'BRINGING<br><span class="acc-terra">TOGETHER</span>'}<span
+        ${lang === "it" ? 'FARE /<br>INCONTRARE /<br><span class="acc-terra">INVENTARE</span>' : 'MAKE /<br>GATHER /<br><span class="acc-terra">IMAGINE</span>'}<span
           class="name-period"
           >.</span
         >
