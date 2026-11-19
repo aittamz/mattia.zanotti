@@ -14,6 +14,9 @@ const groups = {
     [["Sfera Ebbasta · artisti e tag di genere", "Sfera Ebbasta · artists and genre tags"], ["5.2", "5.3"],
       ["I legami vengono dalla cronologia di ascolto aggregata elaborata da Spotify. Sfera Ebbasta e Ghali compaiono in zone distanti; la seconda tavola sostituisce ai nomi i tag attribuiti dalla piattaforma.",
        "Links come from aggregate listening history as processed by Spotify. Sfera Ebbasta and Ghali appear in different parts of the graph. The second figure replaces artist names with platform-assigned tags."]],
+    [["Trap italiana · classificazione su Spotify", "Italian trap · Spotify classification"], ["5.4", "5.5"],
+      ["Il repertorio di artisti classificati come trap italiana e i tag della playlist The Sound of Italian Trap mostrano la compresenza di etichette diverse.",
+       "The artists classified as Italian trap and the tags in The Sound of Italian Trap playlist show how multiple labels coexist."]],
   ],
   "italo-disco": [
     [["Righeira · rete e tre cluster", "Righeira · network and three clusters"], ["5.13", "5.14", "5.15", "5.16"],
@@ -43,11 +46,13 @@ const groups = {
     [["«La noia» · rete YouTube", "“La noia” · YouTube network"], ["6.25"],
       ["La ricerca iniziale «angelina mango la noia» serve a costruire la rete di co-commenting. Il cluster azzurro comprende canali esteri legati all’Eurovision.",
        "The initial query “angelina mango la noia” is used to build the co-commenting network. The light-blue cluster includes foreign Eurovision-related channels."]],
-    [["«La noia» e «Tuta Gold» · co-hashtag TikTok", "“La noia” and “Tuta Gold” · TikTok co-hashtags"], ["6.30", "6.34"],
-      ["Un arco rappresenta la compresenza di hashtag nello stesso post. Nei campioni analizzati (428 contenuti per «La noia» e 537 per «Tuta Gold»), Sanremo forma un addensamento riconoscibile nel primo grafo e confluisce nel cluster centrale del secondo.",
-       "An edge represents hashtags appearing in the same post. In the samples analysed (428 items for “La noia” and 537 for “Tuta Gold”), Sanremo forms a distinct grouping in the first graph and merges into the central cluster in the second."]],
+
   ],
   "alt-z": [
+    [["Alt Z · tag nelle due playlist", "Alt Z · tags across the two playlists"], ["7.3"],
+      ["SpotiGeM visualizza la costellazione di tag: blu per The Sound of Alt Z, rosso per Intro to Alt Z. La presenza ricorrente di Alt Z lascia aperti i confini musicali dell’etichetta.",
+       "SpotiGeM visualises the constellation of tags: blue for The Sound of Alt Z, red for Intro to Alt Z. The recurring Alt Z tag leaves the musical boundaries of the label open."]],
+
     [["Nessa Barrett · rete Spotify", "Nessa Barrett · Spotify network"], ["7.4"],
       ["La tesi usa Nessa Barrett come punto di partenza per verificare se nella rete compaiono i nomi associati a una prima definizione di Alt Z. Nel campione discusso quei nomi non emergono.",
        "The dissertation starts from Nessa Barrett to see whether artists named in an initial definition of Alt Z appear in her listening network. Those names do not emerge in the sample discussed."]],
@@ -69,16 +74,19 @@ export function renderNetworks(section, lang) {
     ${groups[section].map(([title, figures, caption]) => `<details class="thesis-figure">
       <summary>${t(title)} · ${figures.length === 1 ? "Fig." : en ? "Figs." : "Figg."} ${figures.join(" / ")}</summary>
       <p>${t(caption)}</p>
-      <div class="thesis-figure-grid">${figures.map((number) => {
-        const path = `assets/thesis-figures/${number}.webp`;
-        const label = `${en ? "Figure" : "Figura"} ${number}`;
-        return `<figure><a href="${path}"><img loading="lazy" src="${path}" alt="${t(title)} · ${label}"></a>
-          <figcaption><a href="${path}">${label} · ${en ? "Open image" : "Apri immagine"}</a></figcaption></figure>`;
-      }).join("")}</div>
+      <div class="thesis-figure-grid">${figures.map((number) => renderThesisFigure(number, t(title), lang)).join("")}</div>
     </details>`).join("")}
     ${graph ? `<details data-spotify-network="${graph[0]}"><summary>${en ? "Browse Spotify links" : "Esplora i collegamenti Spotify"} · ${graph[1]}</summary>
       <div class="thesis-table-content"></div></details>` : ""}
   </section>`;
+}
+
+// Le tavole sono disponibili anche come file indipendenti per ingrandirle.
+export function renderThesisFigure(number, title, lang) {
+  const path = `assets/thesis-figures/${number}.webp`;
+  const label = `${lang === "en" ? "Figure" : "Figura"} ${number}`;
+  return `<figure><a href="${path}"><img loading="lazy" src="${path}" alt="${title} · ${label}"></a>
+    <figcaption><a href="${path}">${label} · ${title}</a></figcaption></figure>`;
 }
 
 let networkData;

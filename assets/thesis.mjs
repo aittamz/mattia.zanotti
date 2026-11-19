@@ -2,7 +2,8 @@
  * Schede della tesi e riferimenti all'archivio GitHub.
  * Ogni scheda indica le pagine stampate nella tesi e i materiali che può aprire.
  */
-import { mountSpotifyNetworks, renderNetworks } from "./thesis-networks.mjs?v=1";
+import { mountSpotifyNetworks, renderNetworks } from "./thesis-networks.mjs?v=2";
+import { renderSanremoComparison } from "./thesis-comparison.mjs?v=1";
 
 // Fissa le revisioni: Sanremo conserva il riferimento bibliografico del capitolo 6.
 const repository = "https://github.com/aittamz/INTERMEDIALITA_METODI_DIGITALI_IMMAGINARI_MUSICALI";
@@ -61,6 +62,7 @@ const sections = [
       "Explore Spotify streams and YouTube views for the 30 competition entries. Each snapshot of the “Sanremo 2024” playlist retains its order at the time of collection.",
     ],
     tables: ["festival", "sanremo-pre", "sanremo-post"],
+    jump: ["Confronta «La noia» e «Tuta Gold» ↓", "Compare “La noia” and “Tuta Gold” ↓"],
     links: [
       ["Dati SIAE e progetti Gephi", "SIAE data and Gephi projects", folder(sanremo + "/SANREMO_generale", cited)],
       ["Playlist Spotify", "Spotify playlists", folder(sanremo + "/SANREMO_Spotify", cited)],
@@ -75,25 +77,24 @@ const sections = [
   {
     id: "casi",
     title: ["«La noia» e «Tuta Gold»", "“La noia” and “Tuta Gold”"],
-    ref: ["Cap. 6 · da p. 221 · figg. 6.24–6.34", "Ch. 6 · from p. 221 · figs. 6.24–6.34"],
+    ref: ["Cap. 6 · pp. 221–236 · figg. 6.24–6.34", "Ch. 6 · pp. 221–236 · figs. 6.24–6.34"],
     description: [
-      "Le visualizzazioni mettono in relazione il lessico dei commenti YouTube e gli hashtag associati ai brani su TikTok. Sul sito sono consultabili le visualizzazioni aggregate.",
-      "Visualisations cover the vocabulary in YouTube comments and the TikTok hashtags associated with the tracks. Aggregate visualisations are available here.",
+      "Il confronto fra Angelina Mango e Mahmood segue i due brani dalla classifica del Festival a Spotify, YouTube e TikTok.",
+      "The comparison between Angelina Mango and Mahmood follows both tracks from the festival rankings to Spotify, YouTube and TikTok.",
     ],
     links: [
       ["La noia · co-hashtag TikTok", "La noia · TikTok co-hashtags", file(cases + "/TikTok_TT/LA NOIA_mango_ COHASHTAG_TT.png")],
       ["Tuta Gold · co-hashtag TikTok", "Tuta Gold · TikTok co-hashtags", file(cases + "/TikTok_TT/TUTA GOLD_Mahmood_CoHashtag_TT.png")],
       ["Tuta Gold · nuvola di parole", "Tuta Gold · word cloud", file(cases + "/YouTube_YT/mahmood cirrus.svg")],
     ],
-    image: [cases + "/YouTube_YT/Mango_cirrus.png", "Nuvola di parole dei commenti a La noia su YouTube", "Word cloud of YouTube comments on La noia"],
   },
   {
     id: "alt-z",
     title: ["Alt Z", "Alt Z"],
     ref: ["Conclusioni · da p. 237 · figg. 7.3–7.7", "Conclusion · from p. 237 · figs. 7.3–7.7"],
     description: [
-      "Le playlist Intro to Alt Z e The Sound of Alt Z mettono a disposizione brani, artisti e generi per confrontare l’uso dell’etichetta su Spotify. Completano il caso la rete di Nessa Barrett e i co-hashtag di #altzmusic.",
-      "The Intro to Alt Z and The Sound of Alt Z playlists provide tracks, artists and genres for comparing the label’s use on Spotify. The Nessa Barrett network and #altzmusic co-hashtags extend the case study.",
+      "Le playlist Intro to Alt Z e The Sound of Alt Z mettono a disposizione brani, artisti e generi per confrontare l’uso dell’etichetta su Spotify. La tesi passa dalle playlist alla rete di Nessa Barrett e ai co-hashtag di #altzmusic. Il caso mostra quanto sia difficile inferire un immaginario condiviso da tag, associazioni di ascolto e tracce di visibilità.",
+      "The Intro to Alt Z and The Sound of Alt Z playlists provide tracks, artists and genres for comparing the label’s use on Spotify. The dissertation moves from the playlists to Nessa Barrett’s network and #altzmusic co-hashtags. The case shows how difficult it is to infer a shared imaginary from tags, listening associations and traces of visibility.",
     ],
     tables: ["altz-intro", "altz-sound"],
     links: [
@@ -142,11 +143,13 @@ export function renderThesis(lang) {
     </nav>
     <section id="dati" aria-labelledby="titolo-dati">
       <h2 id="titolo-dati">${t(["Esplora i dati", "Explore the data"])}</h2>
-      ${sections.map(({id, title, ref, description, tables: keys = [], links, image, note}) => `<section class="thesis-case" id="${id}">
+      ${sections.map(({id, title, ref, description, tables: keys = [], links, image, note, jump}) => `<section class="thesis-case" id="${id}">
         <p class="thesis-meta">${t(ref)}</p><h3>${t(title)}</h3><p>${t(description)}</p>
+        ${jump ? `<p><a href="#casi">${t(jump)}</a></p>` : ""}
         ${keys.map((key) => `<details class="thesis-dataset" data-thesis-table="${key}">
           <summary>${t(tables[key][0])}</summary><div class="thesis-table-content"></div>
         </details>`).join("")}
+        ${id === "casi" ? renderSanremoComparison(lang) : ""}
         ${renderNetworks(id, lang)}
         ${image ? `<details class="thesis-figure"><summary>${t(image.slice(1))}</summary>
           <a href="${file(image[0])}"><img loading="lazy" src="${raw(image[0])}" alt="${t(image.slice(1))}"></a>

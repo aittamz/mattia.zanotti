@@ -219,3 +219,11 @@ python3 scripts/build-thesis-networks.py "/percorso/tesi.pdf" /percorso/clone-ar
 node scripts/build.mjs
 node scripts/check.mjs
 ```
+
+Il confronto fra «La noia» e «Tuta Gold» è in
+`assets/thesis-comparison.mjs`. I gruppi di figure seguono lo stesso ordine
+nei due brani: Angelina Mango, Mahmood. Le metriche di piattaforma
+riprendono le due righe del CSV SIAE/Spotify/YouTube già usato per la tabella
+dei trenta brani. Gli Insights del Sound ID hanno un pannello per «La noia»,
+come nel capitolo 6. Le altre figure di reti e tag si modificano in
+`assets/thesis-networks.mjs`.
