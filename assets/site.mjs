@@ -3,8 +3,8 @@
  * Carica i contenuti, cambia lingua e collega mappa e ricerca.
  * Per modificare i testi usa content/site.json, non questo file.
  */
-import { header, footer, body, local, ui, validate } from "./render.mjs?v=7";
-import { mountThesisTables, thesisIntro, thesisTitle } from "./thesis.mjs?v=1";
+import { header, footer, body, local, ui, validate } from "./render.mjs?v=8";
+import { mountThesisTables, thesisIntro, thesisTitle } from "./thesis.mjs?v=2";
 const page = document.body.dataset.page;
 const params = new URLSearchParams(location.search);
 let lang = params.get("lang");

@@ -2,6 +2,9 @@
  * Schede della tesi e riferimenti all'archivio GitHub.
  * Ogni scheda indica le pagine stampate nella tesi e i materiali che può aprire.
  */
+import { mountSpotifyNetworks, renderNetworks } from "./thesis-networks.mjs?v=1";
+
+// Fissa le revisioni: Sanremo conserva il riferimento bibliografico del capitolo 6.
 const repository = "https://github.com/aittamz/INTERMEDIALITA_METODI_DIGITALI_IMMAGINARI_MUSICALI";
 const current = "3b82cab0e0e2d5c039ff9250dc51e9e883fe7b76";
 const cited = "1202682c4a8670b83ca70eac078546037d085f85";
@@ -103,6 +106,7 @@ const sections = [
   },
 ];
 
+// Lo schema è condiviso da tutte le playlist, che hanno le stesse colonne selezionate.
 const trackColumns = [["Brano", "Track"], ["Artista", "Artist"], ["Generi", "Genres"]];
 const tables = {
   trap: [["Co-hashtag di #trap", "#trap co-hashtags"], [["Hashtag", "Hashtag"], ["Post", "Posts"]]],
@@ -125,6 +129,10 @@ export function renderThesis(lang) {
       <h1>${thesisTitle[lang]}</h1>
       <p class="thesis-title" lang="it">Processi di piattaformizzazione nella produzione intermediale della popular music: micromaterialità, metodi digitali e immaginari musicali</p>
       <p>${thesisIntro[lang]}</p>
+      <p>${t([
+        "Il capitolo 4 presenta gli strumenti e i criteri di raccolta. Nei capitoli 5 e 6 e nelle conclusioni, playlist, tag di genere, reti di ascolto, commenti e hashtag diventano tracce di mediazioni diverse. Le schede qui sotto indicano, caso per caso, che cosa misura ciascuna rete.",
+        "Chapter 4 explains the tools and collection criteria. In Chapters 5 and 6 and the conclusion, playlists, genre tags, listening networks, comments and hashtags become traces of different forms of mediation. The sections below explain what each network measures.",
+      ])}</p>
       <p class="thesis-links"><a href="${thesis}">${t(["Leggi la tesi su IRIS ↗", "Read the dissertation on IRIS ↗"])}</a>
         <a href="#dati">${t(["Esplora i dati ↓", "Explore the data ↓"])}</a>
         <a href="${repository}">${t(["Archivio GitHub ↗", "GitHub archive ↗"])}</a></p>
@@ -139,6 +147,7 @@ export function renderThesis(lang) {
         ${keys.map((key) => `<details class="thesis-dataset" data-thesis-table="${key}">
           <summary>${t(tables[key][0])}</summary><div class="thesis-table-content"></div>
         </details>`).join("")}
+        ${renderNetworks(id, lang)}
         ${image ? `<details class="thesis-figure"><summary>${t(image.slice(1))}</summary>
           <a href="${file(image[0])}"><img loading="lazy" src="${raw(image[0])}" alt="${t(image.slice(1))}"></a>
         </details>` : ""}
@@ -146,18 +155,21 @@ export function renderThesis(lang) {
         ${note ? `<p class="thesis-note">${t(note)}</p>` : ""}
       </section>`).join("")}
     </section>
-  </article>`;
+  </article>`.replace(/^[ \t]+$/gm, "");
 }
 
 let datasets;
 
 export function mountThesisTables(root, lang) {
+  mountSpotifyNetworks(root, lang);
+  // Il cambio lingua ricrea i pannelli: i listener vanno associati ai nuovi elementi.
   for (const panel of root.querySelectorAll("[data-thesis-table]")) {
     panel.addEventListener("toggle", async () => {
       if (!panel.open || panel.dataset.loaded) return;
       const box = panel.querySelector(".thesis-table-content");
       box.textContent = lang === "it" ? "Caricamento…" : "Loading…";
       try {
+        // Riusa la richiesta tra pannelli, ma permette il retry alla prossima apertura.
         datasets ??= fetch(new URL("../content/thesis-tables.json?v=1", import.meta.url))
           .then((response) => {
             if (!response.ok) throw new Error(response.status);
@@ -201,6 +213,7 @@ function showTable(box, key, rows, lang) {
   const more = box.querySelector("button");
   const tbody = box.querySelector("tbody");
   const count = box.querySelector(".thesis-count");
+  // La paginazione limita il DOM, anche per il corpus da oltre mille righe.
   const pageSize = 50;
   let limit = pageSize;
 

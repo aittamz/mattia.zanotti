@@ -4,7 +4,7 @@
  * Menu e pulsanti sono in assets/labels.mjs.
  * Qui trovi una funzione per ciascuna pagina e i blocchi condivisi.
  */
-import { renderThesis, thesisTitle } from "./thesis.mjs?v=1";
+import { renderThesis, thesisTitle } from "./thesis.mjs?v=2";
 import { labels } from "./labels.mjs?v=6";
 
 export const escape = (value) =>

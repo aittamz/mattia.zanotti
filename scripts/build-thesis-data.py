@@ -46,7 +46,8 @@ tables["trap"] = [[f"#{tag}", count] for tag, count in sorted(
     tags.items(), key=lambda item: (-item[1], item[0])
 )]
 
-# I brani in gara sono i nodi con metriche valorizzate nel foglio SIAE.
+# Il foglio SIAE elenca anche autori, compositori ed editori come nodi.
+# Le metriche identificate qui come stream e views sono valorizzate sui brani.
 tables["festival"] = [
     [label, streams, views]
     for label, streams, views in select(
@@ -55,12 +56,14 @@ tables["festival"] = [
     )
     if streams or views
 ]
+# La posizione di riga del CSV è l’ordine della playlist nella rilevazione.
 for phase in ("PRE", "POST"):
     tables[f"sanremo-{phase.lower()}"] = select(
         sanremo + f"SANREMO_Spotify/Playlist_{phase}_Sanremo/Sanremo 2024.csv",
         ("title", "artists", "genres"),
     )
 
+# Le due esportazioni Alt Z usano separatori diversi, verificati dalle intestazioni.
 for key, filename, delimiter in (
     ("altz-intro", "Intro to Alt Z_SPOTIFY_playlist.csv", ";"),
     ("altz-sound", "The Sound of Alt Z_SPOTIFY_playlist.csv", ","),

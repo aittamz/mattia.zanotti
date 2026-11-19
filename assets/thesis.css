@@ -6,6 +6,7 @@
 .thesis-page p { max-width: 74ch; line-height: 1.6; }
 .thesis-title { font-size: clamp(1.25rem, 3vw, 1.9rem); }
 .thesis-meta { color: var(--orange); font-size: .85rem; letter-spacing: .04em; }
+/* Sul mobile i link vanno a capo senza imporre larghezze al contenitore. */
 .thesis-index, .thesis-links { display: flex; flex-wrap: wrap; gap: .6rem 1.3rem; padding: 0; }
 .thesis-links { list-style: none; }
 .thesis-index { border-block: 1px solid var(--line); padding: 1rem 0; margin-top: 2rem; }
@@ -24,8 +25,19 @@
 }
 .thesis-table-content button { margin-top: .65rem; cursor: pointer; }
 .thesis-count, .thesis-note { color: var(--muted); font-size: .9rem; }
+/* Solo la tabella scorre. La pagina mantiene la larghezza del viewport. */
 .thesis-scroll { overflow: auto; max-height: 26rem; }
 .thesis-scroll table { border-collapse: collapse; width: 100%; }
 .thesis-scroll th, .thesis-scroll td { padding: .45rem .65rem; text-align: left; border-bottom: 1px solid var(--line); }
 .thesis-scroll th { position: sticky; top: 0; background: var(--black); }
 .thesis-figure img { display: block; max-width: 100%; height: auto; background: #fff; }
+
+/* Le immagini mantengono le proporzioni della tesi. Il link apre il ritaglio intero. */
+.thesis-networks h4 { margin: 1.25rem 0 .4rem; }
+.thesis-networks details > p { margin: .25rem .8rem .8rem; }
+.thesis-figure-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; padding: .8rem; }
+.thesis-figure-grid figure { margin: 0; min-width: 0; }
+.thesis-figure-grid figcaption { margin-top: .4rem; font-size: .9rem; }
+.thesis-networks select { max-width: 100%; padding: .4rem; color: var(--paper); background: var(--black); }
+.thesis-neighbours { max-height: 20rem; overflow: auto; padding-left: 1rem; }
+.thesis-neighbours li { margin: .3rem 0; }

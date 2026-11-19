@@ -197,3 +197,25 @@ I CSV usati per Sanremo coincidono con quelli della revisione citata nella
 tesi (`1202682c4a8670b83ca70eac078546037d085f85`). Per TikTok il generatore
 pubblica solo i conteggi dei co-hashtag. I commenti YouTube sono rappresentati
 dalle visualizzazioni esistenti.
+
+### Figure e reti
+
+In `assets/thesis-networks.mjs` ogni gruppo contiene il titolo bilingue,
+i numeri delle figure e una breve chiave di lettura. I numeri seguono le
+didascalie. Le pagine indicate nelle schede seguono la numerazione stampata.
+
+Le immagini WebP in `assets/thesis-figures/` sono ritagli delle tavole della
+tesi. `scripts/build-thesis-networks.py` documenta la corrispondenza fra numero
+di figura e pagina fisica del PDF. Lo stesso script genera
+`content/thesis-networks.json` con i legami dei GDF di Sfera Ebbasta e Nessa
+Barrett. L'indice mostra sorgente e destinazione come registrate nel GDF.
+Le tavole della tesi possono mostrare un sottoinsieme della rete sorgente.
+
+Per rigenerare figure e indici, usa il PDF di 276 pagine e la revisione
+dell'archivio indicata sopra (dipendenze Python: PyMuPDF e Pillow).
+
+```sh
+python3 scripts/build-thesis-networks.py "/percorso/tesi.pdf" /percorso/clone-archivio-tesi
+node scripts/build.mjs
+node scripts/check.mjs
+```
