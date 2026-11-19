@@ -4,6 +4,7 @@
  * Menu e pulsanti sono in assets/labels.mjs.
  * Qui trovi una funzione per ciascuna pagina e i blocchi condivisi.
  */
+import { renderThesis, thesisTitle } from "./thesis.mjs?v=1";
 import { labels } from "./labels.mjs?v=6";
 
 export const escape = (value) =>
@@ -159,6 +160,7 @@ export function body(d, lang, page) {
   if (page === "listening" || page === "podcast")
     return renderListening(d, lang);
   if (page === "conferences") return renderConferences(d, lang);
+  if (page === "thesis") return renderThesis(lang);
   throw new Error("Pagina sconosciuta: " + page);
 }
 
@@ -235,6 +237,13 @@ function renderHome(d, lang) {
       </section>
       <section class="colonna" id="progetti">
         <h2 class="sezione-label">${t.active}</h2>
+        <!-- La tesi ha una pagina propria con indice e tabelle dei dati. -->
+        <article class="progetto">
+          <div>
+            <h3 class="progetto-nome"><a href="tesi.html">${thesisTitle[lang]} <span aria-hidden="true">↗</span></a></h3>
+            <p class="progetto-sub">Università di Pavia · 2025</p>
+          </div>
+        </article>
         ${d.projects
           .map(
             (p) =>

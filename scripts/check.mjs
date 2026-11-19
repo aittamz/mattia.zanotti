@@ -12,7 +12,7 @@ import {
 const root = new URL("../", import.meta.url),
   d = validate(JSON.parse(fs.readFileSync(new URL("content/site.json", root))));
 for (const lang of ["it", "en"])
-  for (const page of ["home", "listening", "events", "conferences"]) {
+  for (const page of ["home", "listening", "events", "conferences", "thesis"]) {
     const html = header(lang, page) + body(d, lang, page);
     assert(!html.includes("undefined"));
     for (const [, url] of html.matchAll(/(?:src|href)="([^"]+)"/g)) {

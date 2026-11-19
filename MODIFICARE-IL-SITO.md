@@ -176,3 +176,24 @@ Music Festival (2015–2019).
   "url": "https://www.facebook.com/PAGINA-DEL-PROGETTO"
 }
 ```
+
+## Tesi e dati
+
+La pagina `tesi.html` usa lo stesso selettore IT/EN del sito. Titolo,
+testi, figure, riferimenti e link ai file GitHub si aggiornano in
+`assets/thesis.mjs`. Gli stili specifici sono in `assets/thesis.css`.
+
+Le tabelle leggono `content/thesis-tables.json`, generato dai CSV pubblici.
+Per rigenerarlo clona l'archivio della tesi e posizionalo alla revisione
+`3b82cab0e0e2d5c039ff9250dc51e9e883fe7b76`, quindi esegui dalla radice del sito:
+
+```sh
+python3 scripts/build-thesis-data.py /percorso/clone-archivio-tesi
+node scripts/build.mjs
+node scripts/check.mjs
+```
+
+I CSV usati per Sanremo coincidono con quelli della revisione citata nella
+tesi (`1202682c4a8670b83ca70eac078546037d085f85`). Per TikTok il generatore
+pubblica solo i conteggi dei co-hashtag. I commenti YouTube sono rappresentati
+dalle visualizzazioni esistenti.

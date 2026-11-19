@@ -3,7 +3,8 @@
  * Carica i contenuti, cambia lingua e collega mappa e ricerca.
  * Per modificare i testi usa content/site.json, non questo file.
  */
-import { header, footer, body, local, ui, validate } from "./render.mjs?v=6";
+import { header, footer, body, local, ui, validate } from "./render.mjs?v=7";
+import { mountThesisTables, thesisIntro, thesisTitle } from "./thesis.mjs?v=1";
 const page = document.body.dataset.page;
 const params = new URLSearchParams(location.search);
 let lang = params.get("lang");
@@ -39,6 +40,7 @@ function show() {
       podcast: ui(lang).listeningTitle,
       conferences: ui(lang).conferences,
       events: ui(lang).events,
+      thesis: thesisTitle[lang],
     }[page] + " — Mattia Zanotti";
   document.querySelector('meta[name="description"]').content = local(
     page === "home"
@@ -47,7 +49,7 @@ function show() {
         ? ui(lang).listeningDesc
         : page === "events"
           ? ui(lang).eventsDesc
-          : ui(lang).mapDesc,
+          : page === "thesis" ? thesisIntro : ui(lang).mapDesc,
     lang,
   );
   document.querySelectorAll("[data-lang]").forEach((b) =>
@@ -66,7 +68,7 @@ function show() {
   document.querySelectorAll("a[href]").forEach((a) => {
     const href = a.getAttribute("href");
     if (
-      /^(index|ascolti|eventi|PODCAST|mappa-conferenze)\.html/.test(href) ||
+      /^(index|ascolti|eventi|PODCAST|mappa-conferenze|tesi)\.html/.test(href) ||
       href.startsWith("https://aittamz.github.io/MAPSEM/")
     ) {
       const u = new URL(href, location.href);
@@ -74,6 +76,7 @@ function show() {
       a.href = u.href;
     }
   });
+  if (page === "thesis") mountThesisTables(document.getElementById("contenuti"), lang);
   if (document.getElementById("mappa")) mountMap();
   const search = document.getElementById("conference-search");
   if (search)
